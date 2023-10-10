@@ -1,0 +1,79 @@
+# Node.js and NPM
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs/
+*.log
+
+# Build folders
+build/
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+
+# IDE and editor-specific files
+.idea/
+.vscode/
+*.suo
+*.ntvs_analysis
+*.suo
+*.sln
+*.sw*
+*.suo
+*.user
+*.sln
+*.suo
+
+# Compiled binary files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Typescript tsc
+*.tsbuildinfo
+
+# Miscellaneous
+/.idea
+/.vscode
+.npmignore
+.npmrc
+.npmrc.yaml
+webstorm/
+
+# Editor directories
+.editorconfig
+*.editorconfig
+editorconfig
+.vscode/
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+__MACOSX
+# Thumbnails
+ehthumbs.db
+Thumbs.db
+
+# Windows Installer files
+$Recycle.Bin/
+ehthumbs.db
+Thumbs.db
+Desktop.ini
