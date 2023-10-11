@@ -19,9 +19,9 @@ const DashboardController = {
             totalCash: {
               $sum: {
                 $cond: [
-                  { $eq: ['$is_income', 1] },
-                  '$amount',
-                  { $multiply: ['$amount', -1] },
+                  { $eq: ["$is_income", 1] },
+                  "$amount",
+                  { $multiply: ["$amount", -1] },
                 ],
               },
             },
@@ -31,13 +31,13 @@ const DashboardController = {
         {
           $group: {
             _id: null,
-            dueCash: { $sum: '$amount' },
+            dueCash: { $sum: "$amount" },
           },
         },
         // Calculate the extra cash
         {
           $addFields: {
-            extraCash: { $subtract: ['$totalCash', '$dueCash'] },
+            extraCash: { $subtract: ["$totalCash", "$dueCash"] },
           },
         },
         // Calculate this month's total expense
@@ -50,25 +50,25 @@ const DashboardController = {
         {
           $group: {
             _id: null,
-            thisMonthTotalExpense: { $sum: '$amount' },
+            thisMonthTotalExpense: { $sum: "$amount" },
           },
         },
         // Count the total number of users
         {
-          $count: 'totalUsers',
+          $count: "totalUsers",
         },
         // Find this month's meal rate
         {
           $lookup: {
-            from: 'monthlymealrates',
+            from: "monthlymealrates",
             let: { month: new Date(currentYear, currentMonth, 1) },
             pipeline: [
               {
                 $match: {
                   $expr: {
                     $and: [
-                      { $eq: { $year: '$month' }, { $year: '$$month' } },
-                      { $eq: { $month: '$month' }, { $month: '$$month' } },
+                      { $eq: [{ $year: "$month" }, { $year: "$$month" }] },
+                      { $eq: [{ $month: "$month" }, { $month: "$$month" }] },
                     ],
                   },
                 },
@@ -86,14 +86,14 @@ const DashboardController = {
                 },
               },
             ],
-            as: 'thisMonthMealRate',
+            as: "thisMonthMealRate",
           },
         },
         // Calculate this year's average meal rate
         {
           $group: {
-            _id: { $year: '$month' },
-            averageMealRate: { $avg: '$meal_rate' },
+            _id: { $year: "$month" },
+            averageMealRate: { $avg: "$meal_rate" },
           },
         },
       ];
@@ -103,9 +103,9 @@ const DashboardController = {
       res.json(dashboardData[0]);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: "Internal server error" });
     }
   },
-}
+};
 
 module.exports = DashboardController;
