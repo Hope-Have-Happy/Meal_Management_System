@@ -1,300 +1,221 @@
-Meal Management System:
+# Meal Management System
 
-1. Two types of user
+## User Types
 
-   1. Admin
-   2. User
+1. **Admin**
+2. **User**
 
-2. Admin pages
+## Admin Pages
 
-   1. Dashboard
-      1. Total cash
-      2. Due cash
-      3. Extra cash
-      4. This month total expense
-      5. Total user
-      6. This month current meal rate
-      7. This year average meal rate
-   2. User management, create, read, update, delete(done)
-      1. User information:
-         1. Full name
-         2. Email
-         3. Mobile
-         4. Department
-            1. IT
-            2. IELTS
-            3. Spoken
-            4. Employee
-         5. Address
-   3. Meal register
-      1. Select the date
-      2. Show all users, there will be a checkbox with the name
-      3. Multiple / If you submit by checking all, the match will be submitted
-      4. Matches can also be set by searching
-   4. Meal rate set(done)
-      1. Select the month
-      2. amount set
-      3. If a permission switch is active, all users will be able to see the month's match rate
-      4. To set the match rate
-         1. Date to date will insert
-         2. Mill rate auto will come along with all the expenses including the chef’s bill within the specified date.
-         3. Admin will set match rate considering all expenses
-   5. Accounts
-      1. A list of all users will be displayed
-         1. username
-         2. Mobile number
-         3. How much money is left?
-         4. It will show how much money has been paid
-         5. User will have option to search
-         6. New payments can be added with the click of a button
-            1. date
-            2. quantity
-      2. There will be a record of how much is spent in the market every day.
-         1. the date
-         2. product name
-         3. quantity
-         4. How much money was spent?
-         5. Daily expense account will be added separately
-      3. Aunt's bills and expenses will come up every month
+### Dashboard
 
-3. User functionalities
-   1. You must log in to visit the app.
-   2. There will be some information at a glance on the home page
-      1. Total Cash
-      2. Total Due
-      3. Total mill this month
-      4. Admin can see last month match rate if approved (confusion)
-   3. Meal booking
-      1. You can book the next day's meal every day till 6 pm
-      2. After that, contact the admin contact
-      3. Numbers will show (confusion)
-      4. Anyone can book a meal for a few days in advance if they want
-      5. The booking list will show
-         1. You can delete the next day's booking by 6 pm
-         2. Then contact the admin to cancel
-      6. Notification for booking can be given at 5 pm every day.
-   4. Payment history will be displayed
-   5. You can see the match list
-      1. You can search by month (confusion)
-   6. User settings
-      1. You can update your information
-   7. interface
-      1. Login with mobile number, password
-      2. If user role is admin then auto admin dashboard will redirect, otherwise mobile app interface will remain.
-      3. You can request for password reset by mobile and email. A temporary password will be sent to the email, the user can change it later. If another user is connected to the same email, the error will appear. If there is no email connected with this number then this email will be automatically added to the user's email column. Admin can change user's password.
-      4. Mobile app type design will be
-      5. Can be used offline as well ( PWA )
-      6. Light weight design
+- Total cash
+- Due cash
+- Extra cash
+- This month total expense
+- Total user
+- This month current meal rate
+- This year average meal rate
 
----
+### User Management (CRUD Operations)
 
----
+- User Information:
+  - Full name
+  - Email
+  - Mobile
+  - Department
+    - IT
+    - IELTS
+    - Spoken
+    - Employee
+  - Address
 
-DB EER
+### Meal Register
 
----
+- Select date
+- Display all users with a checkbox next to their names
+- Submitting with multiple/all checkboxes checked records the meal
+- Search to set meal manually
 
-DB Schema definitions
+### Meal Rate Set
 
-`users`
-`id`
-BIGINT, UNSIGNED, NOT, NULL, AUTO_INCREMENT
-`full_name`
-VARCHAR(200), NOT, NULL
-`user_role`
-VARCHAR(15), NULL
-`photo`
-VARCHAR(50), NULL [confusion: how it will be stored]
-`email`
-VARCHAR(100), NULL
-`password`
-VARCHAR(50), NOT, NULL
-`mobile`
-VARCHAR(20), NOT, NULL
-`department`
-ENUM("IT",, "IELTS",, "SPOKEN",, "EMPLOYEE"), NOT, NULL [confucion department required field]
-`address`
-VARCHAR(45), NOT, NULL
-`status`
-TINYINT, NULL, DEFAULT, 1 [confucion : apatoto kaje lagbe na ja ache emni thakbe]
-`created_at`
-TIMESTAMP, NULL, DEFAULT, CURRENT_TIMESTAMP
-`updated_at`
-VARCHAR(45), NULL, DEFAULT, 'CURRENT_TIMESTAMP'
-UNIQUE
-INDEX, `id_UNIQUE`, (`id`, ASC), VISIBLE
-PRIMARY
-KEY, (`id`)
-,
+- Select month
+- Set amount
+- Permission switch to allow all users to view the monthly meal rate
+- Automatic calculation of meal rate by considering expenses and empty bills within specified dates
+- Admin calculates and sets the meal rate
 
-`user_meals`
-`id`
-BIGINT, NOT, NULL, AUTO_INCREMENT
-`users_id`
-BIGINT, UNSIGNED, NOT, NULL
-`qty`
-INT, UNSIGNED, NULL, DEFAULT, 1
-`date`
-DATE, NULL
-`status`
-TINYINT, NULL, DEFAULT, 1 [confucion : daily meal on or off ]
-`created_at`
-TIMESTAMP, NULL
-`updated_at`
-TIMESTAMP, NULL
-`creator`
-BIGINT, NULL [confucion : admin details]
-PRIMARY
-KEY, (`id`)
-INDEX
-`fk_user_meals_users1_idx`, (`users_id`, ASC), VISIBLE
-CONSTRAINT
-`fk_user_meals_users1` , , , , FOREIGN, KEY, (`users_id`) , , , , REFERENCES, `meal_management`.`users`, (`id`) , , , , ON, DELETE, NO, ACTION , , , , ON, UPDATE, NO, ACTION
-,
+### Accounts
 
-`user_payments`
-`id`
-BIGINT, NOT, NULL, AUTO_INCREMENT
-`users_id`
-BIGINT, UNSIGNED, NOT, NULL
-`month`
-DATE, NULL
-`payment_date`
-DATE, NULL
-`amount`
-INT, NULL
-`status`
-TINYINT, NULL, DEFAULT, 1
-`created_at`
-TIMESTAMP, NULL
-`updated_at`
-TIMESTAMP, NULL
-`creator`
-BIGINT, NULL
-PRIMARY
-KEY, (`id`)
-INDEX
-`fk_user_payments_users1_idx`, (`users_id`, ASC), VISIBLE
-CONSTRAINT
-`fk_user_payments_users1` , , , , FOREIGN, KEY, (`users_id`) , , , , REFERENCES, `meal_management`.`users`, (`id`) , , , , ON, DELETE, NO, ACTION , , , , ON, UPDATE, NO, ACTION
-,
+- List of all users
+  - User name
+  - Mobile number
+  - Remaining balance
+  - Amount paid
+  - Search option for users
+- Button to add a new payment
+  - Date
+  - Amount
 
-`account_logs`
-`id`
-BIGINT, UNSIGNED, NOT, NULL, AUTO_INCREMENT
-`amount`
-FLOAT, NOT, NULL
-`is_expense`
-TINYINT, NOT, NULL
-`is_income`
-TINYINT, NOT, NULL
-`income_date`
-DATE, NOT, NULL
-`category`
-BIGINT, NOT, NULL
-`status`
-TINYINT, NULL, DEFAULT, 1 [confucion : what is meaning of it?]
-`created_at`
-TIMESTAMP, NULL
-`updated_at`
-TIMESTAMP, NULL
-`creator`
-BIGINT, NULL
-PRIMARY
-KEY, (`id`)
-,
+### Daily Expense
 
-`daily_bajars`
-`id`
-BIGINT, NOT, NULL, AUTO_INCREMENT
-`title`
-TEXT, NULL
-`qty`
-FLOAT, NULL
-`unit`
-VARCHAR(10), NULL
-`price`
-FLOAT, NULL
-`total`
-FLOAT, NULL
-`bajar_date`
-DATE, NULL
-`status`
-TINYINT, NULL, DEFAULT, 1
-`created_at`
-TIMESTAMP, NULL
-`updated_at`
-TIMESTAMP, NULL
-`creator`
-BIGINT, NULL
-PRIMARY
-KEY, (`id`)
-,
+- Records daily expenses, including
+  - Date
+  - Product name
+  - Quantity
+  - Total cost
+- Separated daily expense accounts
 
-`monthly_meal_rates`
-`id`
-BIGINT, NOT, NULL, AUTO_INCREMENT
-`month`
-DATE, NULL
-`meal_rate`
-FLOAT, NULL
-`is_visible`
-TINYINT, NULL
-`month_start_date`
-DATE, NULL
-`month_end_date`
-DATE, NULL
-`status`
-TINYINT, NULL, DEFAULT, 1
-`created_at`
-TIMESTAMP, NULL
-`updated_at`
-TIMESTAMP, NULL
-`creator`
-BIGINT, NULL
-PRIMARY
-KEY, (`id`)
-,
+### Monthly Bill and Expense Summary
 
-`settings` [confucion : What is the work of this model?]
-`id`
-BIGINT, NOT, NULL, AUTO_INCREMENT
-`shut_down_app`
-TINYINT, NULL
-`shut_down_reason`
-TEXT, NULL
-`contact_name`
-VARCHAR(45), NULL
-`contact_number`
-VARCHAR(20), NULL
-`meat_set_last_time`
-TIME, NULL
-`meal_set_alert_time`
-TIME, NULL
-`alert_text_for_all`
-TEXT, NULL
-`today_meal_coocking_end_time`
-TIME, NULL
-PRIMARY
-KEY, (`id`)
-,
+## User Functionalities
 
-`meal_menus`
-`id`
-BIGINT, NOT, NULL, AUTO_INCREMENT
-`meal_date`
-DATE, NULL
-`description`
-TEXT, NULL
-`receipy`
-TEXT, NULL
-`status`
-TINYINT, NULL, DEFAULT, 1
-`created_at`
-TIMESTAMP, NULL
-`updated_at`
-TIMESTAMP, NULL
-`creator`
-BIGINT, NULL
-PRIMARY
-KEY, (`id`)
+1. User logs in to the app.
+2. Home page displays:
+   - Total cash
+   - Total due
+   - Total meals this month
+   - Last month's meal rate (upon admin approval)
+3. Meal Booking
+   - Can book meals daily until 6 PM
+   - If late, contact admin
+   - Display phone number
+   - Option for advance booking
+   - List of bookings
+     - Can delete future day's bookings until 6 PM
+     - Must contact admin for cancellations
+   - Receive notifications for booking, up to 5 bookings per day
+4. Payment History
+5. View meal history
+   - Search by month
+6. User settings
+   - Update personal information
+7. Interface
+   - Log in with mobile number and password
+   - Auto-redirect admin role to admin dashboard
+   - Request password reset via mobile and email
+   - Receive a temporary password via email, which can be changed later
+   - Display error if the email is already connected to another user
+   - Admin can change a user's password
+   - Mobile app design
+   - Can be used offline (PWA)
+   - Lightweight design
+
+## DB Shcemas
+
+### Users Table
+
+| Field      | Data Type                                          | Constraints                 |
+| ---------- | -------------------------------------------------- | --------------------------- |
+| id         | BIGINT, UNSIGNED, NOT NULL, AUTO_INCREMENT         | PRIMARY KEY                 |
+| full_name  | VARCHAR(200) NOT NULL                              |                             |
+| user_role  | VARCHAR(15)                                        |                             |
+| photo      | VARCHAR(50)                                        |                             |
+| email      | VARCHAR(100)                                       |                             |
+| password   | VARCHAR(50) NOT NULL                               |                             |
+| mobile     | VARCHAR(20) NOT NULL                               |                             |
+| department | ENUM("IT", "IELTS", "SPOKEN", "EMPLOYEE") NOT NULL |                             |
+| address    | VARCHAR(45) NOT NULL                               |                             |
+| status     | TINYINT                                            | DEFAULT 1                   |
+| created_at | TIMESTAMP                                          | DEFAULT CURRENT_TIMESTAMP   |
+| updated_at | VARCHAR(45)                                        | DEFAULT 'CURRENT_TIMESTAMP' |
+
+### User Meals Table
+
+| Field      | Data Type                       | Constraints |
+| ---------- | ------------------------------- | ----------- |
+| id         | BIGINT NOT NULL, AUTO_INCREMENT | PRIMARY KEY |
+| users_id   | BIGINT, UNSIGNED, NOT NULL      |             |
+| qty        | INT, UNSIGNED                   | DEFAULT 1   |
+| date       | DATE                            |             |
+| status     | TINYINT                         | DEFAULT 1   |
+| created_at | TIMESTAMP                       |             |
+| updated_at | TIMESTAMP                       |             |
+| creator    | BIGINT                          |             |
+
+### User Payments Table
+
+| Field        | Data Type                       | Constraints |
+| ------------ | ------------------------------- | ----------- |
+| id           | BIGINT NOT NULL, AUTO_INCREMENT | PRIMARY KEY |
+| users_id     | BIGINT, UNSIGNED, NOT NULL      |             |
+| month        | DATE                            |             |
+| payment_date | DATE                            |             |
+| amount       | INT                             |             |
+| status       | TINYINT                         | DEFAULT 1   |
+| created_at   | TIMESTAMP                       |             |
+| updated_at   | TIMESTAMP                       |             |
+| creator      | BIGINT                          |             |
+
+### Account Logs Table
+
+| Field       | Data Type                                  | Constraints |
+| ----------- | ------------------------------------------ | ----------- |
+| id          | BIGINT, UNSIGNED, NOT NULL, AUTO_INCREMENT | PRIMARY KEY |
+| amount      | FLOAT NOT NULL                             |             |
+| is_expense  | TINYINT NOT NULL                           |             |
+| is_income   | TINYINT NOT NULL                           |             |
+| income_date | DATE NOT NULL                              |             |
+| category    | BIGINT NOT NULL                            |             |
+| status      | TINYINT                                    | DEFAULT 1   |
+| created_at  | TIMESTAMP                                  |             |
+| updated_at  | TIMESTAMP                                  |             |
+| creator     | BIGINT                                     |             |
+
+### Daily Bajars Table
+
+| Field      | Data Type                       | Constraints |
+| ---------- | ------------------------------- | ----------- |
+| id         | BIGINT NOT NULL, AUTO_INCREMENT | PRIMARY KEY |
+| title      | TEXT                            |             |
+| qty        | FLOAT                           |             |
+| unit       | VARCHAR(10)                     |             |
+| price      | FLOAT                           |             |
+| total      | FLOAT                           |             |
+| bajar_date | DATE                            |             |
+| status     | TINYINT                         | DEFAULT 1   |
+| created_at | TIMESTAMP                       |             |
+| updated_at | TIMESTAMP                       |             |
+| creator    | BIGINT                          |             |
+
+### Monthly Meal Rates Table
+
+| Field            | Data Type                       | Constraints |
+| ---------------- | ------------------------------- | ----------- |
+| id               | BIGINT NOT NULL, AUTO_INCREMENT | PRIMARY KEY |
+| month            | DATE                            |             |
+| meal_rate        | FLOAT                           |             |
+| is_visible       | TINYINT                         |             |
+| month_start_date | DATE                            |             |
+| month_end_date   | DATE                            |             |
+| status           | TINYINT                         | DEFAULT 1   |
+| created_at       | TIMESTAMP                       |             |
+| updated_at       | TIMESTAMP                       |             |
+| creator          | BIGINT                          |             |
+
+### Settings Table
+
+| Field                        | Data Type                       | Constraints |
+| ---------------------------- | ------------------------------- | ----------- |
+| id                           | BIGINT NOT NULL, AUTO_INCREMENT | PRIMARY KEY |
+| shut_down_app                | TINYINT                         |             |
+| shut_down_reason             | TEXT                            |             |
+| contact_name                 | VARCHAR(45)                     |             |
+| contact_number               | VARCHAR(20)                     |             |
+| meat_set_last_time           | TIME                            |             |
+| meal_set_alert_time          | TIME                            |             |
+| alert_text_for_all           | TEXT                            |             |
+| today_meal_coocking_end_time | TIME                            |             |
+
+### Meal Menus Table
+
+| Field       | Data Type                       | Constraints |
+| ----------- | ------------------------------- | ----------- |
+| id          | BIGINT NOT NULL, AUTO_INCREMENT | PRIMARY KEY |
+| meal_date   | DATE                            |             |
+| description | TEXT                            |             |
+| receipy     | TEXT                            |             |
+| status      | TINYINT                         | DEFAULT 1   |
+| created_at  | TIMESTAMP                       |             |
+| updated_at  | TIMESTAMP                       |             |
+| creator     | BIGINT                          |             |
