@@ -78,12 +78,12 @@ This is a Meal Management System with two types of users: Admin and User.
 
 - View payment history
 
-### Meal List
+### Meal List `(mockup: api, controller: MealController)` `✔`
 
 - View a list of meals
 - Search by month
 
-### User Settings `(mockup: api, controller)` `✔`
+### User Settings `(mockup: api, controller: UserController)` `✔`
 
 - Update personal information
 
