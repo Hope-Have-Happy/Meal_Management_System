@@ -14,7 +14,7 @@ This is a Meal Management System with two types of users: Admin and User.
 - This month current meal rate
 - This year average meal rate
 
-### User Management `(mockup: api, controller: UserController)` `✔`
+### User Management `(Mockup: API, Controller: UserController)` `✔`
 
 - Create, read, update, delete users
 - User information:
@@ -24,7 +24,7 @@ This is a Meal Management System with two types of users: Admin and User.
   - Department (IT, IELTS, Spoken, Employee)
   - Address
 
-### Meal Register `(mockup: api, controller: MealController)` `✔`
+### Meal Register `(Mockup: API, Controller: MealController)` `✔`
 
 - Select date
 - Display all users with checkboxes next to their names
@@ -64,7 +64,7 @@ This is a Meal Management System with two types of users: Admin and User.
   - Total meals this month
   - Last month's meal rate (if approved by the admin)
 
-### Meal Booking `(mockup: api, controller: MealController)` `✔`
+### Meal Booking `(Mockup: API, Controller: MealController)` `✔`
 
 - Reserve meals for the next day until 6 PM
 - Contact admin in case of late booking
@@ -78,12 +78,12 @@ This is a Meal Management System with two types of users: Admin and User.
 
 - View payment history
 
-### Meal List `(mockup: api, controller: MealController)` `✔`
+### Meal List `(Mockup: API, Controller: MealController)` `✔`
 
 - View a list of meals
 - Search by month
 
-### User Settings `(mockup: api, controller: UserController)` `✔`
+### User Settings `(Mockup: API, Controller: UserController)` `✔`
 
 - Update personal information
 
@@ -98,7 +98,7 @@ This is a Meal Management System with two types of users: Admin and User.
 
 <!-- ==================================================================================================================================================== -->
 
-## DB Shcemas
+## DB Shcemas `(All models are ready)` `✔`
 
 ### Users Table
 
