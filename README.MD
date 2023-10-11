@@ -63,7 +63,7 @@ This is a Meal Management System with two types of users: Admin and User.
   - Total cash
   - Total due
   - Total meals this month
-  - Last month's meal rate (if approved by the admin)
+  - Last month's meal rate (if approved by the admin) `এটার অর্থ বুঝতে পারছি না তাই user dashboard এর route and controller create করি নি।`
 
 ### Meal Booking `(Mockup: API, Controller: MealController)` `✔`
 
