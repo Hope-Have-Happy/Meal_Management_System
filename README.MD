@@ -4,7 +4,7 @@ This is a Meal Management System with two types of users: Admin and User.
 
 ## Admin Dashboard
 
-### Dashboard
+### Dashboard `(Mockup: API, Controller: DashboardController)` `✔`
 
 - Total cash
 - Due cash
