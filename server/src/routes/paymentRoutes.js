@@ -6,8 +6,11 @@ const PaymentController = require("../controllers/PaymentController");
 // Make a payment (Admin and User)
 router.post("/payments", PaymentController.makePayment);
 
-// Get all payments (Admin and User)
-router.get("/payments", PaymentController.getAllPayments);
+// Get payment history for a specific user (User)
+router.get("/payments/history", PaymentController.getPaymentHistory);
+
+// Get all payments (Admin)
+router.get("/payments/all", PaymentController.getAllPayments);
 
 // Get a payment by ID (Admin and User)
 router.get("/payments/:id", PaymentController.getPaymentById);
