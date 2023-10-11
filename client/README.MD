@@ -1,11 +1,8 @@
 # Meal Management System
 
-## User Types
+This is a Meal Management System with two types of users: Admin and User.
 
-1. **Admin**
-2. **User**
-
-## Admin Pages
+## Admin Dashboard
 
 ### Dashboard
 
@@ -17,32 +14,29 @@
 - This month current meal rate
 - This year average meal rate
 
-### User Management (CRUD Operations)
+### User Management
 
-- User Information:
+- Create, read, update, delete users
+- User information:
   - Full name
   - Email
   - Mobile
-  - Department
-    - IT
-    - IELTS
-    - Spoken
-    - Employee
+  - Department (IT, IELTS, Spoken, Employee)
   - Address
 
 ### Meal Register
 
 - Select date
-- Display all users with a checkbox next to their names
-- Submitting with multiple/all checkboxes checked records the meal
-- Search to set meal manually
+- Display all users with checkboxes next to their names
+- Submit meal for multiple/all checked users
+- Search and set meal by searching / সার্চ করে করেও meal সেট করা যাবে (confusion)
 
 ### Meal Rate Set
 
-- Select month
-- Set amount
+- Select a month
+- Set the rate
 - Permission switch to allow all users to view the monthly meal rate
-- Automatic calculation of meal rate by considering expenses and empty bills within specified dates
+- Set meal rate based on the sum of expenses within a specified date range
 - Admin calculates and sets the meal rate
 
 ### Accounts
@@ -50,53 +44,54 @@
 - List of all users
   - User name
   - Mobile number
-  - Remaining balance
-  - Amount paid
-  - Search option for users
-- Button to add a new payment
+  - Current balance
+  - Total payments
+  - User search option
+- Add a new payment for a user with a date and amount
+- Record daily market expenses
   - Date
-  - Amount
+  - Item name
+  - Amount spent
+  - Separate expense tracking for each day
+- Monthly household bill and expenses summary
 
-### Daily Expense
+## User Dashboard
 
-- Records daily expenses, including
-  - Date
-  - Product name
-  - Quantity
-  - Total cost
-- Separated daily expense accounts
+- Log in to the app
+- Home page displays:
+  - Total cash
+  - Total due
+  - Total meals this month
+  - Last month's meal rate (if approved by the admin)
 
-### Monthly Bill and Expense Summary
+### Meal Booking
 
-## User Functionalities
+- Reserve meals for the next day until 6 PM
+- Contact admin in case of late booking
+- Display contact number
+- Allow advance booking for several days
+- List and cancel bookings for the next day before 6 PM
+- Contact admin to cancel after 6 PM
+- Receive notifications for daily bookings
 
-1. User logs in to the app.
-2. Home page displays:
-   - Total cash
-   - Total due
-   - Total meals this month
-   - Last month's meal rate (upon admin approval)
-3. Meal Booking
-   - Can book meals daily until 6 PM
-   - If late, contact admin
-   - Display phone number
-   - Option for advance booking
-   - List of bookings
-     - Can delete future day's bookings until 6 PM
-     - Must contact admin for cancellations
-   - Receive notifications for booking, up to 5 bookings per day
-4. Payment History
-5. View meal history
-   - Search by month
-6. User settings
-   - Update personal information
-7. Interface
-   - Log in with mobile number and password
-   - Auto-redirect admin role to admin dashboard
-   - Request password reset via mobile and email
-   - Receive a temporary password via email, which can be changed later
-   - Display error if the email is already connected to another user
-   - Admin can change a user's password
-   - Mobile app design
-   - Can be used offline (PWA)
-   - Lightweight design
+### Payment History
+
+- View payment history
+
+### Meal List
+
+- View a list of meals
+- Search by month
+
+### User Settings
+
+- Update personal information
+
+### ইন্টারফেস
+
+- Mobile number, password দিয়ে লগিন করবে
+- User role যদি admin হয় অটো admin dashboard e redirect করবে, নাহয় মোবাইল এপ ইন্টারফেস ই থাকবে।
+- পাসওয়ার্ড রিসেটের জন্য মোবাইল ও ইমেল দিয়ে রিকুয়েস্ট করতে পারবে। ইমেইলে একটি temporary পাসওয়ার্ড যাবে, ইউজার পরে চেঞ্জ করে নিবে। সেম ইমেলে অন্য কোনো ইউজার কানেক্টেড থাকলে এরর দেখাবে। যদি এই নাম্বারের সাথে কোন ইমেইল কানেক্টেড না থাকে তাহলে অটো এই ইমেল ইউজার এর ইমেইল কলামে যুক্ত হয়ে যাবে। এডমিন চাইলে ইউজারের এর পাসওয়ার্ড পরিবর্তন করতে পারবে।
+- মোবাইল আপ টাইপের ডিজাইন হবে
+- অফলাইনে ও ব্যবহার করা যাবে ( PWA )
+- লাইট ওয়েট ডিজাইন হবে
