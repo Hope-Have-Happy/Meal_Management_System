@@ -48,12 +48,12 @@ This is a Meal Management System with two types of users: Admin and User.
   - Total payments
   - User search option
 - Add a new payment for a user with a date and amount `(Mockup: API, Controller: PaymentController)` `✔`
-- Record daily market expenses
+- Record daily market expenses `(Mockup: API, Controller: DailyExpenseController)` `✔`
   - Date
   - Item name
   - Amount spent
   - Separate expense tracking for each day
-- Monthly household bill and expenses summary
+- Monthly household bill and expenses summary `(এটার জন্য বোধ হয় ভিন্ন কোন ব্যাবস্থা করতে হবে)` `!`
 
 ## User Dashboard
 
