@@ -3,11 +3,10 @@ const router = express.Router();
 
 const SettingsController = require("../controllers/SettingsController");
 
-// Application Settings
-// Get application settings
+// Get application settings (Admin and User)
 router.get("/settings", SettingsController.getSettings);
 
-// Update application settings
+// Update application settings (Admin)
 router.put("/settings", SettingsController.updateSettings);
 
 module.exports = router;
