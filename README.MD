@@ -23,7 +23,7 @@
   - Full name
   - Email
   - Mobile
-	- Photo (It should be stored in file system)
+  - Photo (It should be stored in file system)
   - Department
     - IT
     - IELTS
