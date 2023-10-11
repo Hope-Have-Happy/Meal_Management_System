@@ -53,7 +53,8 @@ This is a Meal Management System with two types of users: Admin and User.
   - Item name
   - Amount spent
   - Separate expense tracking for each day
-- Monthly household bill and expenses summary `(এটার জন্য বোধ হয় ভিন্ন কোন ব্যাবস্থা করতে হবে)` `!`
+- Monthly household bill and expenses summary / প্রতি মাসে খালার বিল ও খরচের কাতারে আসবে
+  `এটার জন্য বোধ হয় ভিন্ন কোন ব্যাবস্থা করতে হবে কারণ daily expense এর মধ্যে তো মাসিক বিল আসে না।`
 
 ## User Dashboard
 
