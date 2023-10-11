@@ -5,7 +5,7 @@
 1. **Admin**
 2. **User**
 
-## Admin Pages
+## Admin Pages & Functionalities
 
 ### Dashboard
 
@@ -23,6 +23,7 @@
   - Full name
   - Email
   - Mobile
+	- Photo (It should be stored in file system)
   - Department
     - IT
     - IELTS
@@ -68,7 +69,9 @@
 
 ### Monthly Bill and Expense Summary
 
-## User Functionalities
+## User Pages & Functionalities
+
+### User Dashboard
 
 1. User logs in to the app.
 2. Home page displays:
