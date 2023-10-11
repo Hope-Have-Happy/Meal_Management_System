@@ -19,3 +19,10 @@ router.put("/meal-menus/:id", MealMenuController.updateMealMenu);
 router.delete("/meal-menus/:id", MealMenuController.deleteMealMenu);
 
 module.exports = router;
+
+/* 
+
+@ এই মিল মেনু নিয়ে তেমন কিছুই দেখলাম না doc-এ, এটা clear করতে হবে........................!
+@ এটা UI তে কীভাবে কী দেখাতে হবে বা আদৌও দেখাতে হবে কি না এটাও জানতে হবে...............!
+
+*/

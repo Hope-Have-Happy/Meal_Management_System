@@ -1,11 +1,11 @@
-const UserMeals = require("../models/UserMeals"); // Import the UserMeals model
+const UserMeals = require("../models/userMeals"); // Import the UserMeals model
 
 const MealController = {
   // Register meals for users (Admin)
   registerMeals: async (req, res) => {
     try {
       const mealData = req.body;
-      const meal = await UserMeals.create(mealData); // Use UserMeals model
+      const meal = await UserMeals.create(mealData);
       res.status(201).json(meal);
     } catch (error) {
       console.error(error);
