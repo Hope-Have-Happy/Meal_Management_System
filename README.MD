@@ -41,13 +41,13 @@ This is a Meal Management System with two types of users: Admin and User.
 
 ### Accounts
 
-- List of all users
+- List of all users `(Mockup: API, Controller: UserController)` `✔`
   - User name
   - Mobile number
   - Current balance
   - Total payments
   - User search option
-- Add a new payment for a user with a date and amount
+- Add a new payment for a user with a date and amount `(Mockup: API, Controller: PaymentController)` `✔`
 - Record daily market expenses
   - Date
   - Item name
@@ -74,7 +74,7 @@ This is a Meal Management System with two types of users: Admin and User.
 - Contact admin to cancel after 6 PM
 - Receive notifications for daily bookings
 
-### Payment History
+### Payment History `(Mockup: API, Controller: PaymentController)` `✔`
 
 - View payment history
 
