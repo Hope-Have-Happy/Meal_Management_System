@@ -67,7 +67,7 @@ Meal Management System:
    3. Meal booking
       1. You can book the next day's meal every day till 6 pm
       2. After that, contact the admin contact
-      3. Numbers will show
+      3. Numbers will show (confusion)
       4. Anyone can book a meal for a few days in advance if they want
       5. The booking list will show
          1. You can delete the next day's booking by 6 pm
@@ -75,7 +75,7 @@ Meal Management System:
       6. Notification for booking can be given at 5 pm every day.
    4. Payment history will be displayed
    5. You can see the match list
-      1. You can search by month
+      1. You can search by month (confusion)
    6. User settings
       1. You can update your information
    7. interface
@@ -104,7 +104,7 @@ VARCHAR(200), NOT, NULL
 `user_role`
 VARCHAR(15), NULL
 `photo`
-VARCHAR(50), NULL
+VARCHAR(50), NULL [confusion: how it will be stored]
 `email`
 VARCHAR(100), NULL
 `password`
@@ -112,11 +112,11 @@ VARCHAR(50), NOT, NULL
 `mobile`
 VARCHAR(20), NOT, NULL
 `department`
-ENUM("IT",, "IELTS",, "SPOKEN",, "EMPLOYEE"), NOT, NULL
+ENUM("IT",, "IELTS",, "SPOKEN",, "EMPLOYEE"), NOT, NULL [confucion department required field]
 `address`
 VARCHAR(45), NOT, NULL
 `status`
-TINYINT, NULL, DEFAULT, 1
+TINYINT, NULL, DEFAULT, 1 [confucion : apatoto kaje lagbe na ja ache emni thakbe]
 `created_at`
 TIMESTAMP, NULL, DEFAULT, CURRENT_TIMESTAMP
 `updated_at`
@@ -126,6 +126,7 @@ INDEX, `id_UNIQUE`, (`id`, ASC), VISIBLE
 PRIMARY
 KEY, (`id`)
 ,
+
 `user_meals`
 `id`
 BIGINT, NOT, NULL, AUTO_INCREMENT
@@ -136,13 +137,13 @@ INT, UNSIGNED, NULL, DEFAULT, 1
 `date`
 DATE, NULL
 `status`
-TINYINT, NULL, DEFAULT, 1
+TINYINT, NULL, DEFAULT, 1 [confucion : daily meal on or off ]
 `created_at`
 TIMESTAMP, NULL
 `updated_at`
 TIMESTAMP, NULL
 `creator`
-BIGINT, NULL
+BIGINT, NULL [confucion : admin details]
 PRIMARY
 KEY, (`id`)
 INDEX
@@ -150,6 +151,7 @@ INDEX
 CONSTRAINT
 `fk_user_meals_users1` , , , , FOREIGN, KEY, (`users_id`) , , , , REFERENCES, `meal_management`.`users`, (`id`) , , , , ON, DELETE, NO, ACTION , , , , ON, UPDATE, NO, ACTION
 ,
+
 `user_payments`
 `id`
 BIGINT, NOT, NULL, AUTO_INCREMENT
@@ -176,6 +178,7 @@ INDEX
 CONSTRAINT
 `fk_user_payments_users1` , , , , FOREIGN, KEY, (`users_id`) , , , , REFERENCES, `meal_management`.`users`, (`id`) , , , , ON, DELETE, NO, ACTION , , , , ON, UPDATE, NO, ACTION
 ,
+
 `account_logs`
 `id`
 BIGINT, UNSIGNED, NOT, NULL, AUTO_INCREMENT
@@ -190,7 +193,7 @@ DATE, NOT, NULL
 `category`
 BIGINT, NOT, NULL
 `status`
-TINYINT, NULL, DEFAULT, 1
+TINYINT, NULL, DEFAULT, 1 [confucion : what is meaning of it?]
 `created_at`
 TIMESTAMP, NULL
 `updated_at`
@@ -200,6 +203,7 @@ BIGINT, NULL
 PRIMARY
 KEY, (`id`)
 ,
+
 `daily_bajars`
 `id`
 BIGINT, NOT, NULL, AUTO_INCREMENT
@@ -226,6 +230,7 @@ BIGINT, NULL
 PRIMARY
 KEY, (`id`)
 ,
+
 `monthly_meal_rates`
 `id`
 BIGINT, NOT, NULL, AUTO_INCREMENT
@@ -251,7 +256,7 @@ PRIMARY
 KEY, (`id`)
 ,
 
-`settings`
+`settings` [confucion : What is the work of this model?]
 `id`
 BIGINT, NOT, NULL, AUTO_INCREMENT
 `shut_down_app`
@@ -273,6 +278,7 @@ TIME, NULL
 PRIMARY
 KEY, (`id`)
 ,
+
 `meal_menus`
 `id`
 BIGINT, NOT, NULL, AUTO_INCREMENT

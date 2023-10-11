@@ -1,29 +1,27 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const userPaymentSchema = new mongoose.Schema({
-  id: {
-    type: mongoose.Schema.Types.BigInt,
-    required: true,
-    unique: true,
+const userPaymentSchema = new mongoose.Schema(
+  {
+    users_id: {
+      type: mongoose.Schema.Types.BigInt,
+      ref: "User",
+      required: true,
+    },
+    month: Date,
+    payment_date: Date,
+    amount: Number,
+    status: {
+      type: Number,
+      default: 1,
+    },
+    creator: {
+      type: mongoose.Schema.Types.BigInt,
+      default: null,
+    },
   },
-  users_id: {
-    type: mongoose.Schema.Types.BigInt,
-    ref: 'User',
-    required: true,
-  },
-  month: Date,
-  payment_date: Date,
-  amount: Number,
-  status: {
-    type: Number,
-    default: 1,
-  },
-  creator: {
-    type: mongoose.Schema.Types.BigInt,
-    default: null,
-  },
-}, { timestamps: true });
+  { timestamps: true }
+);
 
-const UserPayment = mongoose.model('UserPayment', userPaymentSchema);
+const UserPayment = mongoose.model("UserPayment", userPaymentSchema);
 
 module.exports = UserPayment;
