@@ -29,7 +29,7 @@ This is a Meal Management System with two types of users: Admin and User.
 - Select date
 - Display all users with checkboxes next to their names
 - Submit meal for multiple/all checked users
-- Find specific user and set meal by searching
+- Find specific users and set meal for them by searching
 
 ### Meal Rate Set
 
