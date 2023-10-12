@@ -33,7 +33,7 @@ exports.loginController = async (req, res) => {
       }
     );
     res.cookie("accessToken", token);
-    res.status(200).json({ user: userWithoutPassword, token: token });
+    res.status(200).json({ user: userWithoutPassword, accessToken: token });
   } catch (error) {
     res.status(500).json({ error: "An error occurred while logging in" });
   }

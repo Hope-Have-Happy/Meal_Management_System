@@ -2,24 +2,31 @@ const { check, validationResult } = require("express-validator");
 
 // create a new user validation ruels
 const userValidationRules = [
-  check("full_name").not().isEmpty().withMessage("Full name is required"),
+  check("full_name")
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage("Full name is required"),
   check("user_role")
+    .trim()
     .optional()
     .isIn(["Admin", "User"])
     .withMessage("Invalid user role"),
   check("photo").optional(),
-  check("email").isEmail().withMessage("Invalid email address"),
+  check("email").trim().isEmail().withMessage("Invalid email address"),
   check("password")
-    .isLength({ min: 8 }) // Updated to require at least 8 characters
-    .withMessage("Password must be at least 8 characters long"), // Updated the error message
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 characters long"),
   check("mobile")
+    .trim()
     .isLength({ min: 11, max: 11 })
     .isNumeric()
     .withMessage("Mobile number must be 11 digits long"),
   check("department")
+    .trim()
     .isIn(["IT", "IELTS", "SPOKEN", "EMPLOYEE"])
     .withMessage("Invalid department"),
-  check("address").not().isEmpty().withMessage("Address is required"),
+  check("address").trim().not().isEmpty().withMessage("Address is required"),
   check("status").optional().isInt().withMessage("Status must be an integer"),
 ];
 
@@ -36,6 +43,7 @@ const validateUserData = (req, res, next) => {
 // login validation ruels
 const loginValidationRules = [
   check("mobile")
+    .trim()
     .isLength({ min: 11, max: 11 })
     .withMessage("Mobile number must be 11 digits long"),
   check("password")

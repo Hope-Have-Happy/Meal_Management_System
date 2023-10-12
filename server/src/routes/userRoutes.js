@@ -9,7 +9,7 @@ const {
 } = require("../middlewares/validationMiddleware");
 const { isLogedIn, isAdmin } = require("../middlewares/authMiddleware");
 
-// Get all users (Admin)
+// Get all users (Admin) ✔
 router.get("/users", isLogedIn, isAdmin, UserController.getAllUsers);
 
 // Get a user by ID (Admin and User)(Need to separate for admin and also for normal user)

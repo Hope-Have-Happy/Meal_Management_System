@@ -38,7 +38,7 @@ const UserController = {
         });
       }
 
-      // Checking if same email and mobile exist on in the databse or not
+      // Checking if same email and mobile exist in the databse or not
       const { email, mobile } = req.body;
 
       if (await User.exists({ $or: [{ email }, { mobile }] })) {
