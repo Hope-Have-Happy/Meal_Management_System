@@ -135,6 +135,12 @@ const UserController = {
     }
   },
 
+  forgetPassword: async (req, res) => {
+    // mobile number deiye check hobe user exist kore kina then password update hobe
+
+    res.status(200).json({ message: "forget password" });
+  },
+
   // Delete a user (accessible by admin)
   deleteUser: async (req, res) => {
     try {

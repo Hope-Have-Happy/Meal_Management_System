@@ -4,7 +4,7 @@ exports.isLoggedIn = (req, res, next) => {
   // Retrieve the accessToken from the cookie
   const accessToken = req.cookies.accessToken;
   if (!accessToken) {
-    return res.status(401).json({ error: "Unauthorized. Pleas Login First." });
+    return res.status(401).json({ error: "Unauthorized. Please Login First." });
   }
 
   // Verify the accessToken

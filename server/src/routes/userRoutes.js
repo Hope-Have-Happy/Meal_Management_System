@@ -28,11 +28,20 @@ router.post(
 // refresh token
 // router.get("/users/refresh-token", refreshToken);
 
-// Update a user (Admin) (Half Done) // password hash kore update kora lagbe, and also image er byparta fix kora lagbe
+// Update a user (Admin) (Half Done)
+// password hash kore update kora lagbe,
+// also image er byparta fix kora lagbe,
+// and also mobile number update korar age check kore nite hobe notun dewa number onno kon user er details e ache kina
 router.put("/users", isLoggedIn, isAdmin, UserController.updateUser);
 
-// Update user's own info (User) (Half Done) // password hash kore update kora lagbe, and also image er byparta fix kora lagbe
+// Update user's own info (User) (Half Done)
+// password hash kore update kora lagbe,
+// also image er byparta fix kora lagbe,
+//and also mobile number update korar age check kore nite hobe notun dewa number onno kon user er details e ache kina
 router.put("/users/:id", isLoggedIn, UserController.updateUserOwnInfo);
+
+// Forget Password (For all) // problem not hitting properly
+router.put("/users/forget-password", UserController.forgetPassword);
 
 // Delete a user (Admin) ✔
 router.delete("/users", isLoggedIn, isAdmin, UserController.deleteUser);

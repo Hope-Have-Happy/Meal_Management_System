@@ -4,7 +4,6 @@ const { comparePassword } = require("../utils/passwordUtils");
 
 exports.loginController = async (req, res) => {
   const { mobile, password } = req.body;
-
   try {
     // Find the user by email
     const user = await User.findOne({ mobile });
