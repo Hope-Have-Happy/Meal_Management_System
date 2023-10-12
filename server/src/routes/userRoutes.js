@@ -27,8 +27,11 @@ router.post(
   UserController.createUser
 );
 
+// refresh token
+// router.get("/users/refresh-token", refreshToken);
+
 // Update a user (Admin and User)
-router.put("/users/:id", UserController.updateUser);
+router.put("/users/:id", isLogedIn, UserController.updateUser);
 
 // Delete a user (Admin)
 router.delete("/users/:id", UserController.deleteUser);

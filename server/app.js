@@ -4,6 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { readdirSync } = require("fs");
 const path = require("path");
+const fileUpload = require("express-fileupload");
 
 //Security Middleware Import
 const rateLimit = require("express-rate-limit");
@@ -17,6 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(fileUpload());
 
 // Security middleware initialization
 app.use(cors());

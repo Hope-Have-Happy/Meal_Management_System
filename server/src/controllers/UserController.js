@@ -1,3 +1,5 @@
+const path = require("path");
+const fs = require("fs");
 const User = require("../models/user"); // Import the User model
 const { hashPassword } = require("../utils/passwordUtils");
 
@@ -30,15 +32,15 @@ const UserController = {
   // Create a new user (accessible by admin) (Woking on it......!)
   createUser: async (req, res) => {
     try {
-      //checking logged in user admin or not
+      // Checking if the user is an admin
       if (req.userInfo.user.user_role !== "Admin") {
         return res.status(401).json({
           error:
-            "Cannot create users without be an admin. So, Permission denied",
+            "Cannot create users without being an admin. Permission denied",
         });
       }
 
-      // Checking if same email and mobile exist in the databse or not
+      // Checking if the email or mobile number already exists in the database
       const { email, mobile } = req.body;
 
       if (await User.exists({ $or: [{ email }, { mobile }] })) {
@@ -51,7 +53,39 @@ const UserController = {
       const hashedPassword = await hashPassword(req.body.password);
       req.body.password = hashedPassword;
 
+      // Create a new user in the database
       const newUser = await User.create(req.body);
+
+      // Specify the absolute path for the "public" folder
+      const publicPath = path.join(__dirname, "../../public");
+
+      // Create a directory with the user's ObjectId for storing uploads
+      const userId = newUser._id;
+      const uploadDir = path.join(publicPath, "uploads", userId.toString());
+
+      if (req.files && req.files.photo) {
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
+        }
+
+        // Handle file upload (if an image is uploaded)
+
+        const photo = req.files.photo;
+
+        // Move the uploaded image to the user's folder
+        const photoPath = path.join(uploadDir, "profile.jpg");
+
+        photo.mv(photoPath, (err) => {
+          if (err) {
+            console.error("Error uploading profile picture: ", err);
+          }
+        });
+
+        // newUser.photo = `/uploads/${userId.toString()}/profile.jpg`;
+        newUser.photo = "profile.jpg";
+        await newUser.save();
+      }
+
       res.status(201).json(newUser);
     } catch (error) {
       res
