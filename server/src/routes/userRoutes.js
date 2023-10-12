@@ -7,16 +7,21 @@ const {
   userValidationRules,
   validateUserData,
 } = require("../middlewares/validationMiddleware");
+const { isLogedIn, isAdmin } = require("../middlewares/authMiddleware");
 
 // Get all users (Admin)
-router.get("/users", UserController.getAllUsers);
+router.get("/users", isLogedIn, isAdmin, UserController.getAllUsers);
 
-// Get a user by ID (Admin and User)
-router.get("/users/:id", UserController.getUserById);
+// Get a user by ID (Admin and User)(Need to separate for admin and also for normal user)
+router.get("/users/:id", isLogedIn, UserController.getUserById);
 
-// Create a new user (Admin) (Woking on it......!)
+// Get a user by ID (Admin)
+
+// Create a new user (Admin) (Half done)
 router.post(
   "/users",
+  isLogedIn,
+  isAdmin,
   userValidationRules,
   validateUserData,
   UserController.createUser

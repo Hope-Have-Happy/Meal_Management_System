@@ -30,14 +30,21 @@ const UserController = {
   // Create a new user (accessible by admin) (Woking on it......!)
   createUser: async (req, res) => {
     try {
-      // Check if there is an admin user in the database
-      const adminUserExists = await User.exists({ user_role: "Admin" });
-
-      if (!adminUserExists) {
-        return res.status(403).json({
+      //checking logged in user admin or not
+      if (req.userInfo.user.user_role !== "Admin") {
+        return res.status(401).json({
           error:
-            "No admin user found. Cannot create users without an admin. So, Permission denied",
+            "Cannot create users without be an admin. So, Permission denied",
         });
+      }
+
+      // Checking if same email and mobile exist on in the databse or not
+      const { email, mobile } = req.body;
+
+      if (await User.exists({ $or: [{ email }, { mobile }] })) {
+        return res
+          .status(400)
+          .json({ error: "Email or mobile number is already in use" });
       }
 
       // Hash the password before storing it in the database

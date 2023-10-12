@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const User = require("./src/models/user");
+const { hashPassword } = require("./src/utils/passwordUtils");
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ async function seedAdminUser() {
       full_name: "Admin",
       user_role: "Admin",
       email: "admin@example.com",
-      password: "12345678", // You should hash this password before using it
+      password: await hashPassword("12345678"), // You should hash this password before using it
       mobile: "12345678901",
       department: "IT",
       address: "Admin Address",
