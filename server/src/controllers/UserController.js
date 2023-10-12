@@ -29,7 +29,7 @@ const UserController = {
     }
   },
 
-  // Create a new user (accessible by admin) (Woking on it......!)
+  // Create a new user (accessible by admin) (Working on it......!)
   createUser: async (req, res) => {
     try {
       // Checking if the email or mobile number already exists in the database
