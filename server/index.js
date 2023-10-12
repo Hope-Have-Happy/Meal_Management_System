@@ -1,23 +1,55 @@
-// External imports
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const User = require("./src/models/user");
+
 dotenv.config();
 
-// Internal imports
-const app = require("./app");
-
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server running on port ${process.env.PORT || 3000}`);
-
-  mongoose
-    .connect(process.env.DB_CONNECTION_URI, {
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(process.env.DB_CONNECTION_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    })
-    .then(() => {
-      console.log("Database connected successfully");
-    })
-    .catch((err) => {
-      console.error("MongoDB connection error", err);
     });
-});
+
+    console.log("Database connected successfully");
+  } catch (err) {
+    console.error("MongoDB connection error", err);
+  }
+}
+
+async function seedAdminUser() {
+  const adminUserExists = await User.exists({ user_role: "Admin" });
+
+  if (!adminUserExists) {
+    const adminUserData = {
+      full_name: "Admin",
+      user_role: "Admin",
+      email: "admin@example.com",
+      password: "12345678", // You should hash this password before using it
+      mobile: "12345678901",
+      department: "IT",
+      address: "Admin Address",
+    };
+
+    const adminUser = await User.create(adminUserData);
+
+    if (adminUser) {
+      console.log("Admin user created");
+    }
+  }
+}
+
+async function startServer() {
+  const PORT = process.env.PORT || 3000;
+  const app = require("./app");
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+(async () => {
+  await connectToDatabase();
+  await seedAdminUser();
+  await startServer();
+})();

@@ -1,4 +1,5 @@
 const User = require("../models/user"); // Import the User model
+const { hashPassword } = require("../utils/passwordUtils");
 
 const UserController = {
   // Get all users (accessible by both admin and user)
@@ -26,13 +27,22 @@ const UserController = {
     }
   },
 
-  // Create a new user (accessible by admin)
+  // Create a new user (accessible by admin) (Woking on it......!)
   createUser: async (req, res) => {
     try {
-      // Check if the user creating the new user is an admin
-      if (req.user.role !== "admin") {
-        return res.status(403).json({ error: "Permission denied" });
+      // Check if there is an admin user in the database
+      const adminUserExists = await User.exists({ user_role: "Admin" });
+
+      if (!adminUserExists) {
+        return res.status(403).json({
+          error:
+            "No admin user found. Cannot create users without an admin. So, Permission denied",
+        });
       }
+
+      // Hash the password before storing it in the database
+      const hashedPassword = await hashPassword(req.body.password);
+      req.body.password = hashedPassword;
 
       const newUser = await User.create(req.body);
       res.status(201).json(newUser);
