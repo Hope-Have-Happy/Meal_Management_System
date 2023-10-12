@@ -7,20 +7,20 @@ const {
   userValidationRules,
   validateUserData,
 } = require("../middlewares/validationMiddleware");
-const { isLogedIn, isAdmin } = require("../middlewares/authMiddleware");
+const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
 // Get all users (Admin) ✔
-router.get("/users", isLogedIn, isAdmin, UserController.getAllUsers);
+router.get("/users", isLoggedIn, isAdmin, UserController.getAllUsers);
 
 // Get a user by ID (Admin and User)(Need to separate for admin and also for normal user)
-router.get("/users/:id", isLogedIn, UserController.getUserById);
+router.get("/users/:id", isLoggedIn, UserController.getUserById);
 
 // Get a user by ID (Admin)
 
 // Create a new user (Admin) (Half done)
 router.post(
   "/users",
-  isLogedIn,
+  isLoggedIn,
   isAdmin,
   userValidationRules,
   validateUserData,
@@ -31,9 +31,9 @@ router.post(
 // router.get("/users/refresh-token", refreshToken);
 
 // Update a user (Admin and User)
-router.put("/users/:id", isLogedIn, UserController.updateUser);
+router.put("/users/:id", isLoggedIn, UserController.updateUser);
 
-// Delete a user (Admin)
-router.delete("/users/:id", UserController.deleteUser);
+// Delete a user (Admin) ✔
+router.delete("/users", isLoggedIn, isAdmin, UserController.deleteUser);
 
 module.exports = router;

@@ -32,14 +32,6 @@ const UserController = {
   // Create a new user (accessible by admin) (Woking on it......!)
   createUser: async (req, res) => {
     try {
-      // Checking if the user is an admin
-      if (req.userInfo.user.user_role !== "Admin") {
-        return res.status(401).json({
-          error:
-            "Cannot create users without being an admin. Permission denied",
-        });
-      }
-
       // Checking if the email or mobile number already exists in the database
       const { email, mobile } = req.body;
 
@@ -124,14 +116,9 @@ const UserController = {
   // Delete a user (accessible by admin)
   deleteUser: async (req, res) => {
     try {
-      const userId = req.params.id;
+      const id = req.body.userId;
 
-      // Check if the user deleting the user is an admin
-      if (req.user.role !== "admin") {
-        return res.status(403).json({ error: "Permission denied" });
-      }
-
-      const user = await User.findByIdAndRemove(userId);
+      const user = await User.findByIdAndRemove(id);
 
       if (!user) {
         return res.status(404).json({ error: "User not found" });

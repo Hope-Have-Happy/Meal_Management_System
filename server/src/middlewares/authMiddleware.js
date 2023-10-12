@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-exports.isLogedIn = (req, res, next) => {
+exports.isLoggedIn = (req, res, next) => {
   // Retrieve the accessToken from the cookie
   const accessToken = req.cookies.accessToken;
   if (!accessToken) {
