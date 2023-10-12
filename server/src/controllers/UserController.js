@@ -4,7 +4,7 @@ const User = require("../models/user"); // Import the User model
 const { hashPassword } = require("../utils/passwordUtils");
 
 const UserController = {
-  // Get all users (accessible by both admin and user)
+  // Get all users (accessible by admin)
   getAllUsers: async (req, res) => {
     try {
       const users = await User.find();
@@ -86,18 +86,16 @@ const UserController = {
     }
   },
 
-  // Update a user (accessible by both admin and user)
+  // Update a user (accessible by admin)
   updateUser: async (req, res) => {
     try {
-      const userId = req.params.id;
+      const id = req.body.userId;
       const updatedUser = req.body;
+      delete updatedUser?.userId;
 
-      // Check if the user updating the user is either an admin or the user being updated
-      if (req.user.role !== "admin" && req.user.id !== userId) {
-        return res.status(403).json({ error: "Permission denied" });
-      }
+      // password hash kore update kora lagbe
 
-      const user = await User.findByIdAndUpdate(userId, updatedUser, {
+      const user = await User.findByIdAndUpdate(id, updatedUser, {
         new: true,
       });
 
@@ -106,6 +104,30 @@ const UserController = {
       }
 
       res.json(user);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "An error occurred while updating the user" });
+    }
+  },
+
+  // Update a user (accessible by user)
+  updateUserOwnInfo: async (req, res) => {
+    try {
+      const id = req.params.id;
+      const updatedUser = req.body;
+
+      // password hash kore update kora lagbe
+
+      const user = await User.findByIdAndUpdate(id, updatedUser, {
+        new: true,
+      });
+
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      return res.status(200).json(updatedUser);
     } catch (error) {
       res
         .status(500)

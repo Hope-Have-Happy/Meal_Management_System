@@ -15,8 +15,6 @@ router.get("/users", isLoggedIn, isAdmin, UserController.getAllUsers);
 // Get a user by ID (Admin and User)(Need to separate for admin and also for normal user)
 router.get("/users/:id", isLoggedIn, UserController.getUserById);
 
-// Get a user by ID (Admin)
-
 // Create a new user (Admin) (Half done)
 router.post(
   "/users",
@@ -30,8 +28,11 @@ router.post(
 // refresh token
 // router.get("/users/refresh-token", refreshToken);
 
-// Update a user (Admin and User)
-router.put("/users/:id", isLoggedIn, UserController.updateUser);
+// Update a user (Admin) (Half Done) // password hash kore update kora lagbe
+router.put("/users", isLoggedIn, isAdmin, UserController.updateUser);
+
+// Update user's own info (User) (Half Done) // password hash kore update kora lagbe
+router.put("/users/:id", isLoggedIn, UserController.updateUserOwnInfo);
 
 // Delete a user (Admin) ✔
 router.delete("/users", isLoggedIn, isAdmin, UserController.deleteUser);
