@@ -28,10 +28,10 @@ router.post(
 // refresh token
 // router.get("/users/refresh-token", refreshToken);
 
-// Update a user (Admin) (Half Done) // password hash kore update kora lagbe
+// Update a user (Admin) (Half Done) // password hash kore update kora lagbe, and also image er byparta fix kora lagbe
 router.put("/users", isLoggedIn, isAdmin, UserController.updateUser);
 
-// Update user's own info (User) (Half Done) // password hash kore update kora lagbe
+// Update user's own info (User) (Half Done) // password hash kore update kora lagbe, and also image er byparta fix kora lagbe
 router.put("/users/:id", isLoggedIn, UserController.updateUserOwnInfo);
 
 // Delete a user (Admin) ✔
