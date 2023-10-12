@@ -20,6 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(fileUpload());
 
+// Serve static files from the 'public' directory
+app.use(express.static("public"));
+
 // Security middleware initialization
 app.use(cors());
 app.use(helmet());
