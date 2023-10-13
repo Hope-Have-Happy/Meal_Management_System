@@ -6,7 +6,7 @@ const {
 } = require("../middlewares/validationMiddleware");
 const router = express.Router();
 
-// Get all users (Open for all)
+// Get all users (Open for all) ✔
 router.get("/login", loginValidationRules, validateLoginData, loginController);
 
 module.exports = router;
