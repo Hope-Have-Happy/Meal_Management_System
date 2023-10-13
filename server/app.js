@@ -22,7 +22,6 @@ app.use(fileUpload());
 
 // Serve static files from the 'public' directory
 app.use(express.static("public"));
-app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 
 // Security middleware initialization
 app.use(cors());
