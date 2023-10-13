@@ -1,12 +1,9 @@
-// Import Express for creating a web application and create an Express Router for defining routes
+// Import Express and create an Express Router for defining routes
 const express = require("express");
 const router = express.Router();
 
 // Import the User Controller for user-related logic
 const UserController = require("../controllers/UserController");
-
-// Import `validationResult` for checking validation results
-const { validationResult } = require("express-validator");
 
 // Import validation-related functions and middleware
 const {

@@ -1,6 +1,8 @@
+// Import Express and create an Express Router for defining routes
 const express = require("express");
 const router = express.Router();
 
+// Import the Daily Expense Controller for daily-expense-related logic
 const DailyExpenseController = require("../controllers/DailyExpenseController");
 
 // Add daily expenses (Admin and User)

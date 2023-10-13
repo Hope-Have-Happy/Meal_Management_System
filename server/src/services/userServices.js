@@ -1,5 +1,8 @@
+// Import file system and path modules
 const fs = require("fs");
 const path = require("path");
+
+// Import user model and password hashing utility
 const User = require("../models/user");
 const { hashPassword } = require("../utils/passwordUtils");
 

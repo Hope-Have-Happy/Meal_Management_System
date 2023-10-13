@@ -1,6 +1,8 @@
+// Import Express and create an Express Router for defining routes
 const express = require("express");
 const router = express.Router();
 
+// Import the Monthly Meal Rate Controller for monthly-meal-rate-related logic
 const MonthlyMealRateController = require("../controllers/MonthlyMealRateController");
 
 // Set meal rates for specific months (Admin)

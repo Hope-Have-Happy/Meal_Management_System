@@ -1,6 +1,8 @@
+// Import Express and create an Express Router for defining routes
 const express = require("express");
 const router = express.Router();
 
+// Import the Payment Controller for payment-related logic
 const PaymentController = require("../controllers/PaymentController");
 
 // Make a payment (Admin and User)

@@ -1,4 +1,6 @@
+// Import `check, validationResult` for checking validation results
 const { check, validationResult } = require("express-validator");
+//Import User Model
 const User = require("../models/user");
 
 // create a new user validation rules

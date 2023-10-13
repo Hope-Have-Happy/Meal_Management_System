@@ -1,5 +1,7 @@
+// Import JWT: JSON WEB TOKEN
 const jwt = require("jsonwebtoken");
 
+// Checking: User logged-in or not
 exports.isLoggedIn = (req, res, next) => {
   // Retrieve the accessToken from the cookie
   const accessToken = req.cookies.accessToken;
@@ -19,6 +21,7 @@ exports.isLoggedIn = (req, res, next) => {
   });
 };
 
+// Checking: Logged-in user "Admin" or not
 exports.isAdmin = (req, res, next) => {
   // checking user is admin or not
   if (req.userInfo && req.userInfo.user.user_role === "Admin") {

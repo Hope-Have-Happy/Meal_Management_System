@@ -1,7 +1,4 @@
-const path = require("path");
-const fs = require("fs");
-const User = require("../models/user"); // Import the User model
-const { hashPassword } = require("../utils/passwordUtils");
+// User CRUD Related Services
 const {
   getAllUsersInfo,
   getUserInfo,

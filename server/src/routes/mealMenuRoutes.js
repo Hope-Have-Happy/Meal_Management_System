@@ -1,6 +1,8 @@
+// Import Express and create an Express Router for defining routes
 const express = require("express");
 const router = express.Router();
 
+// Import the Meal Menu Controller for meal-menu-related logic
 const MealMenuController = require("../controllers/MealMenuController");
 
 // Create a new meal menu (Admin)
