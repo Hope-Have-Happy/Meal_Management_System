@@ -15,7 +15,7 @@ router.get("/users", isLoggedIn, isAdmin, UserController.getAllUsers);
 // Get a user by ID (Admin) ✔
 router.get("/users/:id", isLoggedIn, isAdmin, UserController.getUserById);
 
-// Create a new user (Admin) (Half done)
+// Create a new user (Admin) ✔
 router.post(
   "/users",
   isLoggedIn,
