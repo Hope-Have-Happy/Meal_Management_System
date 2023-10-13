@@ -45,7 +45,7 @@ jspm_packages/
 bower_components/
 
 # Public Directory
-public/
+public/*
 
 # Typescript tsc
 *.tsbuildinfo
