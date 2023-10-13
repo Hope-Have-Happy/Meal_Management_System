@@ -12,8 +12,8 @@ const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 // Get all users (Admin) ✔
 router.get("/users", isLoggedIn, isAdmin, UserController.getAllUsers);
 
-// Get a user by ID (Admin and User)(Need to separate for admin and also for normal user)
-router.get("/users/:id", isLoggedIn, UserController.getUserById);
+// Get a user by ID (Admin) ✔
+router.get("/users/:id", isLoggedIn, isAdmin, UserController.getUserById);
 
 // Create a new user (Admin) (Half done)
 router.post(

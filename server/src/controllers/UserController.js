@@ -7,21 +7,26 @@ const UserController = {
   // Get all users (accessible by admin)
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.find();
+      const users = await User.find().select("-password"); // Exclude the 'password' field
       res.json(users);
     } catch (error) {
       res.status(500).json({ error: "An error occurred while fetching users" });
     }
   },
 
-  // Get a user by ID (accessible by both admin and user)
+  // Get a user by ID (accessible admin)
   getUserById: async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
+
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
-      res.json(user);
+
+      // Omit the password field from the user object
+      const { password, ...userWithoutPassword } = user.toObject();
+
+      res.json(userWithoutPassword);
     } catch (error) {
       res
         .status(500)
