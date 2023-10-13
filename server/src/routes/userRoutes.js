@@ -5,17 +5,17 @@ const UserController = require("../controllers/UserController");
 const { validationResult } = require("express-validator");
 const {
   userValidationRules,
-  validateUserData,
   userUpdateValidationRules,
-  validateUpdateData,
+  validateDataResult,
 } = require("../middlewares/validationMiddleware");
+
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
 // Get all users (Admin) ✔
 router.get("/users", isLoggedIn, isAdmin, UserController.getAllUsers);
 
 // Get a user by ID (Admin) ✔
-router.get("/users/:id", isLoggedIn, isAdmin, UserController.getUserById);
+router.get("/users/:userId", isLoggedIn, isAdmin, UserController.getUserById);
 
 // Create a new user (Admin) ✔
 router.post(
@@ -23,12 +23,9 @@ router.post(
   isLoggedIn,
   isAdmin,
   userValidationRules,
-  validateUserData,
+  validateDataResult,
   UserController.createUser
 );
-
-// refresh token
-// router.get("/users/refresh-token", refreshToken);
 
 // Update a user (Admin) ✔
 router.put(
@@ -36,17 +33,20 @@ router.put(
   isLoggedIn,
   isAdmin,
   userUpdateValidationRules,
-  validateUpdateData,
+  validateDataResult,
   UserController.updateUser
 );
 
-// Update user's own info (User) (Half Done)
-router.put("/user-info/:id", isLoggedIn, UserController.updateUserOwnInfo);
+// Update user's own info (User) ✔
+router.put("/user-info/:userId", isLoggedIn, UserController.updateUserOwnInfo);
+
+// refresh token
+router.get("/refresh-token", UserController.refreshToken);
 
 // Forget Password (For all)
 router.patch("/users/forget-password", UserController.forgetPassword);
 
 // Delete a user (Admin) ✔
-router.delete("/users", isLoggedIn, isAdmin, UserController.deleteUser);
+router.delete("/users/:userId", isLoggedIn, isAdmin, UserController.deleteUser);
 
 module.exports = router;
