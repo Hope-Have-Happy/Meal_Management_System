@@ -30,6 +30,7 @@ const usersSchema = new mongoose.Schema(
     mobile: {
       type: String,
       required: true,
+      unique: true,
       validate: {
         validator: (v) => /^\d{11}$/.test(v),
         message: "Mobile number must be 11 digits long.",

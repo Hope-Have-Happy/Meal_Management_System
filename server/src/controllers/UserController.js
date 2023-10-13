@@ -34,7 +34,7 @@ const UserController = {
     }
   },
 
-  // Create a new user (accessible by admin) (Working on it......!)
+  // Create a new user (accessible by admin)
   createUser: async (req, res) => {
     try {
       // Checking if the email or mobile number already exists in the database
@@ -94,15 +94,81 @@ const UserController = {
   // Update a user (accessible by admin)
   updateUser: async (req, res) => {
     try {
-      const id = req.body.userId;
+      const id = req.params.userId;
       const updatedUser = req.body;
-      delete updatedUser?.userId;
+      delete updatedUser.userId;
 
-      // password hash kore update kora lagbe
+      // Check if the user wants to update the password
+      if (updatedUser.password) {
+        // Hash the new password before storing it in the database
+        const hashedPassword = await hashPassword(updatedUser.password);
+        updatedUser.password = hashedPassword;
+      }
 
-      const user = await User.findByIdAndUpdate(id, updatedUser, {
-        new: true,
+      // Check if the user wants to update the image
+      if (req.files && req.files.photo) {
+        const user = await User.findById(id);
+        if (!user) {
+          return res.status(404).json({ error: "User not found" });
+        }
+
+        // Specify the absolute path for the "public" folder
+        const publicPath = path.join(__dirname, "../../public");
+
+        // Create a directory with the user's ObjectId for storing uploads
+        const userId = user._id;
+        const uploadDir = path.join(publicPath, "uploads", userId.toString());
+
+        // Check if the user directory and the previous image exist
+        if (fs.existsSync(uploadDir)) {
+          const previousImagePath = path.join(uploadDir, "profile.jpg");
+
+          if (fs.existsSync(previousImagePath)) {
+            // Delete the previous image
+            fs.unlinkSync(previousImagePath);
+          }
+        }
+
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
+        }
+
+        // Handle file upload (if a new image is uploaded)
+        const photo = req.files.photo;
+
+        // Move the uploaded image to the user's folder
+        const photoPath = path.join(uploadDir, "profile.jpg");
+
+        photo.mv(photoPath, (err) => {
+          if (err) {
+            console.error("Error uploading profile picture: ", err);
+          }
+        });
+
+        updatedUser.photo = `/uploads/${userId.toString()}/profile.jpg`;
+      }
+
+      // Check if the user wants to update the email or mobile number
+      const existingUserWithEmail = await User.findOne({
+        _id: { $ne: id }, // Exclude the current user
+        email: updatedUser.email,
       });
+
+      const existingUserWithMobile = await User.findOne({
+        _id: { $ne: id }, // Exclude the current user
+        mobile: updatedUser.mobile,
+      });
+
+      if (existingUserWithEmail) {
+        return res.status(400).json({ error: "Email already in use" });
+      }
+
+      if (existingUserWithMobile) {
+        return res.status(400).json({ error: "Mobile already in use" });
+      }
+
+      // Update the user in the database
+      const user = await User.findByIdAndUpdate(id, updatedUser, { new: true });
 
       if (!user) {
         return res.status(404).json({ error: "User not found" });
