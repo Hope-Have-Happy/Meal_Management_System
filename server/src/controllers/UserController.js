@@ -78,8 +78,8 @@ const UserController = {
           }
         });
 
-        // newUser.photo = `/uploads/${userId.toString()}/profile.jpg`;
-        newUser.photo = "profile.jpg";
+        newUser.photo = `/uploads/${userId.toString()}/profile.jpg`;
+        // newUser.photo = "profile.jpg";
         await newUser.save();
       }
 
