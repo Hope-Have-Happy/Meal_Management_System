@@ -1,3 +1,4 @@
+// Import BCRYPT To Hash and Compare Password
 const bcrypt = require("bcrypt");
 
 // Hash the user's password
