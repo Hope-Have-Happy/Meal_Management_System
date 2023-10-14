@@ -6,6 +6,7 @@ const {
   updateSingleUser,
   updateOwnData,
   deleteSingleUser,
+  updateUserInfo,
 } = require("../services/userServices");
 
 const UserController = {
@@ -29,19 +30,14 @@ const UserController = {
 
   // Update a user (accessible by admin)
   updateUser: async (req, res) => {
-    let result = await updateSingleUser(req);
+    let result = await updateUserInfo(req);
     return res.status(200).json(result);
   },
 
   // Update a user (accessible by user)
   updateUserOwnInfo: async (req, res) => {
-    let result = await updateOwnData(req);
+    let result = await updateUserInfo(req);
     return res.status(200).json(result);
-  },
-
-  // Refresh token
-  refreshToken: async (req, res) => {
-    return res.status(200).json({ result: "Refresh Token Route" });
   },
 
   // Reset Password if user forget his password

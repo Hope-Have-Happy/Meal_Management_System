@@ -4,9 +4,10 @@ const router = express.Router();
 
 // Import the Meal Controller for meal-related logic
 const MealController = require("../controllers/MealController");
+const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
 // Register meals for users (Admin)
-router.post("/meals", MealController.registerMeals);
+router.post("/meals", isLoggedIn, isAdmin, MealController.registerMeals);
 
 // Get all meals (Admin and User)
 router.get("/meals", MealController.getAllMeals);

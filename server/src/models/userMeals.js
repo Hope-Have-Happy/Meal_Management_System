@@ -7,11 +7,24 @@ const userMealsSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    qty: { type: Number, default: 1 },
-    date: { type: Date },
-    status: { type: Number, default: 1 },
-
-    creator: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    qty: {
+      type: Number,
+      default: 1,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
+    status: {
+      type: Number,
+      default: 1,
+    },
+    creator: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 );

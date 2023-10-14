@@ -33,7 +33,7 @@ app.use(morgan("dev"));
 //Request Rate Limiting
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minutes
-  max: 10, // limit each IP to 10 requests per windowMs
+  max: 10000, // limit each IP to 10000 requests per windowMs (change before the production)
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });

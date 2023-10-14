@@ -44,9 +44,6 @@ router.put(
 // Update user's own info (User) ✔
 router.put("/user-info/:userId", isLoggedIn, UserController.updateUserOwnInfo);
 
-// refresh token (Work left to do)
-router.get("/refresh-token", UserController.refreshToken);
-
 // Forget Password (Work left to do)
 router.patch("/users/forget-password", UserController.forgetPassword);
 

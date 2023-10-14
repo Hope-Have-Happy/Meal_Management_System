@@ -94,7 +94,7 @@ const MealController = {
     }
   },
 
-  // cancle meal (Admin and User)
+  // cancel meal (Admin and User)
   cancelBooking: async (req, res) => {
     try {
       const bookingId = req.params.id;

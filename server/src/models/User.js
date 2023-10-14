@@ -2,14 +2,20 @@ const mongoose = require("mongoose");
 
 const usersSchema = new mongoose.Schema(
   {
-    full_name: { type: String, required: true },
+    full_name: {
+      type: String,
+      required: true,
+    },
     user_role: {
       type: String,
       enum: ["Admin", "User"],
       default: "User",
       required: true,
     },
-    photo: { type: String, default: "" },
+    photo: {
+      type: String,
+      default: "",
+    },
     email: {
       type: String,
       required: true,
@@ -42,8 +48,14 @@ const usersSchema = new mongoose.Schema(
       enum: ["IT", "IELTS", "SPOKEN", "EMPLOYEE"],
       required: true,
     },
-    address: { type: String, required: true },
-    status: { type: Number, default: 1 },
+    address: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: Number,
+      default: 1,
+    },
   },
   { timestamps: true }
 );

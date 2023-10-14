@@ -7,12 +7,24 @@ const userPaymentsSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    month: { type: Date },
-    payment_date: { type: Date },
-    amount: { type: Number },
-    status: { type: Number, default: 1 },
+    month: {
+      type: Date,
+    },
+    payment_date: {
+      type: Date,
+    },
+    amount: {
+      type: Number,
+    },
+    status: {
+      type: Number,
+      default: 1,
+    },
 
-    creator: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    creator: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );
