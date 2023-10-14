@@ -14,7 +14,7 @@ This is a Meal Management System with two types of users: Admin and User.
 - This month current meal rate
 - This year average meal rate
 
-### User Management `(Mockup: API, Controller: UserController)` `✔`
+### User Management `(API, Controller: UserController)` `✔`
 
 - Create, read, update, delete users
 - User information:
