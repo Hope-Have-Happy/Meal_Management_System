@@ -6,7 +6,9 @@ function App() {
       <div>
         <h2>User Profile</h2>
         <img
-          src='http://localhost:3000/uploads/652945f212736e2ddfc23057/profile.jpg'
+          src={`${
+            import.meta.env.VITE_BASE_API_URL
+          }/uploads/652945f212736e2ddfc23057/profile.jpg`}
           alt='User Profile'
           width={100}
         />
