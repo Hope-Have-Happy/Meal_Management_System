@@ -52,17 +52,12 @@ exports.createSingleUser = async (req, res) => {
     if (await User.exists({ mobile })) {
       return { error: "Mobile number is already in use" };
     }
-    // Hash the password before storing it in the database
-    const hashedPassword = await hashPassword(req.body.password);
-    req.body.password = hashedPassword;
-
-    // Create a new user in the database
-    const newUser = await User.create(req.body);
 
     // Specify the absolute path for the "public" folder
     const publicPath = path.join(__dirname, "../../public");
 
     // Create a directory with the user's ObjectId for storing uploads
+    const newUser = await User.create(req.body);
     const userId = newUser._id;
     const uploadDir = path.join(publicPath, "uploads", userId.toString());
 
@@ -71,11 +66,19 @@ exports.createSingleUser = async (req, res) => {
         fs.mkdirSync(uploadDir, { recursive: true });
       }
 
-      // Handle file upload (if an image is uploaded)
-
       const photo = req.files.photo;
 
-      // Move the uploaded image to the user's folder
+      const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]; // Add more extensions if needed
+
+      const fileExtension = path.extname(photo.name).toLowerCase();
+
+      if (!allowedExtensions.includes(fileExtension)) {
+        // Delete the newly created user if the file type is invalid
+        await User.findByIdAndDelete(newUser._id);
+
+        return { error: "Invalid file type. Only image files are allowed." };
+      }
+
       const photoPath = path.join(uploadDir, "profile.jpg");
 
       photo.mv(photoPath, (err) => {
@@ -111,6 +114,16 @@ exports.updateUserInfo = async (req, res) => {
 
     // Check if the user wants to update the image
     if (req.files && req.files.photo) {
+      const photo = req.files.photo;
+
+      const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]; // Add more extensions if needed
+
+      const fileExtension = path.extname(photo.name).toLowerCase();
+
+      if (!allowedExtensions.includes(fileExtension)) {
+        return { error: "Invalid file type. Only image files are allowed." };
+      }
+
       const user = await User.findById(id);
       if (!user) {
         return { error: "User not found" };
@@ -138,9 +151,6 @@ exports.updateUserInfo = async (req, res) => {
       }
 
       // Handle file upload (if a new image is uploaded)
-      const photo = req.files.photo;
-
-      // Move the uploaded image to the user's folder
       const photoPath = path.join(uploadDir, "profile.jpg");
 
       photo.mv(photoPath, (err) => {
