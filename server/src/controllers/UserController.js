@@ -41,9 +41,15 @@ const UserController = {
     return res.status(200).json(result);
   },
 
-  // Reset Password if user forget his password
-  forgetPassword: async (req, res) => {
-    let result = await recoverPassword(req);
+  // Send OTP To user
+  sendOTPToUser: async (req, res) => {
+    let result = await SendOTP(req);
+    return res.status(200).json(result);
+  },
+
+  // reset password with otp
+  resetPasswordWithOTP: async (req, res) => {
+    let result = await resetPassword(req);
     return res.status(200).json(result);
   },
 

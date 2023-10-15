@@ -45,8 +45,8 @@ router.put(
 router.put("/user-info/:userId", isLoggedIn, UserController.updateUserOwnInfo);
 
 // Add routes for sending OTP and resetting password
-router.post("/send-otp", sendOTPToUser);
-router.post("/reset-password", resetPasswordWithOTP);
+router.post("/send-otp", UserController.sendOTPToUser);
+router.post("/reset-password", UserController.resetPasswordWithOTP);
 
 // Delete a user (Admin) ✔
 router.delete("/users/:userId", isLoggedIn, isAdmin, UserController.deleteUser);
