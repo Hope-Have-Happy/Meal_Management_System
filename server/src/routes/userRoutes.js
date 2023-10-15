@@ -44,8 +44,9 @@ router.put(
 // Update user's own info (User) ✔
 router.put("/user-info/:userId", isLoggedIn, UserController.updateUserOwnInfo);
 
-// Forget Password (Work left to do)
-router.patch("/users/forget-password", UserController.forgetPassword);
+// Add routes for sending OTP and resetting password
+router.post("/send-otp", sendOTPToUser);
+router.post("/reset-password", resetPasswordWithOTP);
 
 // Delete a user (Admin) ✔
 router.delete("/users/:userId", isLoggedIn, isAdmin, UserController.deleteUser);
