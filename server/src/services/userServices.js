@@ -1,9 +1,13 @@
+// Import nodemailer to send email
+const nodemailer = require("nodemailer");
+
 // Import file system and path modules
 const fs = require("fs");
 const path = require("path");
 
-// Import user model and password hashing utility
+// Import user,otp model and password hashing utility
 const User = require("../models/user");
+const OPT = require("../models/OTP");
 const { hashPassword } = require("../utils/passwordUtils");
 
 // get all users info (Admin)
@@ -241,6 +245,40 @@ exports.SendOTP = async (req, res) => {
 
 // reset password
 exports.resetPassword = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    // Find the OTP record
+    const otpRecord = await OTP.findOne({
+      otp,
+      expiresAt: { $gt: new Date() },
+    });
+
+    if (!otpRecord) {
+      return { error: "Invalid or expired OTP" };
+    }
+
+    // Find the user associated with the OTP
+    const user = await User.findById(otpRecord.user);
+
+    if (!user || user.email !== email) {
+      return { error: "Invalid email" };
+    }
+
+    // Hash the new password
+    const hashedPassword = await hashPassword(newPassword);
+
+    // Update the user's password
+    user.password = hashedPassword;
+    await user.save();
+
+    // Delete the OTP record
+    await OTP.findByIdAndDelete(otpRecord._id);
+
+    return { message: "Password reset successful" };
+  } catch (error) {
+    return { error: "An error occurred while resetting password" };
+  }
   return { message: "Reset Password route" };
 };
 
