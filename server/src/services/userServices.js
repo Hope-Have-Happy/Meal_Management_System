@@ -9,6 +9,7 @@ const path = require("path");
 const User = require("../models/user");
 const OPT = require("../models/OTP");
 const { hashPassword } = require("../utils/passwordUtils");
+const emailConfig = require("../utils/emailConfig");
 
 // get all users info (Admin)
 exports.getAllUsersInfo = async (req, res) => {
@@ -226,9 +227,14 @@ exports.SendOTP = async (req, res) => {
 
     // Send the OTP via email
     const transporter = nodemailer.createTransport({
-      // Your email configuration here
+      service: emailConfig.service,
+      auth: {
+        user: emailConfig.auth.user,
+        pass: emailConfig.auth.pass,
+      },
     });
 
+    // Send the OTP via email
     const mailOptions = {
       to: email,
       subject: "Password Reset OTP",
