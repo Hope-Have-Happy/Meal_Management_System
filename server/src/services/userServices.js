@@ -285,7 +285,6 @@ exports.resetPassword = async (req, res) => {
   } catch (error) {
     return { error: "An error occurred while resetting password" };
   }
-  return { message: "Reset Password route" };
 };
 
 // delete single user (Admin)
