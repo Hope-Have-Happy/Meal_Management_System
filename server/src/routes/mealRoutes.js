@@ -15,6 +15,9 @@ router.get("/meals", isLoggedIn, isAdmin, MealController.getAllMeals);
 // Get all meals of logged in user's (View a list of meals)
 router.get("/meals", isLoggedIn, MealController.getMyMealList);
 
+// Confirm meals of users
+router.post("/meals/confirm", isLoggedIn, isAdmin, MealController.confirmMealS);
+
 // Get a meal by ID (Admin)
 router.get("/meals/:id", isLoggedIn, isAdmin, MealController.getMealById);
 

@@ -6,6 +6,7 @@ const {
   updateSingleUser,
   updateOwnData,
   deleteSingleUser,
+  recoverPassword,
   updateUserInfo,
 } = require("../services/userServices");
 
@@ -42,9 +43,8 @@ const UserController = {
 
   // Reset Password if user forget his password
   forgetPassword: async (req, res) => {
-    // mobile number deiye check hobe user exist kore kina then password update hobe
-
-    res.status(200).json({ message: "forget password" });
+    let result = await recoverPassword(req);
+    return res.status(200).json(result);
   },
 
   // Delete a user

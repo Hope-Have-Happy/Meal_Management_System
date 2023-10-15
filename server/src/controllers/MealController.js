@@ -1,18 +1,22 @@
 const UserMeals = require("../models/userMeals"); // Import the UserMeals model
+const User = require("../models/user"); // Import the UserMeals model
 
 const MealController = {
-  // Register meals for users (Admin) (Multiple or single meal register hote pare)
-  registerMeals: async (req, res) => {
-    try {
-      const mealData = req.body;
-      const meal = await UserMeals.create(mealData);
-      res.status(201).json(meal);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Meal registration failed" });
-    }
-  },
+  /*
+      From frontend data should come like this 
 
+      {
+        users:[userId,userId,userId,userId,userId,userId],
+        qty: number,
+        date: string,
+        status: number
+      }
+  */
+
+  // Register meals for users (Admin) (Multiple or single meal register)
+  registerMeals: async (req, res) => {
+    res.status(200).json({ message: "Meals register controller." });
+  },
   // Get all meals (Admin)
   getAllMeals: async (req, res) => {
     try {
@@ -91,7 +95,24 @@ const MealController = {
   reserveMeals: async (req, res) => {
     try {
       // Implement reservation logic here
+
+      // reserve meal's status at first will be 0
+
       res.status(200).json({ message: "Meals reserved successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to reserve meals" });
+    }
+  },
+
+  // Confirm reserve meals (Multiple or single meal confirm)
+  confirmMealS: async (req, res) => {
+    try {
+      // Implement confirm meals logic here
+
+      // reserve meal's status will be 1 when admin confirm it
+
+      res.status(200).json({ message: "Meals booking confirm successfully" });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Failed to reserve meals" });
