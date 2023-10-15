@@ -194,9 +194,14 @@ exports.updateUserInfo = async (req, res) => {
   }
 };
 
-// recover user's password (For all users)
-exports.recoverPassword = async (req, res) => {
-  return { message: "recover password route" };
+// send otp
+exports.SendOTP = async (req, res) => {
+  return { message: "Send OTP route" };
+};
+
+// reset password
+exports.resetPassword = async (req, res) => {
+  return { message: "Reset Password route" };
 };
 
 // delete single user (Admin)
