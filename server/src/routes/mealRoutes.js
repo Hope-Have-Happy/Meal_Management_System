@@ -6,7 +6,7 @@ const router = express.Router();
 const MealController = require("../controllers/MealController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
-// Register meals for users (Admin) (Multiple or single meal register hote pare)
+// Register meals for users (Admin) (Multiple or single)
 router.post("/meals", isLoggedIn, isAdmin, MealController.registerMeals);
 
 // Get all meals (Admin)
