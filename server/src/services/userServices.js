@@ -196,7 +196,7 @@ exports.updateUserInfo = async (req, res) => {
 
 // recover user's password (For all users)
 exports.recoverPassword = async (req, res) => {
-  res.status(200).json({ message: "recover password route" });
+  return { message: "recover password route" };
 };
 
 // delete single user (Admin)
