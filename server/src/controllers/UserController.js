@@ -8,6 +8,8 @@ const {
   deleteSingleUser,
   recoverPassword,
   updateUserInfo,
+  SendOTP,
+  resetPassword,
 } = require("../services/userServices");
 
 const UserController = {
