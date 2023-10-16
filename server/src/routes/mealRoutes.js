@@ -21,7 +21,7 @@ router.post("/meals/confirm", isLoggedIn, isAdmin, MealController.confirmMealS);
 // Get a meal by ID (Admin) ✔
 router.get("/meals/:id", isLoggedIn, isAdmin, MealController.getMealById);
 
-// Update a meal (Admin)
+// Update a meal (Admin) ✔
 router.put("/meals/:id", isLoggedIn, isAdmin, MealController.updateMeal);
 
 // Delete a meal (Admin)
