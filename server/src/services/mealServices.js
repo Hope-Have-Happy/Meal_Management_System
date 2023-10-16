@@ -213,3 +213,16 @@ exports.update_a_meal = async (req, res) => {
     res.status(500).json({ message: "Failed to update meal" });
   }
 };
+
+exports.delete_a_meal = async (req, res) => {
+  try {
+    const mealId = req.body.id;
+    const meal = await UserMeals.findByIdAndDelete(mealId);
+    if (!meal) {
+      return { message: "Meal not found" };
+    }
+    return { message: "Meal deleted successful" };
+  } catch (error) {
+    return { message: "Failed to delete meal" };
+  }
+};

@@ -6,6 +6,7 @@ const {
   getMyMealsList,
   getMealByTheId,
   update_a_meal,
+  delete_a_meal,
 } = require("../services/mealServices");
 
 const MealController = {
@@ -41,17 +42,8 @@ const MealController = {
 
   // Delete a meal (Admin)
   deleteMeal: async (req, res) => {
-    try {
-      const mealId = req.params.id;
-      const meal = await UserMeals.findByIdAndDelete(mealId);
-      if (!meal) {
-        return res.status(404).json({ message: "Meal not found" });
-      }
-      res.status(204).send();
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to delete meal" });
-    }
+    let result = await delete_a_meal(req);
+    return res.status(200).json(result);
   },
 
   // Reserve meals for the next day until 6 PM (User)
