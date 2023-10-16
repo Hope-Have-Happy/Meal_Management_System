@@ -5,6 +5,7 @@ const {
   getAllMealsList,
   getMyMealsList,
   getMealByTheId,
+  update_a_meal,
 } = require("../services/mealServices");
 
 const MealController = {
@@ -34,20 +35,8 @@ const MealController = {
 
   // Update a meal (Admin)
   updateMeal: async (req, res) => {
-    try {
-      const mealId = req.params.id;
-      const updatedMealData = req.body;
-      const meal = await UserMeals.findByIdAndUpdate(mealId, updatedMealData, {
-        new: true,
-      });
-      if (!meal) {
-        return res.status(404).json({ message: "Meal not found" });
-      }
-      res.status(200).json(meal);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to update meal" });
-    }
+    let result = await update_a_meal(req);
+    return res.status(200).json(result);
   },
 
   // Delete a meal (Admin)

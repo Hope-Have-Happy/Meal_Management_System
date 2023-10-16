@@ -104,7 +104,6 @@ exports.getAllMealsList = async (req, res) => {
       meals: mealsWithUsers,
     };
   } catch (error) {
-    console.error(error);
     return { error: "Failed to fetch meals" };
   }
 };
@@ -154,7 +153,6 @@ exports.getMyMealsList = async (req, res) => {
       myMeals: myMealsWithUserDetails,
     };
   } catch (error) {
-    console.error(error);
     return { error: "Failed to fetch meals" };
   }
 };
@@ -195,7 +193,23 @@ exports.getMealByTheId = async (req, res) => {
 
     return mealWithUser;
   } catch (error) {
-    console.error(error);
     return { message: "Failed to fetch meal" };
+  }
+};
+
+// Update a meal (Admin)
+exports.update_a_meal = async (req, res) => {
+  try {
+    const mealId = req.params.id;
+    const updatedMealData = req.body;
+    const meal = await UserMeals.findByIdAndUpdate(mealId, updatedMealData, {
+      new: true,
+    });
+    if (!meal) {
+      return { message: "Meal not found" };
+    }
+    return meal;
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update meal" });
   }
 };
