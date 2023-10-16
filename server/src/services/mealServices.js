@@ -228,6 +228,7 @@ exports.delete_a_meal = async (req, res) => {
   }
 };
 
+// Reserve meals for the next day until 6 PM (User)
 exports.reserve_a_meal = async (req, res) => {
   try {
     const loggedInUserID = req.userInfo.user._id;

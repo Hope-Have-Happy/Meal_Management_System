@@ -27,7 +27,7 @@ router.put("/meals/:id", isLoggedIn, isAdmin, MealController.updateMeal);
 // Delete a meal (Admin) ✔
 router.delete("/meals", isLoggedIn, isAdmin, MealController.deleteMeal);
 
-// Reserve meals for the next day until 6 PM (User)
+// Reserve meals for the next day until 6 PM (User) ✔
 router.post("/meals/reserve", isLoggedIn, MealController.reserveMeals);
 
 // List and cancel bookings for the next day before 6 PM (User)
