@@ -19,26 +19,42 @@ exports.registerMeal = async (req, res) => {
 
     const registeredMeals = [];
     const conflictingUsers = [];
+    const nonExistingUsers = [];
 
     for (const userId of mealData.users) {
-      const isRegistered = existingMeals.some((meal) =>
-        meal.users_id.equals(userId)
-      );
+      // Check if the user exists in the User model
+      const userExists = await User.findById(userId);
 
-      if (isRegistered) {
-        conflictingUsers.push(userId);
+      if (!userExists) {
+        nonExistingUsers.push(userId);
       } else {
-        const newMeal = new UserMeals({
-          users_id: userId,
-          qty: mealData.qty,
-          date: mealData.date,
-          status: mealData.status || 1, // Default status if not provided
-          creator: req.userInfo.user._id,
-        });
+        const isRegistered = existingMeals.some((meal) =>
+          meal.users_id.equals(userId)
+        );
 
-        const savedMeal = await newMeal.save();
-        registeredMeals.push(savedMeal);
+        if (isRegistered) {
+          conflictingUsers.push(userId);
+        } else {
+          const newMeal = new UserMeals({
+            users_id: userId,
+            qty: mealData.qty,
+            date: mealData.date,
+            status: mealData.status || 1, // Default status if not provided
+            creator: req.userInfo.user._id,
+          });
+
+          const savedMeal = await newMeal.save();
+          registeredMeals.push(savedMeal);
+        }
       }
+    }
+
+    const response = {
+      successfullyRegisteredMeals: registeredMeals,
+    };
+
+    if (nonExistingUsers.length > 0) {
+      response.message = `Some users do not exist in the system: ${nonExistingUsers}`;
     }
 
     if (conflictingUsers.length > 0) {
@@ -53,17 +69,15 @@ exports.registerMeal = async (req, res) => {
         }
       );
 
-      return {
-        message: `Meal(s) already registered for user(s) on ${mealData.date}.`,
-        alreadyRegisterUserMeal: conflictingUsersDetails,
-        successfullyRegisteredMeals: registeredMeals,
-      };
+      response.message = `Meal(s) already registered for user(s) on ${mealData.date}.`;
+      response.alreadyRegisterUserMeal = conflictingUsersDetails;
     }
 
-    return {
-      message: "Meals registered successfully",
-      successfullyRegisteredMeals: registeredMeals,
-    };
+    if (!response.message) {
+      response.message = "Meals registered successfully";
+    }
+
+    return response;
   } catch (error) {
     return { error: "Failed to register meals" };
   }
