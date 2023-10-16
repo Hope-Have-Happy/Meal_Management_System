@@ -83,3 +83,22 @@ exports.getAllMealsList = async (req, res) => {
     return { error: "Failed to fetch meals" };
   }
 };
+
+// Get all meals of logged in user's (View a list of meals)
+exports.getMyMealsList = async (req, res) => {
+  try {
+    const loggedInUserID = req.userInfo.user._id;
+
+    const myMeals = await UserMeals.find({ users_id: loggedInUserID })
+      .sort({ date: -1 }) // Sort by date in descending order (most recent first)
+      .exec();
+
+    return {
+      message: "Meals list retrieved successfully",
+      myMeals,
+    };
+  } catch (error) {
+    console.error(error);
+    return { error: "Failed to fetch meals" };
+  }
+};

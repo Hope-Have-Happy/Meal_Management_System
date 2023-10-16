@@ -1,6 +1,10 @@
 const UserMeals = require("../models/userMeals"); // Import the UserMeals model
 const User = require("../models/user"); // Import the UserMeals model
-const { registerMeal, getAllMealsList } = require("../services/mealServices");
+const {
+  registerMeal,
+  getAllMealsList,
+  getMyMealsList,
+} = require("../services/mealServices");
 
 const MealController = {
   // Register meals for users (Admin) (Multiple or single meal register)
@@ -15,19 +19,10 @@ const MealController = {
     return res.status(200).json(result);
   },
 
-  // Get all meals list of logged in user's (View a list of meals)
+  // Get all meals of logged in user's (View a list of meals)
   getMyMealList: async (req, res) => {
-    try {
-      // Implement the logic of get all meals list if user don't enter the month name
-      // then get all the meal list of him and order the list from now to past
-      // (Like this order: 9,8,7,6,5,4,3,2,1 )
-      // if user enter the month name the order the list from now to past
-      // (Like this order: 9,8,7,6,5,4,3,2,1 )
-      res.status(200).json({ message: "All meals list" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to reserve meals" });
-    }
+    let result = await getMyMealsList(req);
+    return res.status(200).json(result);
   },
 
   // Get a meal by ID (Admin and User)

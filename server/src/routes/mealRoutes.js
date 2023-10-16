@@ -13,7 +13,7 @@ router.post("/meals", isLoggedIn, isAdmin, MealController.registerMeals);
 router.get("/meals", isLoggedIn, isAdmin, MealController.getAllMeals);
 
 // Get all meals of logged in user's (View a list of meals)
-router.get("/meals", isLoggedIn, MealController.getMyMealList);
+router.get("/my-meals", isLoggedIn, MealController.getMyMealList);
 
 // Confirm meals of users
 router.post("/meals/confirm", isLoggedIn, isAdmin, MealController.confirmMealS);
