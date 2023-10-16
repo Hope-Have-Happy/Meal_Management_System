@@ -393,3 +393,61 @@ exports.cancelReservedMeal = async (req, res) => {
     return { message: "Failed to cancel the meal reservation" };
   }
 };
+
+// advance reservation meals for several days
+exports.advanceReserveYourMeal = async (req, res) => {
+  try {
+    const mealReservations = req.body; // Array of reservations
+
+    if (!Array.isArray(mealReservations) || mealReservations.length === 0) {
+      return { message: "Invalid reservation data" };
+    }
+
+    const userId = req.userInfo.user._id; // Assuming you have user information in req.userInfo
+
+    const alreadyReservedAt = [];
+    const advancedReservations = [];
+
+    for (const reservation of mealReservations) {
+      const { qty, date } = reservation;
+
+      // Check if a meal is already reserved for the same date
+      const existingMeal = await UserMeals.findOne({
+        users_id: userId,
+        date,
+      });
+
+      if (existingMeal) {
+        alreadyReservedAt.push(date);
+      } else {
+        // If not reserved for the same date, create a new reservation
+        const newMeal = new UserMeals({
+          users_id: userId,
+          qty,
+          date,
+          status: 0, // Default status for advanced reservations
+          creator: userId,
+        });
+
+        const savedMeal = await newMeal.save();
+        advancedReservations.push(savedMeal);
+      }
+    }
+
+    const response = {
+      message: "Meal reservation successful",
+    };
+
+    if (alreadyReservedAt.length > 0) {
+      response.alreadyReservedAt = alreadyReservedAt.join(", ");
+    }
+
+    if (advancedReservations.length > 0) {
+      response.advancedReservations = advancedReservations;
+    }
+
+    return response;
+  } catch (error) {
+    return { message: "Failed to advance reservation meals" };
+  }
+};

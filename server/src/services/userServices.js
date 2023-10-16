@@ -48,7 +48,16 @@ exports.getUserInfo = async (req, res) => {
 exports.createSingleUser = async (req, res) => {
   try {
     // Checking if the email or mobile number already exists in the database
-    const { email, mobile } = req.body;
+    const {
+      full_name,
+      user_role,
+      photo,
+      email,
+      password,
+      mobile,
+      department,
+      address,
+    } = req.body;
 
     if (await User.exists({ email })) {
       return { error: "Email is already in use" };
@@ -58,11 +67,25 @@ exports.createSingleUser = async (req, res) => {
       return { error: "Mobile number is already in use" };
     }
 
+    // Hash the password before saving it in the database
+    const hashedPassword = await hashPassword(password);
+
     // Specify the absolute path for the "public" folder
     const publicPath = path.join(__dirname, "../../public");
 
     // Create a directory with the user's ObjectId for storing uploads
-    const newUser = await User.create(req.body);
+    const newUser = await User.create({
+      full_name,
+      user_role,
+      photo,
+      email,
+      password: hashedPassword,
+      mobile,
+      department,
+      address,
+      status: 1,
+    });
+
     const userId = newUser._id;
     const uploadDir = path.join(publicPath, "uploads", userId.toString());
 
@@ -97,7 +120,8 @@ exports.createSingleUser = async (req, res) => {
     }
 
     // Return the user data
-    const { password, ...userWithoutPassword } = newUser.toObject();
+    const userWithoutPassword = newUser;
+    delete userWithoutPassword.password;
     return userWithoutPassword;
   } catch (error) {
     return { error: "An error occurred while creating the user" };

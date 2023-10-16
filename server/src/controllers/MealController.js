@@ -11,6 +11,7 @@ const {
   getReservedMealsList,
   confirm_a_meal,
   cancelReservedMeal,
+  advanceReserveYourMeal,
 } = require("../services/mealServices");
 
 const MealController = {
@@ -63,14 +64,20 @@ const MealController = {
   },
 
   // List user's reserved meal for the next day before 6 PM (User)
-  getUserBookings: async (req, res) => {
+  getUsersReservedMealsList: async (req, res) => {
     let result = await getReservedMealsList(req);
     return res.status(200).json(result);
   },
 
   // cancel meal for the next day before 6 PM (User)
-  cancelBooking: async (req, res) => {
+  revokeReservations: async (req, res) => {
     let result = await cancelReservedMeal(req);
+    return res.status(200).json(result);
+  },
+
+  // Advance reservation meals for several days (User)
+  advanceReserveMeals: async (req, res) => {
+    let result = await advanceReserveYourMeal(req);
     return res.status(200).json(result);
   },
 };

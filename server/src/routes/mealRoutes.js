@@ -7,10 +7,14 @@ const MealController = require("../controllers/MealController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
 // List of reserved-meal for the next day before 6 PM (User) ✔
-router.get("/meals/reserve", isLoggedIn, MealController.getUserBookings);
+router.get(
+  "/meals/reserve",
+  isLoggedIn,
+  MealController.getUsersReservedMealsList
+);
 
 // Cancel reserved-meal for the next day before 6 PM (User) ✔
-router.delete("/meals/reserve", isLoggedIn, MealController.cancelBooking);
+router.delete("/meals/reserve", isLoggedIn, MealController.revokeReservations);
 
 // Register meals for users (Admin) (Multiple or single) ✔
 router.post("/meals", isLoggedIn, isAdmin, MealController.registerMeals);
@@ -35,5 +39,12 @@ router.delete("/meals", isLoggedIn, isAdmin, MealController.deleteMeal);
 
 // Reserve meals for the next day until 6 PM (User) ✔
 router.post("/meals/reserve", isLoggedIn, MealController.reserveMeals);
+
+// Advance reservation meals for several days (User)
+router.post(
+  "/meals/advance-reserve",
+  isLoggedIn,
+  MealController.advanceReserveMeals
+);
 
 module.exports = router;
