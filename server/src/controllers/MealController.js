@@ -1,22 +1,14 @@
 const UserMeals = require("../models/userMeals"); // Import the UserMeals model
 const User = require("../models/user"); // Import the UserMeals model
+const { registerMeal } = require("../services/mealServices");
 
 const MealController = {
-  /*
-      From frontend data should come like this 
-
-      {
-        users:[userId,userId,userId,userId,userId,userId],
-        qty: number,
-        date: string,
-        status: number
-      }
-  */
-
   // Register meals for users (Admin) (Multiple or single meal register)
   registerMeals: async (req, res) => {
-    res.status(200).json({ message: "Meals register controller." });
+    let result = await registerMeal(req);
+    return res.status(200).json(result);
   },
+
   // Get all meals (Admin)
   getAllMeals: async (req, res) => {
     try {
