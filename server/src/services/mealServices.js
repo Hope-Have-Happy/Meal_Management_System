@@ -214,6 +214,7 @@ exports.update_a_meal = async (req, res) => {
   }
 };
 
+// Delete a meal (Admin)
 exports.delete_a_meal = async (req, res) => {
   try {
     const mealId = req.body.id;
@@ -224,5 +225,58 @@ exports.delete_a_meal = async (req, res) => {
     return { message: "Meal deleted successful" };
   } catch (error) {
     return { message: "Failed to delete meal" };
+  }
+};
+
+exports.reserve_a_meal = async (req, res) => {
+  try {
+    const loggedInUserID = req.userInfo.user._id;
+
+    // Check if the user has already reserved a meal for the next day
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    // Check if it's after 6 PM (18:00)
+    const isAfter6PM = today.getHours() >= 18;
+
+    // If it's after 6 PM, don't allow reservations for the current day
+    if (isAfter6PM) {
+      return {
+        message: "Meal reservations for today after 6 PM are not allowed.",
+      };
+    }
+
+    const existingReservation = await UserMeals.findOne({
+      users_id: req.userInfo.user._id,
+      date: {
+        $gte: tomorrow,
+        $lt: new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000),
+      },
+    });
+
+    if (existingReservation) {
+      return { message: "You have already reserved a meal for tomorrow" };
+    }
+
+    // If the user hasn't already reserved a meal, create a new reservation
+    const newReservation = new UserMeals({
+      users_id: req.userInfo.user._id,
+      qty: req.body.quantity,
+      date: tomorrow,
+      status: 0, // Set the status to 0 for a reserved meal
+      creator: req.userInfo.user._id,
+    });
+
+    const savedReservation = await newReservation.save();
+
+    return {
+      message: "Meal reserved successfully",
+      reservation: savedReservation,
+    };
+  } catch (error) {
+    console.error(error);
+    return { message: "Failed to reserve a meal" };
   }
 };
