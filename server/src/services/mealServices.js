@@ -277,6 +277,32 @@ exports.reserve_a_meal = async (req, res) => {
   }
 };
 
+// Confirm a reserved meal
+exports.confirm_a_meal = async (req, res) => {
+  try {
+    const mealId = req.body.id;
+
+    // Find the meal by ID
+    const meal = await UserMeals.findById(mealId);
+
+    if (!meal) {
+      return { message: "Meal not found" };
+    }
+
+    // Check if the meal is a reserved meal (status 0)
+    if (meal.status === 0) {
+      // Update the meal's status to 1 to confirm the reservation
+      meal.status = 1;
+      await meal.save();
+
+      return { message: "Meal reservation confirmed successfully" };
+    }
+    return { message: "This meal is not a reserved meal" };
+  } catch (error) {
+    return { message: "Failed to confirmed a reserve meal" };
+  }
+};
+
 // List user's reserved meal for the next day before 6 PM (User)
 exports.getReservedMealsList = async (req, res) => {
   try {
@@ -296,7 +322,6 @@ exports.getReservedMealsList = async (req, res) => {
       const reservedMeals = await UserMeals.find({
         users_id: req.userInfo.user._id,
         date: tomorrow,
-        status: 0, // Assuming status 0 represents a reserved meal
       }).exec();
 
       return {

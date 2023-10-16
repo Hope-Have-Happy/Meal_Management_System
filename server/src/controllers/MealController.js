@@ -9,6 +9,7 @@ const {
   delete_a_meal,
   reserve_a_meal,
   getReservedMealsList,
+  confirm_a_meal,
 } = require("../services/mealServices");
 
 const MealController = {
@@ -54,18 +55,10 @@ const MealController = {
     return res.status(200).json(result);
   },
 
-  // Confirm reserve meals (Multiple or single meal confirm)
+  // Confirm a reserved meal
   confirmMealS: async (req, res) => {
-    try {
-      // Implement confirm meals logic here
-
-      // reserve meal's status will be 1 when admin confirm it
-
-      res.status(200).json({ message: "Meals booking confirm successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to reserve meals" });
-    }
+    let result = await confirm_a_meal(req);
+    return res.status(200).json(result);
   },
 
   // List user's reserved meal for the next day before 6 PM (User)

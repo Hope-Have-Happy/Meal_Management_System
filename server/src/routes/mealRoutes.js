@@ -22,7 +22,7 @@ router.get("/meals", isLoggedIn, isAdmin, MealController.getAllMeals);
 router.get("/my-meals", isLoggedIn, MealController.getMyMealList);
 
 // Confirm meals of users
-router.post("/meals/confirm", isLoggedIn, isAdmin, MealController.confirmMealS);
+router.put("/meals/confirm", isLoggedIn, isAdmin, MealController.confirmMealS);
 
 // Get a meal by ID (Admin) ✔
 router.get("/meals/:id", isLoggedIn, isAdmin, MealController.getMealById);
