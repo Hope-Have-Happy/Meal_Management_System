@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const UserMeals = require("../models/userMeals");
 
-// Register meals for the users(Multiple or single meal register)
+// Register meals for users (Admin) (Multiple or single)
 exports.registerMeal = async (req, res) => {
   try {
     const mealData = req.body; // Assuming meal data is sent in the request body
@@ -65,7 +65,21 @@ exports.registerMeal = async (req, res) => {
       successfullyRegisteredMeals: registeredMeals,
     };
   } catch (error) {
-    console.error(error);
     return { error: "Failed to register meals" };
+  }
+};
+
+// Get all meals (Admin)
+exports.getAllMealsList = async (req, res) => {
+  try {
+    const meals = await UserMeals.find();
+    if (meals.length === 0) {
+      return {
+        message: "No Data Found.",
+      };
+    }
+    return meals;
+  } catch (error) {
+    return { error: "Failed to fetch meals" };
   }
 };

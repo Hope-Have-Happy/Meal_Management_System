@@ -1,6 +1,6 @@
 const UserMeals = require("../models/userMeals"); // Import the UserMeals model
 const User = require("../models/user"); // Import the UserMeals model
-const { registerMeal } = require("../services/mealServices");
+const { registerMeal, getAllMealsList } = require("../services/mealServices");
 
 const MealController = {
   // Register meals for users (Admin) (Multiple or single meal register)
@@ -11,13 +11,8 @@ const MealController = {
 
   // Get all meals (Admin)
   getAllMeals: async (req, res) => {
-    try {
-      const meals = await UserMeals.find();
-      res.status(200).json(meals);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch meals" });
-    }
+    let result = await getAllMealsList(req);
+    return res.status(200).json(result);
   },
 
   // Get all meals list of logged in user's (View a list of meals)
