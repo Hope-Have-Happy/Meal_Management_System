@@ -10,6 +10,7 @@ const {
   reserve_a_meal,
   getReservedMealsList,
   confirm_a_meal,
+  cancelReservedMeal,
 } = require("../services/mealServices");
 
 const MealController = {
@@ -67,16 +68,10 @@ const MealController = {
     return res.status(200).json(result);
   },
 
-  // cancel meal (Admin and User)
+  // cancel meal for the next day before 6 PM (User)
   cancelBooking: async (req, res) => {
-    try {
-      const bookingId = req.params.id;
-      // Implement booking cancellation logic here
-      res.status(204).json({ message: "Booking canceled successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to cancel booking" });
-    }
+    let result = await cancelReservedMeal(req);
+    return res.status(200).json(result);
   },
 };
 

@@ -339,3 +339,43 @@ exports.getReservedMealsList = async (req, res) => {
     return { message: "Failed to retrieve user reserved meals" };
   }
 };
+
+// cancel meal (User)
+exports.cancelReservedMeal = async (req, res) => {
+  try {
+    // Get the current date
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Get the date for the next day
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    // Check if it's before 6 PM (18:00)
+    const isBefore6PM = today.getHours() < 18;
+
+    if (!isBefore6PM) {
+      return {
+        message:
+          "You cannot cancel a reserved meal after 6 PM for the next day",
+      };
+    }
+
+    // Use findByIdAndDelete to remove the meal that meets the criteria
+    const deletedMeal = await UserMeals.findByIdAndDelete({
+      _id: req.body.id,
+      users_id: req.userInfo.user._id,
+      date: tomorrow,
+      status: 0, // Check if status is 0 (reserved meal)
+    });
+
+    if (deletedMeal) {
+      return { message: "Meal reservation canceled successfully" };
+    } else {
+      return { message: "Failed to cancel the meal reservation" };
+    }
+  } catch (error) {
+    console.error(error);
+    return { message: "Failed to cancel the meal reservation" };
+  }
+};

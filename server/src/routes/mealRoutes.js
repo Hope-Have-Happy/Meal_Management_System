@@ -9,8 +9,8 @@ const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 // List of reserved-meal for the next day before 6 PM (User) ✔
 router.get("/meals/reserve", isLoggedIn, MealController.getUserBookings);
 
-// Cancel reserved-meal for the next day before 6 PM (User)
-router.delete("/meals/bookings/:id", isLoggedIn, MealController.cancelBooking);
+// Cancel reserved-meal for the next day before 6 PM (User) ✔
+router.delete("/meals/reserve", isLoggedIn, MealController.cancelBooking);
 
 // Register meals for users (Admin) (Multiple or single) ✔
 router.post("/meals", isLoggedIn, isAdmin, MealController.registerMeals);
