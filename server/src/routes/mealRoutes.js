@@ -6,7 +6,7 @@ const router = express.Router();
 const MealController = require("../controllers/MealController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
-// List of reserved-meal for the next day before 6 PM (User)
+// List of reserved-meal for the next day before 6 PM (User) ✔
 router.get("/meals/reserve", isLoggedIn, MealController.getUserBookings);
 
 // Cancel reserved-meal for the next day before 6 PM (User) ✔
