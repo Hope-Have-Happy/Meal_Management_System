@@ -6,6 +6,12 @@ const router = express.Router();
 const MealController = require("../controllers/MealController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
+// List of reserved-meal for the next day before 6 PM (User)
+router.get("/meals/reserve", isLoggedIn, MealController.getUserBookings);
+
+// Cancel reserved-meal for the next day before 6 PM (User) ✔
+router.delete("/meals/bookings/:id", isLoggedIn, MealController.cancelBooking);
+
 // Register meals for users (Admin) (Multiple or single) ✔
 router.post("/meals", isLoggedIn, isAdmin, MealController.registerMeals);
 
@@ -29,9 +35,5 @@ router.delete("/meals", isLoggedIn, isAdmin, MealController.deleteMeal);
 
 // Reserve meals for the next day until 6 PM (User) ✔
 router.post("/meals/reserve", isLoggedIn, MealController.reserveMeals);
-
-// List and cancel bookings for the next day before 6 PM (User)
-router.get("/meals/bookings", isLoggedIn, MealController.getUserBookings);
-router.delete("/meals/bookings/:id", isLoggedIn, MealController.cancelBooking);
 
 module.exports = router;

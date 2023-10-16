@@ -111,9 +111,7 @@ exports.getAllMealsList = async (req, res) => {
 // Get all meals of logged in user's (View a list of meals)
 exports.getMyMealsList = async (req, res) => {
   try {
-    const loggedInUserID = req.userInfo.user._id;
-
-    const myMeals = await UserMeals.find({ users_id: loggedInUserID })
+    const myMeals = await UserMeals.find({ users_id: req.userInfo.user._id })
       .sort({ date: -1 }) // Sort by date in descending order (most recent first)
       .exec();
 
@@ -231,8 +229,6 @@ exports.delete_a_meal = async (req, res) => {
 // Reserve meals for the next day until 6 PM (User)
 exports.reserve_a_meal = async (req, res) => {
   try {
-    const loggedInUserID = req.userInfo.user._id;
-
     // Check if the user has already reserved a meal for the next day
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -277,7 +273,44 @@ exports.reserve_a_meal = async (req, res) => {
       reservation: savedReservation,
     };
   } catch (error) {
-    console.error(error);
     return { message: "Failed to reserve a meal" };
+  }
+};
+
+// List user's reserved meal for the next day before 6 PM (User)
+exports.getReservedMealsList = async (req, res) => {
+  try {
+    // Get the current date
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Get the date for the next day
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    // Check if it's before 6 PM (18:00)
+    const isBefore6PM = today.getHours() < 18;
+
+    if (isBefore6PM) {
+      // If it's before 6 PM, get the user's reserved meals for tomorrow
+      const reservedMeals = await UserMeals.find({
+        users_id: req.userInfo.user._id,
+        date: tomorrow,
+        status: 0, // Assuming status 0 represents a reserved meal
+      }).exec();
+
+      return {
+        message: "User reserved meals retrieved successfully",
+        reservedMeals,
+      };
+    } else {
+      return {
+        message:
+          "User cannot retrieve reserved meals after 6 PM for the next day",
+        reservedMeals: [],
+      };
+    }
+  } catch (error) {
+    return { message: "Failed to retrieve user reserved meals" };
   }
 };
