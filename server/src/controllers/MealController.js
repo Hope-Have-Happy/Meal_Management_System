@@ -4,6 +4,7 @@ const {
   registerMeal,
   getAllMealsList,
   getMyMealsList,
+  getMealByTheId,
 } = require("../services/mealServices");
 
 const MealController = {
@@ -25,19 +26,10 @@ const MealController = {
     return res.status(200).json(result);
   },
 
-  // Get a meal by ID (Admin and User)
+  // Get a meal by ID (Admin)
   getMealById: async (req, res) => {
-    try {
-      const mealId = req.params.id;
-      const meal = await UserMeals.findById(mealId);
-      if (!meal) {
-        return res.status(404).json({ message: "Meal not found" });
-      }
-      res.status(200).json(meal);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch meal" });
-    }
+    let result = await getMealByTheId(req);
+    return res.status(200).json(result);
   },
 
   // Update a meal (Admin)

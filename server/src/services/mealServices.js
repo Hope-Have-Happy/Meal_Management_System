@@ -72,14 +72,39 @@ exports.registerMeal = async (req, res) => {
 // Get all meals (Admin)
 exports.getAllMealsList = async (req, res) => {
   try {
-    const meals = await UserMeals.find();
-    if (meals.length === 0) {
-      return {
-        message: "No Data Found.",
-      };
+    const meals = await UserMeals.find()
+      .sort({ date: -1 }) // Sort by date in descending order (most recent first)
+      .exec();
+
+    const mealsWithUsers = [];
+
+    for (const meal of meals) {
+      const user = await User.findById(meal.users_id);
+
+      if (user) {
+        mealsWithUsers.push({
+          _id: meal._id,
+          qty: meal.qty,
+          date: meal.date,
+          status: meal.status,
+          creator: meal.creator,
+          user: {
+            _id: user._id,
+            full_name: user.full_name,
+            email: user.email,
+            mobile: user.mobile,
+            // Add other user details here if needed
+          },
+        });
+      }
     }
-    return meals;
+
+    return {
+      message: "Meals list retrieved successfully",
+      meals: mealsWithUsers,
+    };
   } catch (error) {
+    console.error(error);
     return { error: "Failed to fetch meals" };
   }
 };
@@ -93,12 +118,84 @@ exports.getMyMealsList = async (req, res) => {
       .sort({ date: -1 }) // Sort by date in descending order (most recent first)
       .exec();
 
+    if (!myMeals || myMeals.length === 0) {
+      return {
+        message: "No meals found for the logged-in user",
+        myMeals: [],
+      };
+    }
+
+    const myMealsWithUserDetails = [];
+
+    for (const meal of myMeals) {
+      const user = await User.findById(meal.users_id);
+
+      if (user) {
+        const mealWithUser = {
+          _id: meal._id,
+          qty: meal.qty,
+          date: meal.date,
+          status: meal.status,
+          creator: meal.creator,
+          user: {
+            _id: user._id,
+            full_name: user.full_name,
+            email: user.email,
+            mobile: user.mobile,
+            // Add other user details here if needed
+          },
+        };
+        myMealsWithUserDetails.push(mealWithUser);
+      }
+    }
+
     return {
-      message: "Meals list retrieved successfully",
-      myMeals,
+      message: "Meals list retrieved successfully with user details",
+      myMeals: myMealsWithUserDetails,
     };
   } catch (error) {
     console.error(error);
     return { error: "Failed to fetch meals" };
+  }
+};
+
+// Get Meal Details by id (Admin)
+exports.getMealByTheId = async (req, res) => {
+  try {
+    const mealId = req.params.id;
+
+    const meal = await UserMeals.findById(mealId);
+
+    if (!meal) {
+      return { message: "Meal not found" };
+    }
+
+    // Find user details using the user_id from the meal
+    const user = await User.findById(meal.users_id);
+
+    if (!user) {
+      return { message: "User not found for this meal" };
+    }
+
+    // Combine meal and user details
+    const mealWithUser = {
+      _id: meal._id,
+      qty: meal.qty,
+      date: meal.date,
+      status: meal.status,
+      creator: meal.creator,
+      user: {
+        _id: user._id,
+        full_name: user.full_name,
+        email: user.email,
+        mobile: user.mobile,
+        // Add other user details here if needed
+      },
+    };
+
+    return mealWithUser;
+  } catch (error) {
+    console.error(error);
+    return { message: "Failed to fetch meal" };
   }
 };
