@@ -40,14 +40,19 @@ exports.set_a_meal_rate = async (req, res) => {
 // Get all meal rates (Admin and User)
 exports.get_all_meal_rate_list = async (req, res) => {
   try {
-    const isAdmin = req.userInfo.user.user_role;
-    const filter = isAdmin ? {} : { is_visible: 1 };
+    // Define the filter based on the user's role
+    const filter =
+      req.userInfo.user.user_role === "Admin" ? {} : { is_visible: 1 };
 
+    // Fetch meal rates based on the filter
     const mealRates = await MonthlyMealRates.find(filter).sort({
       month: "desc",
     });
 
-    return mealRates;
+    return {
+      message: "Meal rates retrieved successfully",
+      mealRates,
+    };
   } catch (error) {
     return { message: "Failed to fetch meal rates" };
   }
