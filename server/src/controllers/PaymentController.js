@@ -1,127 +1,97 @@
-const express = require("express");
-const UserPayment = require("../models/UserPayment"); // Import the UserPayment model
-const router = express.Router();
+const UserPayments = require("../models/userPayments");
+const User = require("../models/user");
 
-// Create a new payment entry (User functionality)
-const createPayment = async (req, res) => {
-  try {
-    // Extract payment data from the request body
-    const { users_id, month, payment_date, amount } = req.body;
-
-    // Create a new UserPayment document with the provided data and insert it into the database
-    await UserPayment.create({
-      users_id,
-      month,
-      payment_date,
-      amount,
-    });
-
-    // Return a success response
-    return res
-      .status(201)
-      .json({ message: "Payment entry created successfully" });
-  } catch (error) {
-    // Handle any errors that occur during payment entry creation
-    console.error("Error creating payment entry:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Read all payments (Admin functionality)
-const getAllPayments = async (req, res) => {
-  try {
-    // Retrieve all payment documents from the database
-    const payments = await UserPayment.find();
-
-    // Return the list of payments in the response
-    return res.status(200).json(payments);
-  } catch (error) {
-    // Handle any errors that occur during payment retrieval
-    console.error("Error retrieving payments:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Read payment by ID (Admin functionality)
-const getPaymentById = async (req, res) => {
-  try {
-    const paymentId = req.params.id;
-
-    // Find the payment document by ID
-    const payment = await UserPayment.findById(paymentId);
-
-    if (!payment) {
-      return res.status(404).json({ error: "Payment entry not found" });
+const PaymentController = {
+  // Make a payment (Admin and User)
+  makePayment: async (req, res) => {
+    try {
+      const paymentData = req.body;
+      const payment = await UserPayments.create(paymentData);
+      res.status(201).json(payment);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Payment creation failed" });
     }
+  },
 
-    // Return the payment details in the response
-    return res.status(200).json(payment);
-  } catch (error) {
-    // Handle any errors that occur during payment retrieval
-    console.error("Error retrieving payment entry:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+  // Get payment history for a specific user (User)
+  getPaymentHistory: async (req, res) => {
+    try {
+      const userId = req.user.id; // Assuming you have a user ID in the request object
+      const user = await User.findById(userId);
 
-// Update payment by ID (User functionality)
-const updatePayment = async (req, res) => {
-  try {
-    const paymentId = req.params.id;
-
-    // Find the payment document by ID and update it
-    const updatedPayment = await UserPayment.findByIdAndUpdate(
-      paymentId,
-      req.body,
-      {
-        new: true,
-        runValidators: true,
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
       }
-    );
 
-    if (!updatedPayment) {
-      return res.status(404).json({ error: "Payment entry not found" });
+      const payments = await UserPayments.find({ users_id: userId }); // Replace with the actual field that links payments to users
+      res.status(200).json(payments);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch payment history" });
     }
+  },
 
-    // Return a success response with the updated payment data
-    return res.status(200).json({
-      message: "Payment entry updated successfully",
-      payment: updatedPayment,
-    });
-  } catch (error) {
-    // Handle any errors that occur during payment update
-    console.error("Error updating payment entry:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Delete payment by ID (User functionality)
-const deletePayment = async (req, res) => {
-  try {
-    const paymentId = req.params.id;
-
-    // Find and remove the payment document by ID
-    const deletedPayment = await UserPayment.findByIdAndRemove(paymentId);
-
-    if (!deletedPayment) {
-      return res.status(404).json({ error: "Payment entry not found" });
+  // Get all payments (Admin)
+  getAllPayments: async (req, res) => {
+    try {
+      const payments = await UserPayments.find();
+      res.status(200).json(payments);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch payments" });
     }
+  },
 
-    // Return a success response with the deleted payment data
-    return res.status(200).json({
-      message: "Payment entry deleted successfully",
-      payment: deletedPayment,
-    });
-  } catch (error) {
-    // Handle any errors that occur during payment deletion
-    console.error("Error deleting payment entry:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
+  // Get a payment by ID (Admin and User)
+  getPaymentById: async (req, res) => {
+    try {
+      const paymentId = req.params.id;
+      const payment = await UserPayments.findById(paymentId);
+      if (!payment) {
+        return res.status(404).json({ message: "Payment not found" });
+      }
+      res.status(200).json(payment);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch payment" });
+    }
+  },
+
+  // Update a payment (Admin and User)
+  updatePayment: async (req, res) => {
+    try {
+      const paymentId = req.params.id;
+      const updatedPaymentData = req.body;
+      const payment = await UserPayments.findByIdAndUpdate(
+        paymentId,
+        updatedPaymentData,
+        { new: true }
+      );
+      if (!payment) {
+        return res.status(404).json({ message: "Payment not found" });
+      }
+      res.status(200).json(payment);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to update payment" });
+    }
+  },
+
+  // Delete a payment (Admin)
+  deletePayment: async (req, res) => {
+    try {
+      const paymentId = req.params.id;
+      const payment = await UserPayments.findByIdAndDelete(paymentId);
+      if (!payment) {
+        return res.status(404).json({ message: "Payment not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to delete payment" });
+    }
+  },
 };
 
-module.exports = {
-  createPayment,
-  getAllPayments,
-  getPaymentById,
-  updatePayment,
-  deletePayment,
-};
+module.exports = PaymentController;

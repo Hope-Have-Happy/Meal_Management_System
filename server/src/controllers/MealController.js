@@ -1,119 +1,125 @@
-const express = require("express");
-const Meal = require("../models/Meal"); // Import the Meal model
-const router = express.Router();
+const UserMeals = require("../models/userMeals"); // Import the UserMeals model
 
-// Create a new meal entry (User functionality)
-const createMeal = async (req, res) => {
-  try {
-    // Extract meal data from the request body
-    const { users_id, qty, date } = req.body;
-
-    // Create a new Meal document with the provided data and insert it into the database
-    await Meal.create({
-      users_id,
-      qty,
-      date,
-    });
-
-    // Return a success response
-    return res.status(201).json({ message: "Meal entry created successfully" });
-  } catch (error) {
-    // Handle any errors that occur during meal entry creation
-    console.error("Error creating meal entry:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Read all meals (Admin functionality)
-const getAllMeals = async (req, res) => {
-  try {
-    // Retrieve all meal documents from the database
-    const meals = await Meal.find();
-
-    // Return the list of meals in the response
-    return res.status(200).json(meals);
-  } catch (error) {
-    // Handle any errors that occur during meal retrieval
-    console.error("Error retrieving meals:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Read meal by ID (Admin functionality)
-const getMealById = async (req, res) => {
-  try {
-    const mealId = req.params.id;
-
-    // Find the meal document by ID
-    const meal = await Meal.findById(mealId);
-
-    if (!meal) {
-      return res.status(404).json({ error: "Meal entry not found" });
+const MealController = {
+  // Register meals for users (Admin) (Multiple or single meal register hote pare)
+  registerMeals: async (req, res) => {
+    try {
+      const mealData = req.body;
+      const meal = await UserMeals.create(mealData);
+      res.status(201).json(meal);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Meal registration failed" });
     }
+  },
 
-    // Return the meal details in the response
-    return res.status(200).json(meal);
-  } catch (error) {
-    // Handle any errors that occur during meal retrieval
-    console.error("Error retrieving meal entry:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Update meal by ID (User functionality)
-const updateMeal = async (req, res) => {
-  try {
-    const mealId = req.params.id;
-
-    // Find the meal document by ID
-    const meal = await Meal.findByIdAndUpdate(mealId, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!meal) {
-      return res.status(404).json({ error: "Meal entry not found" });
+  // Get all meals (Admin)
+  getAllMeals: async (req, res) => {
+    try {
+      const meals = await UserMeals.find();
+      res.status(200).json(meals);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch meals" });
     }
+  },
 
-    // Return a success response with the updated meal data
-    return res
-      .status(200)
-      .json({ message: "Meal entry updated successfully", meal });
-  } catch (error) {
-    // Handle any errors that occur during meal update
-    console.error("Error updating meal entry:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Delete meal by ID (User functionality)
-const deleteMeal = async (req, res) => {
-  try {
-    const mealId = req.params.id;
-
-    // Find and remove the meal document by ID
-    const deletedMeal = await Meal.findByIdAndRemove(mealId);
-
-    if (!deletedMeal) {
-      return res.status(404).json({ error: "Meal entry not found" });
+  // Get all meals list of logged in user's (View a list of meals)
+  getMyMealList: async (req, res) => {
+    try {
+      // Implement the logic of get all meals list if user don't enter the month name
+      // then get all the meal list of him and order the list from now to past
+      // (Like this order: 9,8,7,6,5,4,3,2,1 )
+      // if user enter the month name the order the list from now to past
+      // (Like this order: 9,8,7,6,5,4,3,2,1 )
+      res.status(200).json({ message: "All meals list" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to reserve meals" });
     }
+  },
 
-    // Return a success response with the deleted meal data
-    return res.status(200).json({
-      message: "Meal entry deleted successfully",
-      meal: deletedMeal,
-    });
-  } catch (error) {
-    // Handle any errors that occur during meal deletion
-    console.error("Error deleting meal entry:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
+  // Get a meal by ID (Admin and User)
+  getMealById: async (req, res) => {
+    try {
+      const mealId = req.params.id;
+      const meal = await UserMeals.findById(mealId);
+      if (!meal) {
+        return res.status(404).json({ message: "Meal not found" });
+      }
+      res.status(200).json(meal);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch meal" });
+    }
+  },
+
+  // Update a meal (Admin)
+  updateMeal: async (req, res) => {
+    try {
+      const mealId = req.params.id;
+      const updatedMealData = req.body;
+      const meal = await UserMeals.findByIdAndUpdate(mealId, updatedMealData, {
+        new: true,
+      });
+      if (!meal) {
+        return res.status(404).json({ message: "Meal not found" });
+      }
+      res.status(200).json(meal);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to update meal" });
+    }
+  },
+
+  // Delete a meal (Admin)
+  deleteMeal: async (req, res) => {
+    try {
+      const mealId = req.params.id;
+      const meal = await UserMeals.findByIdAndDelete(mealId);
+      if (!meal) {
+        return res.status(404).json({ message: "Meal not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to delete meal" });
+    }
+  },
+
+  // Reserve meals for the next day until 6 PM (User)
+  reserveMeals: async (req, res) => {
+    try {
+      // Implement reservation logic here
+      res.status(200).json({ message: "Meals reserved successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to reserve meals" });
+    }
+  },
+
+  // List user's bookings and cancel bookings for the next day before 6 PM (User)
+  getUserBookings: async (req, res) => {
+    try {
+      // Implement booking listing logic here
+      res.status(200).json({ message: "User bookings retrieved successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to retrieve user bookings" });
+    }
+  },
+
+  // cancel meal (Admin and User)
+  cancelBooking: async (req, res) => {
+    try {
+      const bookingId = req.params.id;
+      // Implement booking cancellation logic here
+      res.status(204).json({ message: "Booking canceled successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to cancel booking" });
+    }
+  },
 };
 
-module.exports = {
-  createMeal,
-  getAllMeals,
-  getMealById,
-  updateMeal,
-  deleteMeal,
-};
+module.exports = MealController;

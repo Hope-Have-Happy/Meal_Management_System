@@ -1,27 +1,47 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema(
+const usersSchema = new mongoose.Schema(
   {
     full_name: {
       type: String,
-      maxlength: 200,
       required: true,
     },
-    user_role: String,
-    photo: String,
+    user_role: {
+      type: String,
+      enum: ["Admin", "User"],
+      default: "User",
+      required: true,
+    },
+    photo: {
+      type: String,
+      default: "",
+    },
     email: {
       type: String,
-      maxlength: 100,
+      required: true,
       unique: true,
+      validate: {
+        validator: (v) =>
+          /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(v),
+        message: "This in an invalid email.",
+      },
     },
     password: {
       type: String,
       required: true,
+      validate: {
+        validator: (v) => v.length >= 8, // Password should be at least 8 characters long
+        message: "Password must be at least 8 characters long.",
+      },
     },
     mobile: {
       type: String,
-      maxlength: 20,
       required: true,
+      unique: true,
+      validate: {
+        validator: (v) => /^\d{11}$/.test(v),
+        message: "Mobile number must be 11 digits long.",
+      },
     },
     department: {
       type: String,
@@ -30,7 +50,6 @@ const userSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      maxlength: 45,
       required: true,
     },
     status: {
@@ -41,6 +60,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", usersSchema);
 
 module.exports = User;

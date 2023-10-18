@@ -1,48 +1,36 @@
+// Import JWT: JSON WEB TOKEN
 const jwt = require("jsonwebtoken");
 
-const isLoggedIn = (req, res, next) => {
-  // Check if the user is logged in (e.g., based on JWT)
-  const token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
+// Checking: User logged-in or not
+exports.isLoggedIn = (req, res, next) => {
+  // Retrieve the accessToken from the cookie
+  const accessToken = req.cookies.accessToken;
+  if (!accessToken) {
+    return res.status(401).json({ error: "Unauthorized. Please Login First." });
   }
 
-  try {
-    const user = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = user; // Store the authenticated user in the request object
+  // Verify the accessToken
+  jwt.verify(accessToken, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ error: "Invalid or expired token" });
+    }
+
+    // Token is valid, add the decoded user information to the request object
+    req.userInfo = decoded;
     next();
-  } catch (error) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
+  });
 };
 
-/* mock-up code */
-const authenticateUser = (req, res, next) => {
-  // Check if the user is authenticated (e.g., based on JWT)
-  const token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-
-  try {
-    const user = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = user; // Store the authenticated user in the request object
+// Checking: Logged-in user "Admin" or not
+exports.isAdmin = (req, res, next) => {
+  // checking user is admin or not
+  if (req.userInfo && req.userInfo.user.user_role === "Admin") {
+    // User is an admin, allow access to the route
     next();
-  } catch (error) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-};
-
-/* mock-up code */
-const authorizeAdmin = (req, res, next) => {
-  // Check if the user has admin privileges
-  if (req.user && req.user.role === "admin") {
-    next(); // User is authorized
   } else {
-    return res.status(403).json({ error: "Forbidden" });
+    // User is not an admin, deny access with a 403 Forbidden status
+    res.status(403).json({
+      error: "Permission denied. You must be an admin to access this resource.",
+    });
   }
 };
-
-module.exports = { authenticateUser, authorizeAdmin, isLoggedIn };

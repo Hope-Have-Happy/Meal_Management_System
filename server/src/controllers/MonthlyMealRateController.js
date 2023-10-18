@@ -1,138 +1,89 @@
-const express = require("express");
-const MonthlyMealRate = require("../models/MonthlyMealRate"); // Import the MonthlyMealRate model
-const router = express.Router();
+const MonthlyMealRates = require("../models/monthlyMealRates");
 
-// Create a new monthly meal rate (Admin functionality)
-const createMonthlyMealRate = async (req, res) => {
-  try {
-    // Extract monthly meal rate data from the request body
-    const {
-      month,
-      meal_rate,
-      is_visible,
-      month_start_date,
-      month_end_date,
-      creator,
-    } = req.body;
+const MonthlyMealRateController = {
+  // Set meal rates for specific months (Admin)
+  setMealRate: async (req, res) => {
+    try {
+      const { month, meal_rate, is_visible, month_start_date, month_end_date } =
+        req.body;
 
-    // Create a new MonthlyMealRate document with the provided data and insert it into the database
-    await MonthlyMealRate.create({
-      month,
-      meal_rate,
-      is_visible,
-      month_start_date,
-      month_end_date,
-      creator,
-    });
+      // Create a new meal rate entry
+      const mealRate = await MonthlyMealRate.create({
+        month,
+        meal_rate,
+        is_visible,
+        month_start_date,
+        month_end_date,
+        creator: req.user._id, // Assuming you have authentication middleware to get the admin's user ID
+      });
 
-    // Return a success response
-    return res
-      .status(201)
-      .json({ message: "Monthly meal rate created successfully" });
-  } catch (error) {
-    // Handle any errors that occur during monthly meal rate creation
-    console.error("Error creating monthly meal rate:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Read all monthly meal rates (Admin functionality)
-const getAllMonthlyMealRates = async (req, res) => {
-  try {
-    // Retrieve all monthly meal rate documents from the database
-    const monthlyMealRates = await MonthlyMealRate.find();
-
-    // Return the list of monthly meal rates in the response
-    return res.status(200).json(monthlyMealRates);
-  } catch (error) {
-    // Handle any errors that occur during monthly meal rate retrieval
-    console.error("Error retrieving monthly meal rates:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Read monthly meal rate by ID (Admin functionality)
-const getMonthlyMealRateById = async (req, res) => {
-  try {
-    const monthlyMealRateId = req.params.id;
-
-    // Find the monthly meal rate document by ID
-    const monthlyMealRate = await MonthlyMealRate.findById(monthlyMealRateId);
-
-    if (!monthlyMealRate) {
-      return res.status(404).json({ error: "Monthly meal rate not found" });
+      res.status(201).json(mealRate);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to set meal rate" });
     }
+  },
 
-    // Return the monthly meal rate details in the response
-    return res.status(200).json(monthlyMealRate);
-  } catch (error) {
-    // Handle any errors that occur during monthly meal rate retrieval
-    console.error("Error retrieving monthly meal rate:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+  // Get all meal rates (Admin and User)
+  getAllMealRates: async (req, res) => {
+    try {
+      const mealRates = await MonthlyMealRates.find().sort({ month: "desc" });
+      res.status(200).json(mealRates);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch meal rates" });
+    }
+  },
 
-// Update monthly meal rate by ID (Admin functionality)
-const updateMonthlyMealRate = async (req, res) => {
-  try {
-    const monthlyMealRateId = req.params.id;
-
-    // Find the monthly meal rate document by ID and update it
-    const updatedMonthlyMealRate = await MonthlyMealRate.findByIdAndUpdate(
-      monthlyMealRateId,
-      req.body,
-      {
-        new: true,
-        runValidators: true,
+  // Get a meal rate by ID (Admin and User)
+  getMealRateById: async (req, res) => {
+    try {
+      const mealRateId = req.params.id;
+      const mealRate = await MonthlyMealRates.findById(mealRateId);
+      if (!mealRate) {
+        return res.status(404).json({ message: "Meal rate not found" });
       }
-    );
-
-    if (!updatedMonthlyMealRate) {
-      return res.status(404).json({ error: "Monthly meal rate not found" });
+      res.status(200).json(mealRate);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch meal rate" });
     }
+  },
 
-    // Return a success response with the updated monthly meal rate data
-    return res.status(200).json({
-      message: "Monthly meal rate updated successfully",
-      monthlyMealRate: updatedMonthlyMealRate,
-    });
-  } catch (error) {
-    // Handle any errors that occur during monthly meal rate update
-    console.error("Error updating monthly meal rate:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Delete monthly meal rate by ID (Admin functionality)
-const deleteMonthlyMealRate = async (req, res) => {
-  try {
-    const monthlyMealRateId = req.params.id;
-
-    // Find and remove the monthly meal rate document by ID
-    const deletedMonthlyMealRate = await MonthlyMealRate.findByIdAndRemove(
-      monthlyMealRateId
-    );
-
-    if (!deletedMonthlyMealRate) {
-      return res.status(404).json({ error: "Monthly meal rate not found" });
+  // Update a meal rate (Admin)
+  updateMealRate: async (req, res) => {
+    try {
+      const mealRateId = req.params.id;
+      const updatedMealRateData = req.body;
+      const mealRate = await MonthlyMealRates.findByIdAndUpdate(
+        mealRateId,
+        updatedMealRateData,
+        { new: true }
+      );
+      if (!mealRate) {
+        return res.status(404).json({ message: "Meal rate not found" });
+      }
+      res.status(200).json(mealRate);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to update meal rate" });
     }
+  },
 
-    // Return a success response with the deleted monthly meal rate data
-    return res.status(200).json({
-      message: "Monthly meal rate deleted successfully",
-      monthlyMealRate: deletedMonthlyMealRate,
-    });
-  } catch (error) {
-    // Handle any errors that occur during monthly meal rate deletion
-    console.error("Error deleting monthly meal rate:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
+  // Delete a meal rate (Admin)
+  deleteMealRate: async (req, res) => {
+    try {
+      const mealRateId = req.params.id;
+      const mealRate = await MonthlyMealRates.findByIdAndDelete(mealRateId);
+      if (!mealRate) {
+        return res.status(404).json({ message: "Meal rate not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to delete meal rate" });
+    }
+  },
 };
 
-module.exports = {
-  createMonthlyMealRate,
-  getAllMonthlyMealRates,
-  getMonthlyMealRateById,
-  updateMonthlyMealRate,
-  deleteMonthlyMealRate,
-};
+module.exports = MonthlyMealRateController;
