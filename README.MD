@@ -31,7 +31,7 @@ This is a Meal Management System with two types of users: Admin and User.
 - Submit meal for multiple/all checked users
 - Find specific users and set meal for them by searching
 
-### Meal Rate Set `(Mockup: API, Controller: MonthlyMealRateController)` `✔`
+### Meal Rate Set `(API, Controller: MonthlyMealRateController)` `✔`
 
 - Select a month
 - Set the rate

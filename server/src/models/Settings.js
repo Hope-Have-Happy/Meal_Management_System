@@ -14,7 +14,7 @@ const settingsSchema = new mongoose.Schema(
     contact_number: {
       type: String,
     },
-    meat_set_last_time: {
+    meal_set_last_time: {
       type: String,
     },
     meal_set_alert_time: {
