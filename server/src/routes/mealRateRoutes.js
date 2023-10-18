@@ -21,10 +21,11 @@ router.get(
   MonthlyMealRateController.getAllMealRates
 );
 
-// Get a meal rate by ID (Admin and User)
+// Get a meal rate by ID (Admin)
 router.get(
   "/meal-rates/:id",
   isLoggedIn,
+  isAdmin,
   MonthlyMealRateController.getMealRateById
 );
 

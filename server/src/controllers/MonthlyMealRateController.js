@@ -2,6 +2,7 @@ const MonthlyMealRates = require("../models/monthlyMealRates");
 const {
   set_a_meal_rate,
   get_all_meal_rate_list,
+  get_meal_rate_by_id,
 } = require("../services/mealRateServices");
 
 const MonthlyMealRateController = {
@@ -17,19 +18,10 @@ const MonthlyMealRateController = {
     return res.status(200).json(result);
   },
 
-  // Get a meal rate by ID (Admin and User)
+  // Get a meal rate by ID (Admin)
   getMealRateById: async (req, res) => {
-    try {
-      const mealRateId = req.params.id;
-      const mealRate = await MonthlyMealRates.findById(mealRateId);
-      if (!mealRate) {
-        return res.status(404).json({ message: "Meal rate not found" });
-      }
-      res.status(200).json(mealRate);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch meal rate" });
-    }
+    let result = await get_meal_rate_by_id(req);
+    return res.status(200).json(result);
   },
 
   // Update a meal rate (Admin)

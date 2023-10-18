@@ -57,3 +57,22 @@ exports.get_all_meal_rate_list = async (req, res) => {
     return { message: "Failed to fetch meal rates" };
   }
 };
+
+// Get a meal rate by ID (Admin)
+exports.get_meal_rate_by_id = async (req, res) => {
+  try {
+    // Find the meal rate by its ID
+    const mealRate = await MonthlyMealRates.findById(req.params.id);
+    if (!mealRate) {
+      return { message: "Meal rate not found." };
+    }
+
+    return {
+      message: "Meal rate retrieved successfully",
+      mealRate,
+    };
+  } catch (error) {
+    console.log(error);
+    return { message: "Failed to retrieve meal rate" };
+  }
+};
