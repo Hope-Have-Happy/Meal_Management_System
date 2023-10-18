@@ -76,3 +76,43 @@ exports.get_meal_rate_by_id = async (req, res) => {
     return { message: "Failed to retrieve meal rate" };
   }
 };
+
+// Update a meal rate (Admin)
+exports.update_meal_rate = async (req, res) => {
+  try {
+    const mealRateId = req.params.id; // Get the ID from the request parameters
+    const updates = req.body; // Get the updated data from the request body
+
+    // Check if the "month" field is being updated
+    if ("month" in updates) {
+      // Check if a meal rate with the same "month" value already exists
+      const existingMealRate = await MonthlyMealRates.findOne({
+        month: updates.month,
+      });
+      if (existingMealRate && existingMealRate._id != mealRateId) {
+        return {
+          message:
+            'A meal rate with the same "month" value already exists. Cannot update.',
+        };
+      }
+    }
+
+    // Find and update the meal rate by its ID
+    const updatedMealRate = await MonthlyMealRates.findByIdAndUpdate(
+      mealRateId,
+      updates,
+      { new: true }
+    );
+
+    if (!updatedMealRate) {
+      return { message: "Meal rate not found or update failed." };
+    }
+
+    return {
+      message: "Meal rate updated successfully",
+      mealRate: updatedMealRate,
+    };
+  } catch (error) {
+    return { message: "Failed to update meal rate" };
+  }
+};
