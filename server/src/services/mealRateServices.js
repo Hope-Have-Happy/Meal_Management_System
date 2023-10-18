@@ -116,3 +116,17 @@ exports.update_meal_rate = async (req, res) => {
     return { message: "Failed to update meal rate" };
   }
 };
+
+// Delete a meal rate (Admin)
+exports.delete_a_meal_rate = async (req, res) => {
+  try {
+    const mealRateId = req.params.id;
+    const mealRate = await MonthlyMealRates.findByIdAndDelete(mealRateId);
+    if (!mealRate) {
+      return { message: "Meal rate not found" };
+    }
+    return { message: "Meal rate deleted successfully" };
+  } catch (error) {
+    return { message: "Failed to delete meal rate" };
+  }
+};

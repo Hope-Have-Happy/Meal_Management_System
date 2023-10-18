@@ -4,6 +4,7 @@ const {
   get_all_meal_rate_list,
   get_meal_rate_by_id,
   update_meal_rate,
+  delete_a_meal_rate,
 } = require("../services/mealRateServices");
 
 const MonthlyMealRateController = {
@@ -33,17 +34,8 @@ const MonthlyMealRateController = {
 
   // Delete a meal rate (Admin)
   deleteMealRate: async (req, res) => {
-    try {
-      const mealRateId = req.params.id;
-      const mealRate = await MonthlyMealRates.findByIdAndDelete(mealRateId);
-      if (!mealRate) {
-        return res.status(404).json({ message: "Meal rate not found" });
-      }
-      res.status(204).send();
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to delete meal rate" });
-    }
+    let result = await delete_a_meal_rate(req);
+    return res.status(200).json(result);
   },
 };
 
