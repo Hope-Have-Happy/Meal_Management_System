@@ -1,124 +1,84 @@
 const UserMeals = require("../models/userMeals"); // Import the UserMeals model
+const User = require("../models/user"); // Import the UserMeals model
+const {
+  registerMeal,
+  getAllMealsList,
+  getMyMealsList,
+  getMealByTheId,
+  update_a_meal,
+  delete_a_meal,
+  reserve_a_meal,
+  getReservedMealsList,
+  confirm_a_meal,
+  cancelReservedMeal,
+  advanceReserveYourMeal,
+} = require("../services/mealServices");
 
 const MealController = {
-  // Register meals for users (Admin) (Multiple or single meal register hote pare)
+  // Register meals for users (Admin) (Multiple or single meal register)
   registerMeals: async (req, res) => {
-    try {
-      const mealData = req.body;
-      const meal = await UserMeals.create(mealData);
-      res.status(201).json(meal);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Meal registration failed" });
-    }
+    let result = await registerMeal(req);
+    return res.status(200).json(result);
   },
 
   // Get all meals (Admin)
   getAllMeals: async (req, res) => {
-    try {
-      const meals = await UserMeals.find();
-      res.status(200).json(meals);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch meals" });
-    }
+    let result = await getAllMealsList(req);
+    return res.status(200).json(result);
   },
 
-  // Get all meals list of logged in user's (View a list of meals)
+  // Get all meals of logged in user's (View a list of meals)
   getMyMealList: async (req, res) => {
-    try {
-      // Implement the logic of get all meals list if user don't enter the month name
-      // then get all the meal list of him and order the list from now to past
-      // (Like this order: 9,8,7,6,5,4,3,2,1 )
-      // if user enter the month name the order the list from now to past
-      // (Like this order: 9,8,7,6,5,4,3,2,1 )
-      res.status(200).json({ message: "All meals list" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to reserve meals" });
-    }
+    let result = await getMyMealsList(req);
+    return res.status(200).json(result);
   },
 
-  // Get a meal by ID (Admin and User)
+  // Get a meal by ID (Admin)
   getMealById: async (req, res) => {
-    try {
-      const mealId = req.params.id;
-      const meal = await UserMeals.findById(mealId);
-      if (!meal) {
-        return res.status(404).json({ message: "Meal not found" });
-      }
-      res.status(200).json(meal);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch meal" });
-    }
+    let result = await getMealByTheId(req);
+    return res.status(200).json(result);
   },
 
   // Update a meal (Admin)
   updateMeal: async (req, res) => {
-    try {
-      const mealId = req.params.id;
-      const updatedMealData = req.body;
-      const meal = await UserMeals.findByIdAndUpdate(mealId, updatedMealData, {
-        new: true,
-      });
-      if (!meal) {
-        return res.status(404).json({ message: "Meal not found" });
-      }
-      res.status(200).json(meal);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to update meal" });
-    }
+    let result = await update_a_meal(req);
+    return res.status(200).json(result);
   },
 
   // Delete a meal (Admin)
   deleteMeal: async (req, res) => {
-    try {
-      const mealId = req.params.id;
-      const meal = await UserMeals.findByIdAndDelete(mealId);
-      if (!meal) {
-        return res.status(404).json({ message: "Meal not found" });
-      }
-      res.status(204).send();
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to delete meal" });
-    }
+    let result = await delete_a_meal(req);
+    return res.status(200).json(result);
   },
 
   // Reserve meals for the next day until 6 PM (User)
   reserveMeals: async (req, res) => {
-    try {
-      // Implement reservation logic here
-      res.status(200).json({ message: "Meals reserved successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to reserve meals" });
-    }
+    let result = await reserve_a_meal(req);
+    return res.status(200).json(result);
   },
 
-  // List user's bookings and cancel bookings for the next day before 6 PM (User)
-  getUserBookings: async (req, res) => {
-    try {
-      // Implement booking listing logic here
-      res.status(200).json({ message: "User bookings retrieved successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to retrieve user bookings" });
-    }
+  // Confirm a reserved meal
+  confirmMealS: async (req, res) => {
+    let result = await confirm_a_meal(req);
+    return res.status(200).json(result);
   },
 
-  // cancel meal (Admin and User)
-  cancelBooking: async (req, res) => {
-    try {
-      const bookingId = req.params.id;
-      // Implement booking cancellation logic here
-      res.status(204).json({ message: "Booking canceled successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to cancel booking" });
-    }
+  // List user's reserved meal for the next day before 6 PM (User)
+  getUsersReservedMealsList: async (req, res) => {
+    let result = await getReservedMealsList(req);
+    return res.status(200).json(result);
+  },
+
+  // cancel meal for the next day before 6 PM (User)
+  revokeReservations: async (req, res) => {
+    let result = await cancelReservedMeal(req);
+    return res.status(200).json(result);
+  },
+
+  // Advance reservation meals for several days (User)
+  advanceReserveMeals: async (req, res) => {
+    let result = await advanceReserveYourMeal(req);
+    return res.status(200).json(result);
   },
 };
 

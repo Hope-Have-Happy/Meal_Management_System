@@ -24,7 +24,7 @@ This is a Meal Management System with two types of users: Admin and User.
   - Department (IT, IELTS, Spoken, Employee)
   - Address
 
-### Meal Register `(Mockup: API, Controller: MealController)` `✔`
+### Meal Register `(API, Controller: MealController)` `✔`
 
 - Select date
 - Display all users with checkboxes next to their names
@@ -65,7 +65,7 @@ This is a Meal Management System with two types of users: Admin and User.
   - Total meals this month
   - Last month's meal rate (if approved by the admin) `এটার অর্থ বুঝতে পারছি না তাই user dashboard এর route and controller create করি নি।`
 
-### Meal Booking `(Mockup: API, Controller: MealController)` `✔`
+### Meal Booking `(API, Controller: MealController)` `✔`
 
 - Reserve meals for the next day until 6 PM
 - Contact admin in case of late booking
@@ -84,7 +84,7 @@ This is a Meal Management System with two types of users: Admin and User.
 - View a list of meals
 - Search by month
 
-### User Settings `(Mockup: API, Controller: UserController)` `✔`
+### User Settings `(API, Controller: UserController)` `✔`
 
 - Update personal information
 

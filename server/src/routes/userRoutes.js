@@ -15,9 +15,6 @@ const {
 // Import middleware for user authentication checks
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
-// Get all users (Admin) ✔
-router.get("/users", isLoggedIn, isAdmin, UserController.getAllUsers);
-
 // Get a user by ID (Admin) ✔
 router.get("/users/:userId", isLoggedIn, isAdmin, UserController.getUserById);
 
@@ -44,8 +41,12 @@ router.put(
 // Update user's own info (User) ✔
 router.put("/user-info/:userId", isLoggedIn, UserController.updateUserOwnInfo);
 
-// Forget Password (Work left to do)
-router.patch("/users/forget-password", UserController.forgetPassword);
+// Add routes for sending OTP and resetting password
+router.post("/send-otp", UserController.sendOTPToUser);
+router.post("/reset-password", UserController.resetPasswordWithOTP);
+
+// Get all users (Admin) ✔
+router.get("/users", isLoggedIn, isAdmin, UserController.getAllUsers);
 
 // Delete a user (Admin) ✔
 router.delete("/users/:userId", isLoggedIn, isAdmin, UserController.deleteUser);

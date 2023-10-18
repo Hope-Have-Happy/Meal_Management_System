@@ -1,10 +1,15 @@
+// Import nodemailer to send email
+const nodemailer = require("nodemailer");
+
 // Import file system and path modules
 const fs = require("fs");
 const path = require("path");
 
-// Import user model and password hashing utility
+// Import user,otp model and password hashing utility
 const User = require("../models/user");
+const OPT = require("../models/OTP");
 const { hashPassword } = require("../utils/passwordUtils");
+const emailConfig = require("../utils/emailConfig");
 
 // get all users info (Admin)
 exports.getAllUsersInfo = async (req, res) => {
@@ -43,7 +48,16 @@ exports.getUserInfo = async (req, res) => {
 exports.createSingleUser = async (req, res) => {
   try {
     // Checking if the email or mobile number already exists in the database
-    const { email, mobile } = req.body;
+    const {
+      full_name,
+      user_role,
+      photo,
+      email,
+      password,
+      mobile,
+      department,
+      address,
+    } = req.body;
 
     if (await User.exists({ email })) {
       return { error: "Email is already in use" };
@@ -53,11 +67,25 @@ exports.createSingleUser = async (req, res) => {
       return { error: "Mobile number is already in use" };
     }
 
+    // Hash the password before saving it in the database
+    const hashedPassword = await hashPassword(password);
+
     // Specify the absolute path for the "public" folder
     const publicPath = path.join(__dirname, "../../public");
 
     // Create a directory with the user's ObjectId for storing uploads
-    const newUser = await User.create(req.body);
+    const newUser = await User.create({
+      full_name,
+      user_role,
+      photo,
+      email,
+      password: hashedPassword,
+      mobile,
+      department,
+      address,
+      status: 1,
+    });
+
     const userId = newUser._id;
     const uploadDir = path.join(publicPath, "uploads", userId.toString());
 
@@ -92,7 +120,8 @@ exports.createSingleUser = async (req, res) => {
     }
 
     // Return the user data
-    const { password, ...userWithoutPassword } = newUser.toObject();
+    const userWithoutPassword = newUser;
+    delete userWithoutPassword.password;
     return userWithoutPassword;
   } catch (error) {
     return { error: "An error occurred while creating the user" };
@@ -191,6 +220,94 @@ exports.updateUserInfo = async (req, res) => {
     return user;
   } catch (error) {
     return { error: "An error occurred while updating the user" };
+  }
+};
+
+// send otp
+exports.SendOTP = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return { error: "User not found" };
+    }
+
+    // Generate a random OTP
+    const generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Set OTP expiration (e.g., 15 minutes from now)
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+
+    // Save OTP in the OTP model
+    const otpRecord = new OTP({
+      user: user._id,
+      otp: generatedOTP,
+      expiresAt,
+    });
+    await otpRecord.save();
+
+    // Send the OTP via email
+    const transporter = nodemailer.createTransport({
+      service: emailConfig.service,
+      auth: {
+        user: emailConfig.auth.user,
+        pass: emailConfig.auth.pass,
+      },
+    });
+
+    // Send the OTP via email
+    const mailOptions = {
+      to: email,
+      subject: "Password Reset OTP",
+      text: `Your OTP for password reset is: ${generatedOTP}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return { message: "OTP sent to the user's email" };
+  } catch (error) {
+    return { error: "An error occurred while sending otp to the user" };
+  }
+};
+
+// reset password
+exports.resetPassword = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    // Find the OTP record
+    const otpRecord = await OTP.findOne({
+      otp,
+      expiresAt: { $gt: new Date() },
+    });
+
+    if (!otpRecord) {
+      return { error: "Invalid or expired OTP" };
+    }
+
+    // Find the user associated with the OTP
+    const user = await User.findById(otpRecord.user);
+
+    if (!user || user.email !== email) {
+      return { error: "Invalid email" };
+    }
+
+    // Hash the new password
+    const hashedPassword = await hashPassword(newPassword);
+
+    // Update the user's password
+    user.password = hashedPassword;
+    await user.save();
+
+    // Delete the OTP record
+    await OTP.findByIdAndDelete(otpRecord._id);
+
+    return { message: "Password reset successful" };
+  } catch (error) {
+    return { error: "An error occurred while resetting password" };
   }
 };
 

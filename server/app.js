@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const { readdirSync } = require("fs");
 const path = require("path");
 const fileUpload = require("express-fileupload");
+const bodyParser = require("body-parser");
 
 //Security Middleware Import
 const rateLimit = require("express-rate-limit");
@@ -16,6 +17,8 @@ const morgan = require("morgan");
 // express app initialization
 const app = express();
 app.use(express.json());
+// Use body-parser middleware to parse JSON requests
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(fileUpload());

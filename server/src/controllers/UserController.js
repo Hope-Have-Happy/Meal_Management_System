@@ -6,7 +6,10 @@ const {
   updateSingleUser,
   updateOwnData,
   deleteSingleUser,
+  recoverPassword,
   updateUserInfo,
+  SendOTP,
+  resetPassword,
 } = require("../services/userServices");
 
 const UserController = {
@@ -40,11 +43,16 @@ const UserController = {
     return res.status(200).json(result);
   },
 
-  // Reset Password if user forget his password
-  forgetPassword: async (req, res) => {
-    // mobile number deiye check hobe user exist kore kina then password update hobe
+  // Send OTP To user
+  sendOTPToUser: async (req, res) => {
+    let result = await SendOTP(req);
+    return res.status(200).json(result);
+  },
 
-    res.status(200).json({ message: "forget password" });
+  // reset password with otp
+  resetPasswordWithOTP: async (req, res) => {
+    let result = await resetPassword(req);
+    return res.status(200).json(result);
   },
 
   // Delete a user

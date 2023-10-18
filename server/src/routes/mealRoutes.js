@@ -6,29 +6,45 @@ const router = express.Router();
 const MealController = require("../controllers/MealController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
-// Register meals for users (Admin) (Multiple or single meal register hote pare)
+// List of reserved-meal for the next day before 6 PM (User) ✔
+router.get(
+  "/meals/reserve",
+  isLoggedIn,
+  MealController.getUsersReservedMealsList
+);
+
+// Cancel reserved-meal for the next day before 6 PM (User) ✔
+router.delete("/meals/reserve", isLoggedIn, MealController.revokeReservations);
+
+// Register meals for users (Admin) (Multiple or single) ✔
 router.post("/meals", isLoggedIn, isAdmin, MealController.registerMeals);
 
-// Get all meals (Admin)
+// Get all meals (Admin) ✔
 router.get("/meals", isLoggedIn, isAdmin, MealController.getAllMeals);
 
-// Get all meals of logged in user's (View a list of meals)
-router.get("/meals", isLoggedIn, MealController.getMyMealList);
+// Get all meals of logged in user's (View a list of meals) ✔
+router.get("/my-meals", isLoggedIn, MealController.getMyMealList);
 
-// Get a meal by ID (Admin)
+// Confirm meal of users ✔
+router.put("/meals/confirm", isLoggedIn, isAdmin, MealController.confirmMealS);
+
+// Get a meal by ID (Admin) ✔
 router.get("/meals/:id", isLoggedIn, isAdmin, MealController.getMealById);
 
-// Update a meal (Admin)
+// Update a meal (Admin) ✔
 router.put("/meals/:id", isLoggedIn, isAdmin, MealController.updateMeal);
 
-// Delete a meal (Admin)
-router.delete("/meals/:id", isLoggedIn, isAdmin, MealController.deleteMeal);
+// Delete a meal (Admin) ✔
+router.delete("/meals", isLoggedIn, isAdmin, MealController.deleteMeal);
 
-// Reserve meals for the next day until 6 PM (User)
+// Reserve meals for the next day until 6 PM (User) ✔
 router.post("/meals/reserve", isLoggedIn, MealController.reserveMeals);
 
-// List and cancel bookings for the next day before 6 PM (User)
-router.get("/meals/bookings", isLoggedIn, MealController.getUserBookings);
-router.delete("/meals/bookings/:id", isLoggedIn, MealController.cancelBooking);
+// Advance reservation meals for several days (User)
+router.post(
+  "/meals/advance-reserve",
+  isLoggedIn,
+  MealController.advanceReserveMeals
+);
 
 module.exports = router;
