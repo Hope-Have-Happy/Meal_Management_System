@@ -1,38 +1,20 @@
 const MonthlyMealRates = require("../models/monthlyMealRates");
+const {
+  set_a_meal_rate,
+  get_all_meal_rate_list,
+} = require("../services/mealRateServices");
 
 const MonthlyMealRateController = {
   // Set meal rates for specific months (Admin)
   setMealRate: async (req, res) => {
-    try {
-      const { month, meal_rate, is_visible, month_start_date, month_end_date } =
-        req.body;
-
-      // Create a new meal rate entry
-      const mealRate = await MonthlyMealRate.create({
-        month,
-        meal_rate,
-        is_visible,
-        month_start_date,
-        month_end_date,
-        creator: req.user._id, // Assuming you have authentication middleware to get the admin's user ID
-      });
-
-      res.status(201).json(mealRate);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to set meal rate" });
-    }
+    let result = await set_a_meal_rate(req);
+    return res.status(200).json(result);
   },
 
   // Get all meal rates (Admin and User)
   getAllMealRates: async (req, res) => {
-    try {
-      const mealRates = await MonthlyMealRates.find().sort({ month: "desc" });
-      res.status(200).json(mealRates);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch meal rates" });
-    }
+    let result = await get_all_meal_rate_list(req);
+    return res.status(200).json(result);
   },
 
   // Get a meal rate by ID (Admin and User)
