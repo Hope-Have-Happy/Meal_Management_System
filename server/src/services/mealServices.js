@@ -317,38 +317,20 @@ exports.confirm_a_meal = async (req, res) => {
   }
 };
 
-// List user's reserved meal for the next day before 6 PM (User)
+// List user's reserved meal (User)
 exports.getReservedMealsList = async (req, res) => {
   try {
-    // Get the current date
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    // Get the user's reserved meals and sort them in descending order by date
+    const reservedMeals = await UserMeals.find({
+      users_id: req.userInfo.user._id,
+    })
+      .sort({ date: -1 })
+      .exec();
 
-    // Get the date for the next day
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-
-    // Check if it's before 6 PM (18:00)
-    const isBefore6PM = today.getHours() < 18;
-
-    if (isBefore6PM) {
-      // If it's before 6 PM, get the user's reserved meals for tomorrow
-      const reservedMeals = await UserMeals.find({
-        users_id: req.userInfo.user._id,
-        date: tomorrow,
-      }).exec();
-
-      return {
-        message: "User reserved meals retrieved successfully",
-        reservedMeals,
-      };
-    } else {
-      return {
-        message:
-          "User cannot retrieve reserved meals after 6 PM for the next day",
-        reservedMeals: [],
-      };
-    }
+    return {
+      message: "User reserved meals retrieved successfully",
+      reservedMeals,
+    };
   } catch (error) {
     return { message: "Failed to retrieve user reserved meals" };
   }
@@ -361,35 +343,58 @@ exports.cancelReservedMeal = async (req, res) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // Get the date for the next day
+    // Get the date for tomorrow
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
-    // Check if it's before 6 PM (18:00)
-    const isBefore6PM = today.getHours() < 18;
+    // Get the date for the day after tomorrow
+    const dayAfterTomorrow = new Date(today);
+    dayAfterTomorrow.setDate(today.getDate() + 2);
 
-    if (!isBefore6PM) {
+    // Check if it's before 6 PM (18:00) for tomorrow
+    const isBefore6PMForTomorrow = today.getHours() < 18;
+
+    // Check if the meal is for tomorrow or the day after tomorrow
+    const isMealForTomorrow = req.body.date === tomorrow;
+    const isMealForDayAfterTomorrow = req.body.date === dayAfterTomorrow;
+
+    // Allow cancellation for tomorrow's meal before 6 PM today
+    if (isMealForTomorrow && isBefore6PMForTomorrow) {
+      const deletedMeal = await UserMeals.findByIdAndDelete({
+        _id: req.body.id,
+        users_id: req.userInfo.user._id,
+        date: req.body.date,
+        status: 0, // Check if status is 0 (reserved meal)
+      });
+
+      if (deletedMeal) {
+        return { message: "Meal reservation canceled successfully" };
+      } else {
+        return { message: "Failed to cancel the meal reservation" };
+      }
+    }
+    // Allow cancellation for the day after tomorrow's meal at any time today
+    else if (isMealForDayAfterTomorrow) {
+      const deletedMeal = await UserMeals.findByIdAndDelete({
+        _id: req.body.id,
+        users_id: req.userInfo.user._id,
+        date: req.body.date,
+        status: 0, // Check if status is 0 (reserved meal)
+      });
+
+      if (deletedMeal) {
+        return { message: "Meal reservation canceled successfully" };
+      } else {
+        return { message: "Failed to cancel the meal reservation" };
+      }
+    }
+    // Disallow cancellation for other cases
+    else {
       return {
-        message:
-          "You cannot cancel a reserved meal after 6 PM for the next day",
+        message: "You cannot cancel a reserved meal at this time",
       };
     }
-
-    // Use findByIdAndDelete to remove the meal that meets the criteria
-    const deletedMeal = await UserMeals.findByIdAndDelete({
-      _id: req.body.id,
-      users_id: req.userInfo.user._id,
-      date: tomorrow,
-      status: 0, // Check if status is 0 (reserved meal)
-    });
-
-    if (deletedMeal) {
-      return { message: "Meal reservation canceled successfully" };
-    } else {
-      return { message: "Failed to cancel the meal reservation" };
-    }
   } catch (error) {
-    console.error(error);
     return { message: "Failed to cancel the meal reservation" };
   }
 };
