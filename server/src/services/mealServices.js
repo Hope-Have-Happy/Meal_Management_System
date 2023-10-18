@@ -408,13 +408,28 @@ exports.advanceReserveYourMeal = async (req, res) => {
       return { message: "Invalid reservation data" };
     }
 
-    const userId = req.userInfo.user._id; // Assuming you have user information in req.userInfo
+    const userId = req.userInfo.user._id;
 
     const alreadyReservedAt = [];
     const advancedReservations = [];
 
     for (const reservation of mealReservations) {
       const { qty, date } = reservation;
+
+      // Get the current date
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      // Get the date for tomorrow
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+
+      // Check if the date is today or tomorrow
+      if (date <= tomorrow) {
+        return {
+          message: "Advance reservations cannot be made for today or tomorrow.",
+        };
+      }
 
       // Check if a meal is already reserved for the same date
       const existingMeal = await UserMeals.findOne({
@@ -425,7 +440,7 @@ exports.advanceReserveYourMeal = async (req, res) => {
       if (existingMeal) {
         alreadyReservedAt.push(date);
       } else {
-        // If not reserved for the same date, create a new reservation
+        // Create a new reservation
         const newMeal = new UserMeals({
           users_id: userId,
           qty,
