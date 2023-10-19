@@ -27,7 +27,17 @@ exports.create_a_meal_menu = async (req, res) => {
 };
 
 // Get all meal menus (Admin and User)
-exports.get_all_meal_menus_list = async (req, res) => {};
+exports.get_all_meal_menus_list = async (req, res) => {
+  try {
+    const mealMenus = await MealMenus.find().exec();
+    return {
+      message: "All meal menus retrieved successfully",
+      mealMenus,
+    };
+  } catch (error) {
+    return { message: "Failed to retrieve meal menus" };
+  }
+};
 
 // Get a meal menu by ID (Admin)
 exports.get_meal_by_id = async (req, res) => {};
