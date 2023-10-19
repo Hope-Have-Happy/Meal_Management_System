@@ -88,4 +88,19 @@ exports.update_meal_data = async (req, res) => {
 };
 
 // Delete a meal menu (Admin)
-exports.delete_meal_data = async (req, res) => {};
+exports.delete_meal_data = async (req, res) => {
+  try {
+    const mealMenuId = req.params.id; // Get the meal menu ID from the request parameters
+
+    // Find and remove the meal menu by ID
+    const deletedMealMenu = await MealMenus.findByIdAndDelete(mealMenuId);
+
+    if (!deletedMealMenu) {
+      return { message: "Meal menu not found" };
+    }
+
+    return { message: "Meal menu deleted successfully" };
+  } catch (error) {
+    return { message: "Failed to delete meal menu" };
+  }
+};
