@@ -1,4 +1,4 @@
-const MonthlyMealRates = require("../models/monthlyMealRates");
+// Meal Rates CRUD Related Services
 const {
   set_a_meal_rate,
   get_all_meal_rate_list,

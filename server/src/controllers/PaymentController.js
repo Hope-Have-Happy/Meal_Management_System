@@ -1,5 +1,4 @@
-const UserPayments = require("../models/userPayments");
-const User = require("../models/user");
+// Payments CRUD Related Services
 const {
   make_a_user_payment,
   payment_history,

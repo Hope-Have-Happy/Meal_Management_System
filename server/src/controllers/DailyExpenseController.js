@@ -1,77 +1,40 @@
-const DailyBajars = require("../models/dailyBajars");
+const {
+  add_daily_expense,
+  get_all_daily_expense,
+  get_daily_expense_by_id,
+  update_daily_expense,
+  delete_daily_expense,
+} = require("../services/dailyExpenseServices");
 
 const DailyExpenseController = {
-  // Add daily expenses (Admin and User)
+  // Add daily expenses (Admin)
   addExpense: async (req, res) => {
-    try {
-      const expenseData = req.body;
-      const expense = await DailyBajars.create(expenseData); // Use Model.create() to create a new expense
-      res.status(201).json(expense);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Expense addition failed" });
-    }
+    let result = await add_daily_expense(req);
+    return res.status(200).json(result);
   },
 
-  // Get all daily expenses (Admin and User)
+  // Get all daily expenses (Admin)
   getAllExpenses: async (req, res) => {
-    try {
-      const expenses = await DailyBajars.find();
-      res.status(200).json(expenses);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch expenses" });
-    }
+    let result = await get_all_daily_expense(req);
+    return res.status(200).json(result);
   },
 
-  // Get a daily expense by ID (Admin and User)
+  // Get a daily expense by ID (Admin)
   getExpenseById: async (req, res) => {
-    try {
-      const expenseId = req.params.id;
-      const expense = await DailyBajars.findById(expenseId);
-      if (!expense) {
-        return res.status(404).json({ message: "Expense not found" });
-      }
-      res.status(200).json(expense);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch expense" });
-    }
+    let result = await get_daily_expense_by_id(req);
+    return res.status(200).json(result);
   },
 
-  // Update a daily expense (Admin and User)
+  // Update a daily expense (Admin)
   updateExpense: async (req, res) => {
-    try {
-      const expenseId = req.params.id;
-      const updatedExpenseData = req.body;
-      const expense = await DailyBajars.findByIdAndUpdate(
-        expenseId,
-        updatedExpenseData,
-        { new: true }
-      );
-      if (!expense) {
-        return res.status(404).json({ message: "Expense not found" });
-      }
-      res.status(200).json(expense);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to update expense" });
-    }
+    let result = await update_daily_expense(req);
+    return res.status(200).json(result);
   },
 
-  // Delete a daily expense (Admin and User)
+  // Delete a daily expense (Admin)
   deleteExpense: async (req, res) => {
-    try {
-      const expenseId = req.params.id;
-      const expense = await DailyBajars.findByIdAndDelete(expenseId);
-      if (!expense) {
-        return res.status(404).json({ message: "Expense not found" });
-      }
-      res.status(204).send();
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to delete expense" });
-    }
+    let result = await delete_daily_expense(req);
+    return res.status(200).json(result);
   },
 };
 
