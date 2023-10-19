@@ -1,77 +1,41 @@
 const MealMenus = require("../models/mealMenus");
+const {
+  delete_meal_data,
+  update_meal_data,
+  get_meal_by_id,
+  get_all_meal_menus_list,
+  create_a_meal_menu,
+} = require("../services/mealMenuServices");
 
 const MealMenuController = {
   // Create a new meal menu (Admin)
   createMealMenu: async (req, res) => {
-    try {
-      const mealMenuData = req.body;
-      const mealMenu = await MealMenus.create(mealMenuData);
-      res.status(201).json(mealMenu);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Meal menu creation failed" });
-    }
+    let result = await create_a_meal_menu(req);
+    return res.status(200).json(result);
   },
 
   // Get all meal menus (Admin and User)
   getAllMealMenus: async (req, res) => {
-    try {
-      const mealMenus = await MealMenus.find();
-      res.status(200).json(mealMenus);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch meal menus" });
-    }
+    let result = await get_all_meal_menus_list(req);
+    return res.status(200).json(result);
   },
 
-  // Get a meal menu by ID (Admin and User)
+  // Get a meal menu by ID (Admin)
   getMealMenuById: async (req, res) => {
-    try {
-      const mealMenuId = req.params.id;
-      const mealMenu = await MealMenus.findById(mealMenuId);
-      if (!mealMenu) {
-        return res.status(404).json({ message: "Meal menu not found" });
-      }
-      res.status(200).json(mealMenu);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch meal menu" });
-    }
+    let result = await get_meal_by_id(req);
+    return res.status(200).json(result);
   },
 
   // Update a meal menu (Admin)
   updateMealMenu: async (req, res) => {
-    try {
-      const mealMenuId = req.params.id;
-      const updatedMealMenuData = req.body;
-      const mealMenu = await MealMenus.findByIdAndUpdate(
-        mealMenuId,
-        updatedMealMenuData,
-        { new: true }
-      );
-      if (!mealMenu) {
-        return res.status(404).json({ message: "Meal menu not found" });
-      }
-      res.status(200).json(mealMenu);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to update meal menu" });
-    }
+    let result = await update_meal_data(req);
+    return res.status(200).json(result);
   },
 
   // Delete a meal menu (Admin)
   deleteMealMenu: async (req, res) => {
-    try {
-      const mealMenuId = req.params.id;
-      const mealMenu = await MealMenus.findByIdAndDelete(mealMenuId);
-      if (!mealMenu) {
-        return res.status(404).json({ message: "Meal menu not found" });
-      }
-      res.status(204).send();
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to delete meal menu" });
-    }
+    let result = await delete_meal_data(req);
+    return res.status(200).json(result);
   },
 };
 

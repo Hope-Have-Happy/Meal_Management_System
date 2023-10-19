@@ -4,21 +4,42 @@ const router = express.Router();
 
 // Import the Meal Menu Controller for meal-menu-related logic
 const MealMenuController = require("../controllers/MealMenuController");
+const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
 // Create a new meal menu (Admin)
-router.post("/meal-menus", MealMenuController.createMealMenu);
+router.post(
+  "/meal-menus",
+  isLoggedIn,
+  isAdmin,
+  MealMenuController.createMealMenu
+);
 
 // Get all meal menus (Admin and User)
-router.get("/meal-menus", MealMenuController.getAllMealMenus);
+router.get("/meal-menus", isLoggedIn, MealMenuController.getAllMealMenus);
 
-// Get a meal menu by ID (Admin and User)
-router.get("/meal-menus/:id", MealMenuController.getMealMenuById);
+// Get a meal menu by ID (Admin)
+router.get(
+  "/meal-menus/:id",
+  isLoggedIn,
+  isAdmin,
+  MealMenuController.getMealMenuById
+);
 
 // Update a meal menu (Admin)
-router.put("/meal-menus/:id", MealMenuController.updateMealMenu);
+router.put(
+  "/meal-menus/:id",
+  isLoggedIn,
+  isAdmin,
+  MealMenuController.updateMealMenu
+);
 
 // Delete a meal menu (Admin)
-router.delete("/meal-menus/:id", MealMenuController.deleteMealMenu);
+router.delete(
+  "/meal-menus/:id",
+  isLoggedIn,
+  isAdmin,
+  MealMenuController.deleteMealMenu
+);
 
 module.exports = router;
 
