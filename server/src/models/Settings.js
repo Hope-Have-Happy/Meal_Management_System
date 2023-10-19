@@ -23,7 +23,7 @@ const settingsSchema = new mongoose.Schema(
     alert_text_for_all: {
       type: String,
     },
-    today_meal_coocking_end_time: {
+    today_meal_cooking_end_time: {
       type: String,
     },
   },
