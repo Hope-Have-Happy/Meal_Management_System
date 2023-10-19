@@ -15,7 +15,7 @@ const monthlyMealRatesSchema = new mongoose.Schema(
           );
           return regex.test(value);
         },
-        message:
+        error:
           "The 'month' field must be in the format 'Month-Year', e.g., 'January-2023'.",
       },
     },

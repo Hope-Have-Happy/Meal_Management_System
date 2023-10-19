@@ -4,23 +4,48 @@ const router = express.Router();
 
 // Import the Payment Controller for payment-related logic
 const PaymentController = require("../controllers/PaymentController");
+const { isAdmin, isLoggedIn } = require("../middlewares/authMiddleware");
 
-// Make a payment (Admin and User)
-router.post("/payments", PaymentController.makePayment);
+// Make a payment (Admin)
+router.post("/payments", isLoggedIn, isAdmin, PaymentController.makePayment);
 
-// Get payment history for a specific user (User)
-router.get("/payments/history", PaymentController.getPaymentHistory);
+// Get payment history for a specific logged-in user (User)
+router.get(
+  "/payments/history",
+  isLoggedIn,
+  PaymentController.getPaymentHistory
+);
 
 // Get all payments (Admin)
-router.get("/payments/all", PaymentController.getAllPayments);
+router.get(
+  "/payments/all",
+  isLoggedIn,
+  isAdmin,
+  PaymentController.getAllPayments
+);
 
-// Get a payment by ID (Admin and User)
-router.get("/payments/:id", PaymentController.getPaymentById);
+// Get a payment by ID (Admin)
+router.get(
+  "/payments/:id",
+  isLoggedIn,
+  isAdmin,
+  PaymentController.getPaymentById
+);
 
-// Update a payment (Admin and User)
-router.put("/payments/:id", PaymentController.updatePayment);
+// Update a payment (Admin)
+router.put(
+  "/payments/:id",
+  isLoggedIn,
+  isAdmin,
+  PaymentController.updatePayment
+);
 
 // Delete a payment (Admin)
-router.delete("/payments/:id", PaymentController.deletePayment);
+router.delete(
+  "/payments/:id",
+  isLoggedIn,
+  isAdmin,
+  PaymentController.deletePayment
+);
 
 module.exports = router;
