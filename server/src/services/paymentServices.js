@@ -4,7 +4,7 @@ const UserPayments = require("../models/userPayments");
 // Make a payment (Admin)
 exports.make_a_user_payment = async (req, res) => {
   try {
-    const { users_id, month, payment_date, amount, status } = req.body;
+    const { users_id, month, payment_date, amount } = req.body;
     // Check if the user making the payment exists
     const user = await User.findById(users_id);
 
@@ -27,7 +27,7 @@ exports.make_a_user_payment = async (req, res) => {
       month,
       payment_date,
       amount,
-      status,
+      status: 1,
       creator: req.userInfo.user._id,
     });
 

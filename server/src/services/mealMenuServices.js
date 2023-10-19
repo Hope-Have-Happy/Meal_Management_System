@@ -3,14 +3,14 @@ const MealMenus = require("../models/mealMenus");
 // Create a new meal menu (Admin)
 exports.create_a_meal_menu = async (req, res) => {
   try {
-    const { meal_date, description, status, recipe } = req.body;
+    const { meal_date, description, recipe } = req.body;
 
     // Create a new meal menu record
     const newMealMenu = new MealMenus({
       meal_date,
       description,
       recipe,
-      status,
+      status: 1,
       creator: req.userInfo.user._id,
     });
 
