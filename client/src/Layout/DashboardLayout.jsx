@@ -165,8 +165,6 @@ export default function DashboardLayout() {
     setSubmenuOpen(newSubmenuOpen);
   };
 
-  console.log(isScreenSmallerThan768px);
-
   return (
     <div className='flex min-h-full relative'>
       {/* Side-Bar */}
