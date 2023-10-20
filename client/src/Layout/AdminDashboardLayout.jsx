@@ -47,7 +47,7 @@ export default function AdminDashboardLayout() {
     {
       title: "Dashboard",
       icon: <BiSolidDashboard />,
-      route: "/admin-dashboard",
+      route: "/dashboard",
     },
     {
       title: "Manage User",
@@ -57,12 +57,12 @@ export default function AdminDashboardLayout() {
         {
           title: "Add New User",
           icon: <BsPersonFillAdd />,
-          route: "/admin-dashboard/add-new-user",
+          route: "/dashboard/add-new-user",
         },
         {
           title: "Users List",
           icon: <FaUsers />,
-          route: "/admin-dashboard/users-list",
+          route: "/dashboard/users-list",
         },
       ],
     },
@@ -74,17 +74,17 @@ export default function AdminDashboardLayout() {
         {
           title: "Meal Register",
           icon: <GiMeal />,
-          route: "/admin-dashboard/meal-register",
+          route: "/dashboard/meal-register",
         },
         {
           title: "Meals List",
           icon: <BiSolidFoodMenu />,
-          route: "/admin-dashboard/meal-list",
+          route: "/dashboard/meal-list",
         },
         {
           title: "Set Meal Rate",
           icon: <HiMiniReceiptPercent />,
-          route: "/admin-dashboard/meal-rate-set",
+          route: "/dashboard/meal-rate-set",
         },
       ],
     },
@@ -96,12 +96,12 @@ export default function AdminDashboardLayout() {
         {
           title: "Advance Meal Booking",
           icon: <GiMeal />,
-          route: "/admin-dashboard/advance-meal-booking",
+          route: "/dashboard/advance-meal-booking",
         },
         {
           title: "Booked Meals List",
           icon: <BiSolidFoodMenu />,
-          route: "/admin-dashboard/booked-meal-list",
+          route: "/dashboard/booked-meal-list",
         },
       ],
       space: true,
@@ -114,12 +114,12 @@ export default function AdminDashboardLayout() {
         {
           title: "Add New Payment",
           icon: <FaCoins />,
-          route: "/admin-dashboard/add-new-payment",
+          route: "/dashboard/add-new-payment",
         },
         {
           title: "Payments History",
           icon: <FaHistory />,
-          route: "/admin-dashboard/payment-history",
+          route: "/dashboard/payment-history",
         },
       ],
     },
@@ -131,25 +131,25 @@ export default function AdminDashboardLayout() {
         {
           title: "Record Daily Market Expenses",
           icon: <FaMoneyBill />,
-          route: "/admin-dashboard/record-daily-market-expenses",
+          route: "/dashboard/record-daily-market-expenses",
         },
         {
           title: "Daily Market Expense List",
           icon: <FaListOl />,
-          route: "/admin-dashboard/daily-market-expenses-list",
+          route: "/dashboard/daily-market-expenses-list",
         },
       ],
     },
     {
       title: "Settings",
       icon: <IoSettingsSharp />,
-      route: "/admin-dashboard/settings",
+      route: "/dashboard/settings",
       space: true,
     },
     {
       title: "Profile",
       icon: <BiSolidUserCircle />,
-      route: "/admin-dashboard/profile",
+      route: "/dashboard/profile",
     },
     {
       title: "Logout",

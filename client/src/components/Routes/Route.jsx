@@ -35,14 +35,14 @@ const router = createBrowserRouter([
       },
     ],
   },
-  /* Admin Dashboard Routes */
+  /* Dashboard Routes */
   {
-    path: "/admin-dashboard",
+    path: "/dashboard",
     element: <AdminDashboardLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/admin-dashboard",
+        path: "/dashboard",
         element: <AdminHomePage />,
       },
       {
