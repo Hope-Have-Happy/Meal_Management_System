@@ -18,7 +18,7 @@ import { MdAccountBalance, MdPayments } from "react-icons/md";
 import { Link, Outlet } from "react-router-dom";
 
 export default function AdminDashboardLayout() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [isScreenSmallerThan1040px, setIsScreenSmallerThan1040px] = useState(
     window.innerWidth < 1040
   );
@@ -27,11 +27,6 @@ export default function AdminDashboardLayout() {
     const handleResize = () => {
       const newWindowWidth = window.innerWidth;
       setIsScreenSmallerThan1040px(newWindowWidth < 1040);
-      if (isScreenSmallerThan1040px) {
-        setOpen(false);
-      } else {
-        setOpen(true);
-      }
     };
 
     // Add an event listener to update the window dimensions when the window is resized.
@@ -180,7 +175,7 @@ export default function AdminDashboardLayout() {
       <div
         className={`${
           isScreenSmallerThan1040px && "h-full"
-        }  dark:bg-slate-800 bg-slate-200 fixed h-full shadow-[10px_1px_4px_-2px_rgba(0,0,0,0.37)]`}>
+        }  dark:bg-slate-800 bg-slate-200 fixed h-full shadow-[10px_1px_4px_-2px_rgba(0,0,0,0.37)] z-[99]`}>
         <div
           className={`p-5 pt-8 ${
             open ? "w-72" : "w-20"
