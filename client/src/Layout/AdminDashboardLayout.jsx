@@ -19,15 +19,15 @@ import { Link, Outlet } from "react-router-dom";
 
 export default function AdminDashboardLayout() {
   const [open, setOpen] = useState(true);
-  const [isScreenSmallerThan768px, setIsScreenSmallerThan768px] = useState(
-    window.innerWidth < 768
+  const [isScreenSmallerThan1040px, setIsScreenSmallerThan1040px] = useState(
+    window.innerWidth < 1040
   );
 
   useEffect(() => {
     const handleResize = () => {
       const newWindowWidth = window.innerWidth;
-      setIsScreenSmallerThan768px(newWindowWidth < 768);
-      if (isScreenSmallerThan768px) {
+      setIsScreenSmallerThan1040px(newWindowWidth < 1040);
+      if (isScreenSmallerThan1040px) {
         setOpen(false);
       } else {
         setOpen(true);
@@ -41,7 +41,7 @@ export default function AdminDashboardLayout() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [isScreenSmallerThan768px]);
+  }, [isScreenSmallerThan1040px]);
 
   const Menus = [
     {
@@ -179,7 +179,7 @@ export default function AdminDashboardLayout() {
       {/* Side-Bar */}
       <div
         className={`${
-          isScreenSmallerThan768px && "h-full"
+          isScreenSmallerThan1040px && "h-full"
         }  dark:bg-slate-800 bg-slate-200 fixed h-full shadow-[10px_1px_4px_-2px_rgba(0,0,0,0.37)]`}>
         <div
           className={`p-5 pt-8 ${
@@ -287,14 +287,14 @@ export default function AdminDashboardLayout() {
       {/* Outlet */}
       <div
         className={`${
-          isScreenSmallerThan768px
-            ? "px-28 py-[34px]"
+          isScreenSmallerThan1040px
+            ? "pl-28 pr-[34px] py-[34px]"
             : `${
                 open
                   ? "pl-[320px] pr-[28px] py-[34px]"
                   : "pl-[108px] pr-[28px] py-[34px]"
               } `
-        } w-full duration-300 dark:bg-slate-200 bg:bg-white min-h-screen h-full`}>
+        } w-full duration-300 dark:bg-gradient-to-r dark:from-slate-900 dark:via-slate-500 dark:to-slate-700 bg-slate-200 min-h-screen h-full`}>
         <Outlet />
         {/* <h1 className='text-2xl font-semibold '>Home</h1> */}
       </div>
