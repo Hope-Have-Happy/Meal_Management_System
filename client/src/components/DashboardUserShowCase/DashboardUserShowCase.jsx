@@ -50,38 +50,48 @@ export default function DashboardUserShowCase() {
                 <tr>
                   {/* Name */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    <span>Email</span>
-                    <button className='text-base ml-3'>
-                      <HiMiniArrowsUpDown />
-                    </button>
+                    <div className='flex'>
+                      <span>Email</span>
+                      <button className='text-base ml-3'>
+                        <HiMiniArrowsUpDown />
+                      </button>
+                    </div>
                   </th>
                   {/* Role */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    <span>Role</span>
-                    <button className='text-base ml-3'>
-                      <HiMiniArrowsUpDown />
-                    </button>
+                    <div className='flex'>
+                      <span>Role</span>
+                      <button className='text-base ml-3'>
+                        <HiMiniArrowsUpDown />
+                      </button>
+                    </div>
                   </th>
                   {/* Mobile */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    <span>Mobile</span>
-                    <button className='text-base ml-3'>
-                      <HiMiniArrowsUpDown />
-                    </button>
+                    <div className='flex'>
+                      <span>Mobile</span>
+                      <button className='text-base ml-3'>
+                        <HiMiniArrowsUpDown />
+                      </button>
+                    </div>
                   </th>
                   {/* Department */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    <span>Department</span>
-                    <button className='text-base ml-3'>
-                      <HiMiniArrowsUpDown />
-                    </button>
+                    <div className='flex'>
+                      <span>Department</span>
+                      <button className='text-base ml-3'>
+                        <HiMiniArrowsUpDown />
+                      </button>
+                    </div>
                   </th>
                   {/* Status */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    <span>Status</span>
-                    <button className='text-base ml-3'>
-                      <HiMiniArrowsUpDown />
-                    </button>
+                    <div className='flex'>
+                      <span>Status</span>
+                      <button className='text-base ml-3'>
+                        <HiMiniArrowsUpDown />
+                      </button>
+                    </div>
                   </th>
                 </tr>
               </thead>
