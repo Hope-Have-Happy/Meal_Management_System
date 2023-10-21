@@ -4,8 +4,14 @@ const router = express.Router();
 
 // Import the Admin Dashboard Controller for admin-dashboard-related logic
 const DashboardController = require("../controllers/DashboardController");
+const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
 // Admin Dashboard (Admin)
-router.post("/admin/dashboard", DashboardController.getDashboardData);
+router.post(
+  "/admin/dashboard",
+  isLoggedIn,
+  isAdmin,
+  DashboardController.getDashboardData
+);
 
 module.exports = router;

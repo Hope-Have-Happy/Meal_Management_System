@@ -31,7 +31,7 @@ This is a Meal Management System with two types of users: Admin and User.
 - Submit meal for multiple/all checked users
 - Find specific users and set meal for them by searching
 
-### Meal Rate Set `(Mockup: API, Controller: MonthlyMealRateController)` `✔`
+### Meal Rate Set `(API, Controller: MonthlyMealRateController)` `✔`
 
 - Select a month
 - Set the rate
@@ -41,14 +41,14 @@ This is a Meal Management System with two types of users: Admin and User.
 
 ### Accounts
 
-- List of all users `(Mockup: API, Controller: UserController)` `✔`
+- List of all users `(API, Controller: UserController)` `✔`
   - User name
   - Mobile number
   - Current balance
   - Total payments
   - User search option
 - Add a new payment for a user with a date and amount `(Mockup: API, Controller: PaymentController)` `✔`
-- Record daily market expenses `(Mockup: API, Controller: DailyExpenseController)` `✔`
+- Record daily market expenses `(API, Controller: DailyExpenseController)` `✔`
   - Date
   - Item name
   - Amount spent
@@ -75,11 +75,11 @@ This is a Meal Management System with two types of users: Admin and User.
 - Contact admin to cancel after 6 PM
 - Receive notifications for daily bookings
 
-### Payment History `(Mockup: API, Controller: PaymentController)` `✔`
+### Payment History `(API, Controller: PaymentController)` `✔`
 
 - View payment history
 
-### Meal List `(Mockup: API, Controller: MealController)` `✔`
+### Meal List `(API, Controller: MealController)` `✔`
 
 - View a list of meals
 - Search by month

@@ -14,7 +14,7 @@ const settingsSchema = new mongoose.Schema(
     contact_number: {
       type: String,
     },
-    meat_set_last_time: {
+    meal_set_last_time: {
       type: String,
     },
     meal_set_alert_time: {
@@ -23,7 +23,7 @@ const settingsSchema = new mongoose.Schema(
     alert_text_for_all: {
       type: String,
     },
-    today_meal_coocking_end_time: {
+    today_meal_cooking_end_time: {
       type: String,
     },
   },

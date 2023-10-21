@@ -1,5 +1,4 @@
-const UserMeals = require("../models/userMeals"); // Import the UserMeals model
-const User = require("../models/user"); // Import the UserMeals model
+// Meal CRUD Related Services
 const {
   registerMeal,
   getAllMealsList,

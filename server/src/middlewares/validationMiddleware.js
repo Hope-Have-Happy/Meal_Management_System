@@ -99,28 +99,6 @@ const userUpdateValidationRules = [
   check("status").optional().isInt().withMessage("Status must be an integer"),
 ];
 
-// Register meals for users validation rules
-const mealRegisterOrBookingValidationRules = [
-  check("users_id").trim().not().isEmpty().withMessage("User ID is required"),
-  check("qty")
-    .trim()
-    .not()
-    .isEmpty()
-    .isInt()
-    .withMessage("Quantity must be an integer and required"),
-  check("date")
-    .trim()
-    .not()
-    .isEmpty()
-    .isDate()
-    .withMessage("Quantity must be an integer and required"),
-  check("status")
-    .optional()
-    .isInt()
-    .withMessage("Status must be an integer and required"),
-  check("creator").trim().not().isEmpty().withMessage("Creator ID is required"),
-];
-
 // Validation middleware for updating user data
 const validateDataResult = (req, res, next) => {
   const errors = validationResult(req);

@@ -1,96 +1,48 @@
-const UserPayments = require("../models/userPayments");
-const User = require("../models/user");
+// Payments CRUD Related Services
+const {
+  make_a_user_payment,
+  payment_history,
+  get_all_payment_list,
+  get_payment_by_id,
+  update_payment_data,
+  delete_payment_data,
+} = require("../services/paymentServices");
 
 const PaymentController = {
-  // Make a payment (Admin and User)
+  // Make a payment (Admin)
   makePayment: async (req, res) => {
-    try {
-      const paymentData = req.body;
-      const payment = await UserPayments.create(paymentData);
-      res.status(201).json(payment);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Payment creation failed" });
-    }
+    let result = await make_a_user_payment(req);
+    return res.status(200).json(result);
   },
 
-  // Get payment history for a specific user (User)
+  // Get payment history for a logged-in user (User)
   getPaymentHistory: async (req, res) => {
-    try {
-      const userId = req.user.id; // Assuming you have a user ID in the request object
-      const user = await User.findById(userId);
-
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-      const payments = await UserPayments.find({ users_id: userId }); // Replace with the actual field that links payments to users
-      res.status(200).json(payments);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch payment history" });
-    }
+    let result = await payment_history(req);
+    return res.status(200).json(result);
   },
 
   // Get all payments (Admin)
   getAllPayments: async (req, res) => {
-    try {
-      const payments = await UserPayments.find();
-      res.status(200).json(payments);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch payments" });
-    }
+    let result = await get_all_payment_list(req);
+    return res.status(200).json(result);
   },
 
-  // Get a payment by ID (Admin and User)
+  // Get a payment by ID (Admin)
   getPaymentById: async (req, res) => {
-    try {
-      const paymentId = req.params.id;
-      const payment = await UserPayments.findById(paymentId);
-      if (!payment) {
-        return res.status(404).json({ message: "Payment not found" });
-      }
-      res.status(200).json(payment);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to fetch payment" });
-    }
+    let result = await get_payment_by_id(req);
+    return res.status(200).json(result);
   },
 
-  // Update a payment (Admin and User)
+  // Update a payment (Admin)
   updatePayment: async (req, res) => {
-    try {
-      const paymentId = req.params.id;
-      const updatedPaymentData = req.body;
-      const payment = await UserPayments.findByIdAndUpdate(
-        paymentId,
-        updatedPaymentData,
-        { new: true }
-      );
-      if (!payment) {
-        return res.status(404).json({ message: "Payment not found" });
-      }
-      res.status(200).json(payment);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to update payment" });
-    }
+    let result = await update_payment_data(req);
+    return res.status(200).json(result);
   },
 
   // Delete a payment (Admin)
   deletePayment: async (req, res) => {
-    try {
-      const paymentId = req.params.id;
-      const payment = await UserPayments.findByIdAndDelete(paymentId);
-      if (!payment) {
-        return res.status(404).json({ message: "Payment not found" });
-      }
-      res.status(204).send();
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to delete payment" });
-    }
+    let result = await delete_payment_data(req);
+    return res.status(200).json(result);
   },
 };
 
