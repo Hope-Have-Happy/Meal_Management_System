@@ -1,5 +1,5 @@
 import { BsArrowLeftShort } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { HiMiniArrowsUpDown } from "react-icons/hi2";
 
 export default function DashboardUserShowCase() {
   return (
@@ -10,11 +10,6 @@ export default function DashboardUserShowCase() {
           <h2 className='dark:text-gray-200 text-gray-600 font-semibold text-2xl'>
             Users List
           </h2>
-          <Link to='/dashboard/users-list'>
-            <span className='text-xs dark:text-blue-300  text-blue-800 underline'>
-              View All Users
-            </span>
-          </Link>
         </div>
         <div className='flex items-center justify-between'>
           <div className='flex dark:bg-slate-600 bg-gray-50 items-center p-2 rounded-md mt-2 sm:mt-0'>
@@ -47,20 +42,40 @@ export default function DashboardUserShowCase() {
             <table className='min-w-full leading-normal'>
               <thead>
                 <tr>
+                  {/* Name */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    Name
+                    <span>Email</span>
+                    <button className='text-base ml-3'>
+                      <HiMiniArrowsUpDown />
+                    </button>
                   </th>
+                  {/* Role */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    Role
+                    <span>Role</span>
+                    <button className='text-base ml-3'>
+                      <HiMiniArrowsUpDown />
+                    </button>
                   </th>
+                  {/* Mobile */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    Contact
+                    <span>Mobile</span>
+                    <button className='text-base ml-3'>
+                      <HiMiniArrowsUpDown />
+                    </button>
                   </th>
+                  {/* Department */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    Department
+                    <span>Department</span>
+                    <button className='text-base ml-3'>
+                      <HiMiniArrowsUpDown />
+                    </button>
                   </th>
+                  {/* Status */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    Status
+                    <span>Status</span>
+                    <button className='text-base ml-3'>
+                      <HiMiniArrowsUpDown />
+                    </button>
                   </th>
                 </tr>
               </thead>
