@@ -274,7 +274,6 @@ export default function AddNewUser() {
                   <p className='text-red-600 text-sm mt-2'>{passwordError}</p>
                 )}
               </div>
-
               {/* Status */}
               <div>
                 <label

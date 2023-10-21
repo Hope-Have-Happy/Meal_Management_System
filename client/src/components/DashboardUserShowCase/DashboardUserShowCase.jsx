@@ -1,5 +1,6 @@
 import { BsArrowLeftShort } from "react-icons/bs";
 import { HiMiniArrowsUpDown } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 
 export default function DashboardUserShowCase() {
   return (
@@ -10,6 +11,11 @@ export default function DashboardUserShowCase() {
           <h2 className='dark:text-gray-200 text-gray-600 font-semibold text-2xl'>
             Users List
           </h2>
+          <Link to='/dashboard/users-list'>
+            <span className='text-xs dark:text-blue-300  text-blue-800 underline'>
+              View All Users
+            </span>
+          </Link>
         </div>
         <div className='flex items-center justify-between'>
           <div className='flex dark:bg-slate-600 bg-gray-50 items-center p-2 rounded-md mt-2 sm:mt-0'>
