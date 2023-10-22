@@ -93,6 +93,11 @@ export default function AdvanceMealBooking() {
                 If you want to book a meal for tomorrow, please fill the below
                 filed before 6 pm today.
               </h1>
+              {/* Message about booking restrictions */}
+              <p className='text-sm dark:text-gray-400 text-slate-600 mt-2'>
+                **If you are late to book your meal for tomorrow then contact
+                with the Admin.
+              </p>
             </div>
 
             {/* Form Starts From Here */}
@@ -135,7 +140,7 @@ export default function AdvanceMealBooking() {
         <div className='dark:bg-[#17324E] bg-white p-8 rounded-md w-full mt-5'>
           <div className='border-b dark:border-gray-50/10 pb-10 mb-5'>
             <h1 className='text-base sm:text-2xl font-semibold leading-7 dark:text-gray-300 text-slate-900 '>
-              Enter Your Advance Meal Reservation Information
+              Enter Your Advance Meal Booking Information
             </h1>
             {/* Message about booking restrictions */}
             <p className='text-sm dark:text-gray-400 text-slate-600 mt-2'>
