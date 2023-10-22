@@ -84,7 +84,7 @@ export default function UsersList() {
                 <select
                   id='show_per_page'
                   name='show_per_page'
-                  className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                  className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
                   <option selected>10</option>
                   <option>20</option>
                   <option>30</option>
@@ -549,7 +549,7 @@ function ModalComponent({ closeModal }) {
                       id='user_role'
                       name='user_role'
                       required
-                      className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6]  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                      className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6]  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
                       <option value='Admin'>Admin</option>
                       <option value='User' selected>
                         User
@@ -624,7 +624,7 @@ function ModalComponent({ closeModal }) {
                       id='user_role'
                       name='user_role'
                       required
-                      className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                      className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
                       <option selected>IT</option>
                       <option>IELTS</option>
                       <option>SPOKEN</option>
@@ -681,7 +681,7 @@ function ModalComponent({ closeModal }) {
                       id='status'
                       name='status'
                       required
-                      className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                      className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
                       <option value={1}>Active</option>
                       <option value={0}>In-active</option>
                     </select>
@@ -691,7 +691,7 @@ function ModalComponent({ closeModal }) {
                 <div>
                   <label
                     htmlFor='status'
-                    className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
+                    className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900 pb-2'>
                     Photo
                   </label>
                   <div className='mt-2'>
