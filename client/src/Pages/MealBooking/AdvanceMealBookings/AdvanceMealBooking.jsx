@@ -55,6 +55,13 @@ export default function AdvanceMealBooking() {
     setMealReservations(updatedReservations);
   };
 
+  // Function to remove an advance meal booking field
+  const removeReservation = (index) => {
+    const updatedReservations = [...mealReservations];
+    updatedReservations.splice(index, 1);
+    setMealReservations(updatedReservations);
+  };
+
   // Get today's date and the next day's date
   const today = new Date();
   const nextDay = new Date(today);
@@ -140,65 +147,77 @@ export default function AdvanceMealBooking() {
           {/* Form Starts From Here */}
           <form onSubmit={handleSubmit}>
             {/* Fields for Advance Meal Reservations */}
-            <div className='space-y-12'>
-              {mealReservations.map((reservation, index) => (
-                <div
-                  key={index}
-                  className='grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2'>
-                  {/* Date */}
-                  <div>
-                    <label
-                      htmlFor={`date-${index}`}
-                      className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                      Date
-                    </label>
-                    <div className='mt-2'>
+            {/* Add Reservation Button */}
+            <div className='mt-6 flex items-center justify-end gap-x-6'>
+              <button
+                type='button'
+                onClick={addReservation}
+                className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover-bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mb-2'>
+                Add Reservation
+              </button>
+            </div>
+            <table className='min-w-full'>
+              <thead className='bg-white border-b'>
+                <tr>
+                  <th
+                    className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'
+                    scope='col'>
+                    Date
+                  </th>
+                  <th
+                    scope='col'
+                    className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
+                    Quantity
+                  </th>
+                  <th
+                    scope='col'
+                    className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {mealReservations.map((reservation, index) => (
+                  <tr
+                    className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+                    key={index}>
+                    <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-gray-50 text-sm'>
                       <input
                         type='date'
-                        id={`date-${index}`}
                         name={`date-${index}`}
-                        placeholder='Enter The Quantity'
+                        placeholder='Enter Date'
                         required
                         value={reservation.date}
                         min={today.toISOString().split("T")[0]}
                         onChange={(event) => handleDateChange(event, index)}
                         className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
                       />
-                    </div>
-                  </div>
-                  {/* Quantity */}
-                  <div>
-                    <label
-                      htmlFor={`qty-${index}`}
-                      className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                      Quantity
-                    </label>
-                    <div className='mt-2'>
+                    </td>
+                    <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-gray-50 text-sm'>
                       <input
                         type='number'
-                        id={`qty-${index}`}
                         name={`qty-${index}`}
                         required
                         value={reservation.qty}
-                        min='1' /* Set the minimum value */
+                        min='1'
                         onChange={(event) => handleQtyChange(event, index)}
                         className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
                       />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Add Reservation Button */}
-            <div className='mt-6 flex items-center justify-end gap-x-6'>
-              <button
-                type='button'
-                onClick={addReservation}
-                className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover-bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
-                Add Reservation
-              </button>
-            </div>
+                    </td>
+                    <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-gray-50 text-sm'>
+                      {index > 0 && (
+                        <button
+                          type='button'
+                          onClick={() => removeReservation(index)}
+                          className='rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover-bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600'>
+                          Remove
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
             {/* Submit Button for Advance Meal Reservations */}
             <div className='mt-6 flex items-center justify-end gap-x-6'>
