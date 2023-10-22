@@ -166,7 +166,7 @@ export default function MealRegister() {
                 <label
                   htmlFor='qty'
                   className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                  qty
+                  Quantity
                 </label>
                 <div className='mt-2'>
                   <input
