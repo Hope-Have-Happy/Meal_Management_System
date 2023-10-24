@@ -1,9 +1,11 @@
 import { BsArrowLeftShort } from "react-icons/bs";
+import { HiMiniArrowsUpDown } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 
 export default function DashboardUserShowCase() {
   return (
     <div className='dark:bg-[#17324E] bg-white p-8 rounded-md w-full mt-5'>
+      {/* Title And Search Bar */}
       <div className='flex-row sm:flex items-center justify-between pb-6'>
         <div>
           <h2 className='dark:text-gray-200 text-gray-600 font-semibold text-2xl'>
@@ -38,6 +40,7 @@ export default function DashboardUserShowCase() {
           </div>
         </div>
       </div>
+      {/* Table Starts From Here */}
       <div>
         <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
           <div className='inline-block min-w-full shadow rounded-lg overflow-hidden'>
@@ -45,20 +48,50 @@ export default function DashboardUserShowCase() {
             <table className='min-w-full leading-normal'>
               <thead>
                 <tr>
+                  {/* Name */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    Name
+                    <div className='flex'>
+                      <span>Email</span>
+                      <button className='text-base ml-3'>
+                        <HiMiniArrowsUpDown />
+                      </button>
+                    </div>
                   </th>
+                  {/* Role */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    Role
+                    <div className='flex'>
+                      <span>Role</span>
+                      <button className='text-base ml-3'>
+                        <HiMiniArrowsUpDown />
+                      </button>
+                    </div>
                   </th>
+                  {/* Mobile */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    Contact
+                    <div className='flex'>
+                      <span>Mobile</span>
+                      <button className='text-base ml-3'>
+                        <HiMiniArrowsUpDown />
+                      </button>
+                    </div>
                   </th>
+                  {/* Department */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    Department
+                    <div className='flex'>
+                      <span>Department</span>
+                      <button className='text-base ml-3'>
+                        <HiMiniArrowsUpDown />
+                      </button>
+                    </div>
                   </th>
+                  {/* Status */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    Status
+                    <div className='flex'>
+                      <span>Status</span>
+                      <button className='text-base ml-3'>
+                        <HiMiniArrowsUpDown />
+                      </button>
+                    </div>
                   </th>
                 </tr>
               </thead>
@@ -197,9 +230,11 @@ export default function DashboardUserShowCase() {
             </table>
             {/* Pagination */}
             <div className='px-5 py-5 dark:bg-gray-900 bg-white border-t dark:border-gray-500 border-gray-200 flex flex-col xs:flex-row items-center xs:justify-between'>
+              {/* Result Paragraph */}
               <span className='dark:text-gray-200 text-gray-600 text-sm mb-2'>
                 Showing 3 out of 50
               </span>
+              {/* Page Numbers */}
               <nav>
                 <ul className='flex'>
                   <li>
@@ -229,6 +264,24 @@ export default function DashboardUserShowCase() {
                       className='mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm dark:text-white text-gray-900 transition duration-150 ease-in-out hover:bg-light-300'
                       href='#'>
                       3
+                    </a>
+                  </li>
+                  {/* More Page Indicator */}
+                  <li className='dark:text-white text-gray-900 relative w-[17px]'>
+                    <span className='absolute bottom-1'>.....</span>
+                  </li>
+                  <li>
+                    <a
+                      className='mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm dark:text-white text-gray-900 transition duration-150 ease-in-out hover:bg-light-300'
+                      href='#'>
+                      15
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className='mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm dark:text-white text-gray-900 transition duration-150 ease-in-out hover:bg-light-300'
+                      href='#'>
+                      16
                     </a>
                   </li>
                   <li>

@@ -1,10 +1,13 @@
 import { useState } from "react";
 
 export default function AddNewUser() {
+  // Selected Image State
   const [selectedImage, setSelectedImage] = useState(null);
+  // Image File In Form State
   const [imageFile, setImageFile] = useState("");
+  // Password Error State
   const [passwordError, setPasswordError] = useState("");
-
+  // Form Data State
   const [formData, setFormData] = useState({
     full_name: "",
     user_role: "User",
@@ -14,9 +17,10 @@ export default function AddNewUser() {
     department: "IT",
     address: "",
     status: 1,
-    photo: imageFile,
+    photo: imageFile || "",
   });
 
+  // Handle User Image
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -33,6 +37,7 @@ export default function AddNewUser() {
     }
   };
 
+  // Handle User Image Remove
   const handleRemoveImage = () => {
     setSelectedImage(null);
     setImageFile(null); // Clear the selected image file
@@ -40,6 +45,7 @@ export default function AddNewUser() {
     document.getElementById("imageInput").value = "";
   };
 
+  // Handle Password Change For Error Showing
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     const confirmPassword = formData.confirm_password;
@@ -52,6 +58,7 @@ export default function AddNewUser() {
     }
   };
 
+  // Handle Confirm Password Change For Error Showing
   const handleConfirmPasswordChange = (e) => {
     const newPassword = formData.password;
     const confirmPassword = e.target.value;
@@ -64,6 +71,7 @@ export default function AddNewUser() {
     }
   };
 
+  // Form Submitting Handler
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -89,8 +97,10 @@ export default function AddNewUser() {
         <h1 className='text-base sm:text-2xl font-semibold leading-7 dark:text-gray-300 text-slate-900 border-b dark:border-gray-50/10 pb-12'>
           Enter User Information
         </h1>
+        {/* Form Starts From Here */}
         <form onSubmit={handleSubmit}>
           <div className='space-y-12'>
+            {/* Fields */}
             <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2'>
               {/* Full Name */}
               <div>
@@ -128,7 +138,7 @@ export default function AddNewUser() {
                     onChange={(e) =>
                       setFormData({ ...formData, user_role: e.target.value })
                     }
-                    className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6]  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                    className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6]  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
                     <option value='Admin'>Admin</option>
                     <option value='User' selected>
                       User
@@ -214,7 +224,7 @@ export default function AddNewUser() {
                     onChange={(e) =>
                       setFormData({ ...formData, department: e.target.value })
                     }
-                    className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                    className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
                     <option selected>IT</option>
                     <option>IELTS</option>
                     <option>SPOKEN</option>
@@ -264,7 +274,6 @@ export default function AddNewUser() {
                   <p className='text-red-600 text-sm mt-2'>{passwordError}</p>
                 )}
               </div>
-
               {/* Status */}
               <div>
                 <label
@@ -283,7 +292,7 @@ export default function AddNewUser() {
                         status: parseInt(e.target.value),
                       })
                     }
-                    className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                    className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
                     <option value={1}>Active</option>
                     <option value={0}>In-active</option>
                   </select>
@@ -293,7 +302,7 @@ export default function AddNewUser() {
               <div>
                 <label
                   htmlFor='status'
-                  className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
+                  className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900 pb-2'>
                   Photo
                 </label>
                 <div className='mt-2'>
