@@ -5,6 +5,7 @@ import Main from "../../Layout/Main";
 import DailyMarketExpensesList from "../../Pages/Accounts/DailyMarketExpensesList/DailyMarketExpensesList";
 import RecordDailyMarketExpenses from "../../Pages/Accounts/RecordDailyMarketExpenses/RecordDailyMarketExpenses";
 import AdminHomePage from "../../Pages/AdminHomePage/AdminHomePage";
+import MealRateList from "../../Pages/ManageMeal/MealRateList/MealRateList";
 import MealRateSet from "../../Pages/ManageMeal/MealRateSet/MealRateSet";
 import MealRegister from "../../Pages/ManageMeal/MealRegister/MealRegister";
 import MealsList from "../../Pages/ManageMeal/MealsList/MealsList";
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "meal-rate-set",
         element: <MealRateSet />,
+      },
+      {
+        path: "meal-rate-list",
+        element: <MealRateList />,
       },
       {
         path: "advance-meal-booking",

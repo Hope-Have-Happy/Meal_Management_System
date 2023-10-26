@@ -10,7 +10,13 @@ import {
   BsPersonFillAdd,
 } from "react-icons/bs";
 import { FaHistory, FaListOl, FaUsers } from "react-icons/fa";
-import { FaBowlFood, FaCoins, FaMoneyBill, FaUsersGear } from "react-icons/fa6";
+import {
+  FaBowlFood,
+  FaCoins,
+  FaMoneyBill,
+  FaTableList,
+  FaUsersGear,
+} from "react-icons/fa6";
 import { GiHotMeal, GiMeal } from "react-icons/gi";
 import { HiMiniReceiptPercent } from "react-icons/hi2";
 import { IoMdListBox } from "react-icons/io";
@@ -81,6 +87,11 @@ export default function DashboardLayout() {
           title: "Set Meal Rate",
           icon: <HiMiniReceiptPercent />,
           route: "/dashboard/meal-rate-set",
+        },
+        {
+          title: "Meal Rate List",
+          icon: <FaTableList />,
+          route: "/dashboard/meal-rate-list",
         },
       ],
     },

@@ -1,20 +1,19 @@
-/* eslint-disable react/prop-types */
-import { useState } from "react";
+import React, { useState } from "react";
 import { AiFillEdit, AiTwotoneDelete } from "react-icons/ai";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { HiMiniArrowsUpDown } from "react-icons/hi2";
 
-export default function MealsList() {
+export default function MealRateList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  /* Update Meal Data Info Modal */
+  /* Update User Info Modal */
   const openModal = () => {
     setIsModalOpen(true);
   };
 
-  /* Close Meal Data Info Modal */
+  /* Close User Info Modal */
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -29,10 +28,10 @@ export default function MealsList() {
     setIsDeleteModalOpen(false);
   };
 
-  // Function to handle the Meal deletion
+  // Function to handle the user deletion
   const handleDelete = () => {
-    // Perform the meal deletion logic here
-    // You can use the mealToDelete state to access the meal to delete
+    // Perform the user deletion logic here
+    // You can use the userToDelete state to access the user to delete
     // After deletion, close the modal
     closeDeleteModal();
   };
@@ -43,7 +42,7 @@ export default function MealsList() {
       <div className='flex-row sm:flex items-center justify-between'>
         <div>
           <h2 className='dark:text-gray-200 text-gray-600 font-semibold text-2xl'>
-            Meals List
+            Meal Rate List
           </h2>
         </div>
         <div className='flex items-center justify-between'>
@@ -96,57 +95,47 @@ export default function MealsList() {
             <table className='min-w-full leading-normal'>
               <thead>
                 <tr>
-                  {/* Name */}
+                  {/* Month */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Name</span>
+                      <span>Month</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
                     </div>
                   </th>
-                  {/* Role */}
+                  {/* Meal Rate */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Role</span>
+                      <span>Meal Rate</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
                     </div>
                   </th>
-                  {/* Mobile */}
+                  {/* Is Visible */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Mobile</span>
+                      <span>Is Visible</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
                     </div>
                   </th>
-                  {/* Department */}
+                  {/* Month Start Date */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Department</span>
-                      <button className='text-base ml-3'>
-                        <HiMiniArrowsUpDown />
-                      </button>
-                    </div>
-                  </th>
-
-                  {/* Meal Quantity */}
-                  <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    <div className='flex'>
-                      <span>Meal Quantity</span>
+                      <span>Month Start Date</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
                     </div>
                   </th>
 
-                  {/* Meal Registered Date */}
+                  {/* Month End Date */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Meal Registered Date</span>
+                      <span>Month End Date</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
@@ -170,46 +159,36 @@ export default function MealsList() {
               <tbody>
                 <tr>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <div className='flex items-center'>
-                      <div className='flex-shrink-0 w-10 h-10'>
-                        <img
-                          className='w-full h-full rounded-full'
-                          src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80'
-                          alt=''
-                        />
-                      </div>
-                      <div className='ml-3'>
-                        <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                          Vera Carpenter
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      Admin
+                      November-2023
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      +8801XXXXXXXXX
+                      40
+                    </p>
+                  </td>
+                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
+                    <span className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
+                      <span
+                        aria-hidden
+                        className='absolute inset-0 bg-green-200 opacity-50 rounded-full'></span>
+                      <span className='relative dark:text-gray-300 text-green-900'>
+                        Visible
+                      </span>
+                    </span>
+                  </td>
+                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
+                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
+                      2023-11-01
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      IT
+                      2023-11-30
                     </p>
                   </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      3
-                    </p>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      2023-10-17
-                    </p>
-                  </td>
+
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <span className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
                       <span
@@ -235,44 +214,13 @@ export default function MealsList() {
                 </tr>
                 <tr>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <div className='flex items-center'>
-                      <div className='flex-shrink-0 w-10 h-10'>
-                        <img
-                          className='w-full h-full rounded-full'
-                          src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80'
-                          alt=''
-                        />
-                      </div>
-                      <div className='ml-3'>
-                        <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                          Vera Carpenter
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      User
+                      November-2023
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      +8801XXXXXXXXX
-                    </p>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      UI/UX
-                    </p>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      4
-                    </p>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      2023-10-17
+                      40
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
@@ -281,65 +229,21 @@ export default function MealsList() {
                         aria-hidden
                         className='absolute inset-0 bg-red-200 opacity-50 rounded-full'></span>
                       <span className='relative dark:text-gray-300 text-red-900'>
-                        Inactive
+                        Invisible
                       </span>
                     </span>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <button
-                      className='dark:bg-slate-100 p-3 rounded-full m-1'
-                      onClick={openModal}>
-                      <AiFillEdit className='text-gray-900 text-lg' />
-                    </button>
-                    <button
-                      className='dark:bg-slate-100 p-3 rounded-full'
-                      onClick={() => openDeleteModal()}>
-                      <AiTwotoneDelete className='text-red-900 text-lg' />
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <div className='flex items-center'>
-                      <div className='flex-shrink-0 w-10 h-10'>
-                        <img
-                          className='w-full h-full rounded-full'
-                          src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80'
-                          alt=''
-                        />
-                      </div>
-                      <div className='ml-3'>
-                        <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                          Vera Carpenter
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      User
+                      2023-11-01
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      +8801XXXXXXXXX
+                      2023-11-30
                     </p>
                   </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      UI/UX
-                    </p>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      2
-                    </p>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      2023-10-17
-                    </p>
-                  </td>
+
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <span className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
                       <span
@@ -450,9 +354,31 @@ export default function MealsList() {
   );
 }
 
-/* Update Meal Info Modal*/
+/* Update Meal Rate Info Modal*/
 
 function ModalComponent({ closeModal }) {
+  const currentYear = new Date().getFullYear();
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const monthOptions = months.map((month) => (
+    <option
+      key={month}
+      value={`${month}-${currentYear}`}>{`${month}-${currentYear}`}</option>
+  ));
+
   return (
     <div className='fixed z-[999] inset-0 overflow-y-auto'>
       <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
@@ -496,45 +422,95 @@ function ModalComponent({ closeModal }) {
           {/* Modal content */}
           <div className='bg-white dark:bg-gray-900 dark:text-gray-200 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
             <h1 className='dark:text-gray-200 text-gray-600 font-semibold text-2xl'>
-              Update Meal Info
+              Update Meal Rate Info
             </h1>
             <div className='space-y-12'>
               {/* Fields */}
 
               <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2'>
-                {/* Meal Quantity */}
+                {/* Month */}
                 <div>
                   <label
-                    htmlFor='meal_qty'
+                    htmlFor='month'
                     className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                    Meal Quantity
+                    Month
+                  </label>
+                  <div className='mt-2'>
+                    <select
+                      id='month'
+                      name='month'
+                      required
+                      className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                      {monthOptions}
+                    </select>
+                  </div>
+                </div>
+                {/* Quantity */}
+                <div>
+                  <label
+                    htmlFor='meal_rate'
+                    className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
+                    Meal Rate
                   </label>
                   <div className='mt-2'>
                     <input
                       type='number'
-                      name='qty'
-                      id='meal_qty'
-                      min={1}
+                      id='meal_rate'
+                      name='meal_rate'
                       required
-                      placeholder='Enter Meal Quantity'
+                      placeholder='Enter the meal rate'
                       className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
                     />
                   </div>
                 </div>
-                {/* Meal Registered Date */}
+                {/* Is Visible */}
                 <div>
                   <label
-                    htmlFor='date'
+                    htmlFor='is_visible'
                     className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                    Meal Registered Date
+                    Is Visible
+                  </label>
+                  <div className='mt-2'>
+                    <select
+                      id='is_visible'
+                      name='is_visible'
+                      required
+                      className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                      <option value={1}>Visible</option>
+                      <option value={0}>Invisible</option>
+                    </select>
+                  </div>
+                </div>
+                {/* Month Start Date */}
+                <div>
+                  <label
+                    htmlFor='month_start_date'
+                    className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
+                    Month Start Date
                   </label>
                   <div className='mt-2'>
                     <input
                       type='date'
-                      name='date'
-                      id='date'
+                      name='month_start_date'
+                      id='month_start_date'
                       required
-                      placeholder='Enter Meal Quantity'
+                      className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
+                    />
+                  </div>
+                </div>
+                {/* Month End Date */}
+                <div>
+                  <label
+                    htmlFor='month_end_date'
+                    className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
+                    Month End Date
+                  </label>
+                  <div className='mt-2'>
+                    <input
+                      type='date'
+                      name='month_end_date'
+                      id='month_end_date'
+                      required
                       className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
                     />
                   </div>
@@ -570,7 +546,7 @@ function ModalComponent({ closeModal }) {
                 <button
                   type='submit'
                   className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
-                  Update Meal Info
+                  Update Meal Rate Info
                 </button>
               </div>
             </div>
@@ -581,7 +557,7 @@ function ModalComponent({ closeModal }) {
   );
 }
 
-/* Delete Meal Confirmation modal */
+/* Delete Meal Rate Info Confirmation modal */
 
 function DeleteConfirmationModal({ isOpen, closeModal, onDelete }) {
   if (!isOpen) {
@@ -631,12 +607,12 @@ function DeleteConfirmationModal({ isOpen, closeModal, onDelete }) {
           {/* Modal content */}
           <div className='bg-white dark:bg-gray-900 dark:text-gray-200 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
             <h1 className='dark:text-gray-200 text-gray-600 font-semibold text-2xl'>
-              Delete Meal Alert
+              Delete Meal Rate Info Alert
             </h1>
             <div>
               {/* Message */}
               <p className='mt-5'>
-                Are you sure, you want to delete this meal?
+                Are you sure, you want to delete this meal rate info?
               </p>
               {/* Submit & Modal Close Button */}
               <div className='mt-6 flex items-center justify-end gap-x-6 border-t pt-4 dark:border-gray-600'>

@@ -118,8 +118,8 @@ export default function MealRateSet() {
                     value={mealRateData.is_visible}
                     onChange={handleInputChange}
                     className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
-                    <option value={1}>Active</option>
-                    <option value={0}>In-active</option>
+                    <option value={1}>Visible</option>
+                    <option value={0}>Invisible</option>
                   </select>
                 </div>
               </div>
