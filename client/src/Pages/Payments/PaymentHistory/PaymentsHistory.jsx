@@ -12,6 +12,7 @@ export default function PaymentsHistory() {
             Payment History
           </h2>
         </div>
+
         <div className='flex items-center justify-between'>
           <div className='flex dark:bg-slate-600 bg-gray-50 items-center p-2 rounded-md mt-2 sm:mt-0'>
             <svg
@@ -39,6 +40,25 @@ export default function PaymentsHistory() {
       <div>
         <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
           <div className='inline-block min-w-full shadow rounded-lg overflow-hidden'>
+            {/* Show Per Page */}
+            <div>
+              <label
+                htmlFor='show_per_page'
+                className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
+                Show Per Page :
+              </label>
+              <div className='mt-2 mb-3 w-[100px]'>
+                <select
+                  id='show_per_page'
+                  name='show_per_page'
+                  className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                  <option selected>10</option>
+                  <option>20</option>
+                  <option>30</option>
+                  <option>40</option>
+                </select>
+              </div>
+            </div>
             {/* Table */}
             <table className='min-w-full leading-normal'>
               <thead>
@@ -157,7 +177,7 @@ export default function PaymentsHistory() {
                         aria-hidden
                         className='absolute inset-0 bg-green-200 opacity-50 rounded-full'></span>
                       <span className='relative dark:text-gray-300 text-green-900'>
-                        Active
+                        Paid
                       </span>
                     </span>
                   </td>
@@ -210,7 +230,7 @@ export default function PaymentsHistory() {
                         aria-hidden
                         className='absolute inset-0 bg-green-200 opacity-50 rounded-full'></span>
                       <span className='relative dark:text-gray-300 text-green-900'>
-                        Active
+                        Paid
                       </span>
                     </span>
                   </td>
@@ -263,7 +283,7 @@ export default function PaymentsHistory() {
                         aria-hidden
                         className='absolute inset-0 bg-red-200 opacity-50 rounded-full'></span>
                       <span className='relative dark:text-gray-300 text-red-900'>
-                        Inactive
+                        Due
                       </span>
                     </span>
                   </td>
