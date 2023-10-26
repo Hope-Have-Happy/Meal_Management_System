@@ -5,6 +5,10 @@ const router = express.Router();
 // Import the Meal Controller for meal-related logic
 const MealController = require("../controllers/MealController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
+const {
+  validateMeals,
+  validateDataResult,
+} = require("../middlewares/validationMiddleware");
 
 // List of reserved-meal for the next day before 6 PM (User) ✔
 router.get(
@@ -17,7 +21,14 @@ router.get(
 router.delete("/meals/reserve", isLoggedIn, MealController.revokeReservations);
 
 // Register meals for users (Admin) (Multiple or single) ✔
-router.post("/meals", isLoggedIn, isAdmin, MealController.registerMeals);
+router.post(
+  "/meals",
+  isLoggedIn,
+  isAdmin,
+  validateMeals,
+  validateDataResult,
+  MealController.registerMeals
+);
 
 // Get all meals (Admin) ✔
 router.get("/meals", isLoggedIn, isAdmin, MealController.getAllMeals);

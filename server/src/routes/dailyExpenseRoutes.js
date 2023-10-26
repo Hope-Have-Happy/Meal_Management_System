@@ -5,12 +5,18 @@ const router = express.Router();
 // Import the Daily Expense Controller for daily-expense-related logic
 const DailyExpenseController = require("../controllers/DailyExpenseController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
+const {
+  validateDataResult,
+  validateExpense,
+} = require("../middlewares/validationMiddleware");
 
 // Add daily expenses (Admin)
 router.post(
   "/expenses",
   isLoggedIn,
   isAdmin,
+  validateExpense,
+  validateDataResult,
   DailyExpenseController.addExpense
 );
 

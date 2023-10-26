@@ -51,7 +51,7 @@ export default function DashboardUserShowCase() {
                   {/* Name */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Email</span>
+                      <span>Name</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>

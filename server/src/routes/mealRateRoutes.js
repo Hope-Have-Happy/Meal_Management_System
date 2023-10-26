@@ -5,12 +5,18 @@ const router = express.Router();
 // Import the Monthly Meal Rate Controller for monthly-meal-rate-related logic
 const MonthlyMealRateController = require("../controllers/MonthlyMealRateController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
+const {
+  validateDataResult,
+  validateMealRates,
+} = require("../middlewares/validationMiddleware");
 
 // Set meal rates for specific months (Admin)
 router.post(
   "/meal-rates",
   isLoggedIn,
   isAdmin,
+  validateMealRates,
+  validateDataResult,
   MonthlyMealRateController.setMealRate
 );
 

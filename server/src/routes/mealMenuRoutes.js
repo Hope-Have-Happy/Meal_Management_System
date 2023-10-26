@@ -5,12 +5,18 @@ const router = express.Router();
 // Import the Meal Menu Controller for meal-menu-related logic
 const MealMenuController = require("../controllers/MealMenuController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
+const {
+  validateDataResult,
+  validateMealMenu,
+} = require("../middlewares/validationMiddleware");
 
 // Create a new meal menu (Admin)
 router.post(
   "/meal-menus",
   isLoggedIn,
   isAdmin,
+  validateMealMenu,
+  validateDataResult,
   MealMenuController.createMealMenu
 );
 

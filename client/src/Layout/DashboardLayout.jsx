@@ -10,14 +10,21 @@ import {
   BsPersonFillAdd,
 } from "react-icons/bs";
 import { FaHistory, FaListOl, FaUsers } from "react-icons/fa";
-import { FaBowlFood, FaCoins, FaMoneyBill, FaUsersGear } from "react-icons/fa6";
+import {
+  FaBowlFood,
+  FaCoins,
+  FaMoneyBill,
+  FaTableList,
+  FaUsersGear,
+} from "react-icons/fa6";
 import { GiHotMeal, GiMeal } from "react-icons/gi";
 import { HiMiniReceiptPercent } from "react-icons/hi2";
+import { IoMdListBox } from "react-icons/io";
 import { IoLogOut, IoSettingsSharp } from "react-icons/io5";
 import { MdAccountBalance, MdPayments } from "react-icons/md";
 import { Link, Outlet } from "react-router-dom";
 
-export default function AdminDashboardLayout() {
+export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
   const [isScreenSmallerThan1040px, setIsScreenSmallerThan1040px] = useState(
     window.innerWidth < 1040
@@ -81,6 +88,11 @@ export default function AdminDashboardLayout() {
           icon: <HiMiniReceiptPercent />,
           route: "/dashboard/meal-rate-set",
         },
+        {
+          title: "Meal Rate List",
+          icon: <FaTableList />,
+          route: "/dashboard/meal-rate-list",
+        },
       ],
     },
     {
@@ -110,6 +122,11 @@ export default function AdminDashboardLayout() {
           title: "Add New Payment",
           icon: <FaCoins />,
           route: "/dashboard/add-new-payment",
+        },
+        {
+          title: "All Payments List",
+          icon: <IoMdListBox />,
+          route: "/dashboard/all-payments-list",
         },
         {
           title: "Payments History",

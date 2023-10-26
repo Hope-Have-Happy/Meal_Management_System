@@ -4,7 +4,7 @@ This is a Meal Management System with two types of users: Admin and User.
 
 ## Admin Dashboard
 
-### Dashboard `(Mockup: API, Controller: DashboardController)` `✔`
+### Dashboard `(API, Controller: DashboardController)` `✔`
 
 - Total cash
 - Due cash
@@ -47,7 +47,7 @@ This is a Meal Management System with two types of users: Admin and User.
   - Current balance
   - Total payments
   - User search option
-- Add a new payment for a user with a date and amount `(Mockup: API, Controller: PaymentController)` `✔`
+- Add a new payment for a user with a date and amount `(API, Controller: PaymentController)` `✔`
 - Record daily market expenses `(API, Controller: DailyExpenseController)` `✔`
   - Date
   - Item name

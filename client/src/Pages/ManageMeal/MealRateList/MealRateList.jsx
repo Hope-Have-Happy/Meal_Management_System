@@ -3,17 +3,17 @@ import { AiFillEdit, AiTwotoneDelete } from "react-icons/ai";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { HiMiniArrowsUpDown } from "react-icons/hi2";
 
-export default function DailyMarketExpensesList() {
+export default function MealRateList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  /* Update Daily Market Expenses Info Modal */
+  /* Update User Info Modal */
   const openModal = () => {
     setIsModalOpen(true);
   };
 
-  /* Close Daily Market Expenses Info Modal */
+  /* Close User Info Modal */
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -28,7 +28,7 @@ export default function DailyMarketExpensesList() {
     setIsDeleteModalOpen(false);
   };
 
-  // Function to handle the Daily Market Expenses
+  // Function to handle the meal deletion
   const handleDelete = () => {
     closeDeleteModal();
   };
@@ -39,7 +39,7 @@ export default function DailyMarketExpensesList() {
       <div className='flex-row sm:flex items-center justify-between'>
         <div>
           <h2 className='dark:text-gray-200 text-gray-600 font-semibold text-2xl'>
-            Daily Market Expenses List
+            Meal Rate List
           </h2>
         </div>
         <div className='flex items-center justify-between'>
@@ -92,67 +92,47 @@ export default function DailyMarketExpensesList() {
             <table className='min-w-full leading-normal'>
               <thead>
                 <tr>
-                  {/* Title */}
+                  {/* Month */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Title</span>
+                      <span>Month</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
                     </div>
                   </th>
-                  {/* Quantity */}
+                  {/* Meal Rate */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Quantity</span>
+                      <span>Meal Rate</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
                     </div>
                   </th>
-                  {/* Unit */}
+                  {/* Is Visible */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Unit</span>
+                      <span>Is Visible</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
                     </div>
                   </th>
-                  {/* Price */}
+                  {/* Month Start Date */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Price</span>
-                      <button className='text-base ml-3'>
-                        <HiMiniArrowsUpDown />
-                      </button>
-                    </div>
-                  </th>
-
-                  {/* Total Price */}
-                  <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    <div className='flex'>
-                      <span>Total Price</span>
+                      <span>Month Start Date</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
                     </div>
                   </th>
 
-                  {/* Bajar Date */}
+                  {/* Month End Date */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
-                      <span>Bajar Date</span>
-                      <button className='text-base ml-3'>
-                        <HiMiniArrowsUpDown />
-                      </button>
-                    </div>
-                  </th>
-
-                  {/* Creator */}
-                  <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
-                    <div className='flex'>
-                      <span>Creator</span>
+                      <span>Month End Date</span>
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
@@ -177,12 +157,12 @@ export default function DailyMarketExpensesList() {
                 <tr>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      Potato
+                      November-2023
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      3
+                      40
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
@@ -191,29 +171,18 @@ export default function DailyMarketExpensesList() {
                         aria-hidden
                         className='absolute inset-0 bg-green-200 opacity-50 rounded-full'></span>
                       <span className='relative dark:text-gray-300 text-green-900'>
-                        KG
+                        Visible
                       </span>
                     </span>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      30
+                      2023-11-01
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      90
-                    </p>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      2023-10-14
-                    </p>
-                  </td>
-
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      Admin Name
+                      2023-11-30
                     </p>
                   </td>
 
@@ -240,47 +209,35 @@ export default function DailyMarketExpensesList() {
                     </button>
                   </td>
                 </tr>
-
                 <tr>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      Potato
+                      November-2023
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      3
+                      40
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <span className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
                       <span
                         aria-hidden
-                        className='absolute inset-0 bg-green-200 opacity-50 rounded-full'></span>
-                      <span className='relative dark:text-gray-300 text-green-900'>
-                        KG
+                        className='absolute inset-0 bg-red-200 opacity-50 rounded-full'></span>
+                      <span className='relative dark:text-gray-300 text-red-900'>
+                        Invisible
                       </span>
                     </span>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      30
+                      2023-11-01
                     </p>
                   </td>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      90
-                    </p>
-                  </td>
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      2023-10-14
-                    </p>
-                  </td>
-
-                  <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
-                    <p className='dark:text-gray-300 text-gray-900 whitespace-no-wrap'>
-                      Admin Name
+                      2023-11-30
                     </p>
                   </td>
 
@@ -307,7 +264,6 @@ export default function DailyMarketExpensesList() {
                     </button>
                   </td>
                 </tr>
-
                 {/* Add more rows here */}
               </tbody>
             </table>
@@ -395,7 +351,7 @@ export default function DailyMarketExpensesList() {
   );
 }
 
-/* Update Daily Market Expenses Info Modal*/
+/* Update Meal Rate Info Modal*/
 
 function ModalComponent({ closeModal }) {
   const currentYear = new Date().getFullYear();
@@ -463,114 +419,94 @@ function ModalComponent({ closeModal }) {
           {/* Modal content */}
           <div className='bg-white dark:bg-gray-900 dark:text-gray-200 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
             <h1 className='dark:text-gray-200 text-gray-600 font-semibold text-2xl'>
-              Update Daily Market Expenses Info
+              Update Meal Rate Info
             </h1>
             <div className='space-y-12'>
               {/* Fields */}
 
               <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2'>
-                {/* Title */}
+                {/* Month */}
                 <div>
                   <label
-                    htmlFor='title'
+                    htmlFor='month'
                     className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                    Title
+                    Month
                   </label>
                   <div className='mt-2'>
-                    <input
-                      type='text'
-                      name='title'
-                      id='title'
+                    <select
+                      id='month'
+                      name='month'
                       required
-                      placeholder='Enter Title'
-                      className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
-                    />
+                      className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                      {monthOptions}
+                    </select>
                   </div>
                 </div>
                 {/* Quantity */}
                 <div>
                   <label
-                    htmlFor='qty'
+                    htmlFor='meal_rate'
                     className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                    Quantity
-                  </label>
-                  <div className='mt-2'>
-                    <input
-                      id='qty'
-                      name='qty'
-                      required
-                      type='number'
-                      placeholder='Enter Quantity'
-                      className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6]  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
-                    />
-                  </div>
-                </div>
-                {/* Unit */}
-                <div>
-                  <label
-                    htmlFor='unit'
-                    className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                    Unit
-                  </label>
-                  <div className='mt-2'>
-                    <input
-                      type='text'
-                      name='unit'
-                      id='unit'
-                      placeholder='Enter unit like(kg, liter....)'
-                      required
-                      className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
-                    />
-                  </div>
-                </div>
-                {/* Price */}
-                <div>
-                  <label
-                    htmlFor='price'
-                    className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                    Price
+                    Meal Rate
                   </label>
                   <div className='mt-2'>
                     <input
                       type='number'
-                      name='price'
-                      id='price'
-                      placeholder='Enter price'
+                      id='meal_rate'
+                      name='meal_rate'
                       required
+                      placeholder='Enter the meal rate'
                       className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
                     />
                   </div>
                 </div>
-                {/* Total */}
+                {/* Is Visible */}
                 <div>
                   <label
-                    htmlFor='total'
+                    htmlFor='is_visible'
                     className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                    Total Price
+                    Is Visible
                   </label>
                   <div className='mt-2'>
-                    <input
-                      type='number'
-                      name='total'
-                      id='total'
-                      placeholder='Enter Total Price'
+                    <select
+                      id='is_visible'
+                      name='is_visible'
                       required
-                      className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
-                    />
+                      className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
+                      <option value={1}>Visible</option>
+                      <option value={0}>Invisible</option>
+                    </select>
                   </div>
                 </div>
-                {/* Bajar Date */}
+                {/* Month Start Date */}
                 <div>
                   <label
-                    htmlFor='bajar_date'
+                    htmlFor='month_start_date'
                     className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                    Bajar Date
+                    Month Start Date
                   </label>
                   <div className='mt-2'>
                     <input
                       type='date'
-                      name='bajar_date'
-                      id='bajar_date'
+                      name='month_start_date'
+                      id='month_start_date'
+                      required
+                      className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
+                    />
+                  </div>
+                </div>
+                {/* Month End Date */}
+                <div>
+                  <label
+                    htmlFor='month_end_date'
+                    className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
+                    Month End Date
+                  </label>
+                  <div className='mt-2'>
+                    <input
+                      type='date'
+                      name='month_end_date'
+                      id='month_end_date'
                       required
                       className='block w-full rounded-md border-0 p-1.5 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'
                     />
@@ -588,12 +524,6 @@ function ModalComponent({ closeModal }) {
                       id='status'
                       name='status'
                       required
-                      //  onChange={(e) =>
-                      //    setFormData({
-                      //      ...formData,
-                      //      status: parseInt(e.target.value),
-                      //    })
-                      //  }
                       className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'>
                       <option value={1}>Active</option>
                       <option value={0}>In-active</option>
@@ -624,7 +554,7 @@ function ModalComponent({ closeModal }) {
   );
 }
 
-/* Delete Daily Market Expenses Confirmation modal */
+/* Delete Meal Rate Info Confirmation modal */
 
 function DeleteConfirmationModal({ isOpen, closeModal, onDelete }) {
   if (!isOpen) {
@@ -674,13 +604,12 @@ function DeleteConfirmationModal({ isOpen, closeModal, onDelete }) {
           {/* Modal content */}
           <div className='bg-white dark:bg-gray-900 dark:text-gray-200 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
             <h1 className='dark:text-gray-200 text-gray-600 font-semibold text-2xl'>
-              Delete Daily Market Expenses Info Alert
+              Delete Meal Rate Info Alert
             </h1>
             <div>
               {/* Message */}
               <p className='mt-5'>
-                Are you sure, you want to delete this daily market expenses
-                info?
+                Are you sure, you want to delete this meal rate info?
               </p>
               {/* Submit & Modal Close Button */}
               <div className='mt-6 flex items-center justify-end gap-x-6 border-t pt-4 dark:border-gray-600'>

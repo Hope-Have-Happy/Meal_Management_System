@@ -175,6 +175,7 @@ export default function AddNewPayment() {
                   />
                 </div>
               </div>
+              {/* Amount */}
               <div>
                 <label
                   htmlFor='amount'
@@ -186,6 +187,7 @@ export default function AddNewPayment() {
                     type='number'
                     id='amount'
                     name='amount'
+                    placeholder='Enter Amount'
                     required
                     min='1'
                     className='block w-full rounded-md border-0 p-2 dark:text-gray-300 text-slate-900 dark:bg-[#475569] bg-[#F3F4F6] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6'

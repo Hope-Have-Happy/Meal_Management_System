@@ -5,9 +5,20 @@ const router = express.Router();
 // Import the Payment Controller for payment-related logic
 const PaymentController = require("../controllers/PaymentController");
 const { isAdmin, isLoggedIn } = require("../middlewares/authMiddleware");
+const {
+  validatePayment,
+  validateDataResult,
+} = require("../middlewares/validationMiddleware");
 
 // Make a payment (Admin)
-router.post("/payments", isLoggedIn, isAdmin, PaymentController.makePayment);
+router.post(
+  "/payments",
+  isLoggedIn,
+  isAdmin,
+  validatePayment,
+  validateDataResult,
+  PaymentController.makePayment
+);
 
 // Get payment history for a specific logged-in user (User)
 router.get(

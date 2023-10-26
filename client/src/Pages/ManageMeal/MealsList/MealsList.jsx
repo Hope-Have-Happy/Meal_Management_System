@@ -9,12 +9,12 @@ export default function MealsList() {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  /* Update User Info Modal */
+  /* Update Meal Data Info Modal */
   const openModal = () => {
     setIsModalOpen(true);
   };
 
-  /* Close User Info Modal */
+  /* Close Meal Data Info Modal */
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -29,10 +29,10 @@ export default function MealsList() {
     setIsDeleteModalOpen(false);
   };
 
-  // Function to handle the user deletion
+  // Function to handle the Meal deletion
   const handleDelete = () => {
-    // Perform the user deletion logic here
-    // You can use the userToDelete state to access the user to delete
+    // Perform the meal deletion logic here
+    // You can use the mealToDelete state to access the meal to delete
     // After deletion, close the modal
     closeDeleteModal();
   };
