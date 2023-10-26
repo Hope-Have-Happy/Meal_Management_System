@@ -2,14 +2,14 @@ import React from "react";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { HiMiniArrowsUpDown } from "react-icons/hi2";
 
-export default function PaymentsHistory() {
+export default function AllPaymentsList() {
   return (
     <div className='dark:bg-[#17324E] bg-white p-8 rounded-md w-full mt-5'>
       {/* Title And Search Bar */}
       <div className='flex-row sm:flex items-center justify-between pb-6'>
         <div>
           <h2 className='dark:text-gray-200 text-gray-600 font-semibold text-2xl'>
-            Payment History
+            All Payments List
           </h2>
         </div>
         <div className='flex items-center justify-between'>
