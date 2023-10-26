@@ -28,11 +28,8 @@ export default function MealRateList() {
     setIsDeleteModalOpen(false);
   };
 
-  // Function to handle the user deletion
+  // Function to handle the meal deletion
   const handleDelete = () => {
-    // Perform the user deletion logic here
-    // You can use the userToDelete state to access the user to delete
-    // After deletion, close the modal
     closeDeleteModal();
   };
 

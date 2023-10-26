@@ -113,7 +113,7 @@ export default function RecordDailyMarketExpenses() {
                 <label
                   htmlFor='bajar_date'
                   className='block text-sm font-medium leading-6 dark:text-gray-300 text-slate-900'>
-                  Total Price
+                  Bajar Date
                 </label>
                 <div className='mt-2'>
                   <input
