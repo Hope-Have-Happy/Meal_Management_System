@@ -29,14 +29,7 @@ router.post(
 );
 
 // Update a user (Admin) ✔
-router.put(
-  "/users/:userId",
-  isLoggedIn,
-  isAdmin,
-  userUpdateValidationRules,
-  validateDataResult,
-  UserController.updateUser
-);
+router.put("/users/:userId", isLoggedIn, isAdmin, UserController.updateUser);
 
 // Update user's own info (User) ✔
 router.put("/user-info/:userId", isLoggedIn, UserController.updateUserOwnInfo);
