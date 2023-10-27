@@ -28,7 +28,7 @@ exports.loginController = async (req, res) => {
       { user: userWithoutPassword },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h", // Set the expiration time as needed
+        expiresIn: 10, // Set the expiration time as needed
       }
     );
     res.cookie("accessToken", token);

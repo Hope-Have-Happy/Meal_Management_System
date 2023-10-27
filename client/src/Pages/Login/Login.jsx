@@ -12,13 +12,9 @@ export default function Login() {
     setPassword(event.target.value);
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const loginData = {
-      mobile,
-      password,
-    };
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
 
   return (
     <>
