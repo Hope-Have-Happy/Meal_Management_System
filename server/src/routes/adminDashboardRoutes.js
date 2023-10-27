@@ -7,7 +7,7 @@ const DashboardController = require("../controllers/DashboardController");
 const { isLoggedIn, isAdmin } = require("../middlewares/authMiddleware");
 
 // Admin Dashboard (Admin)
-router.post(
+router.get(
   "/admin/dashboard",
   isLoggedIn,
   isAdmin,
