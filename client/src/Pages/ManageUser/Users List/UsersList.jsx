@@ -5,6 +5,79 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { HiMiniArrowsUpDown } from "react-icons/hi2";
 
 export default function UsersList() {
+  const data = [
+    {
+      _id: "652da69e94105acfff2e9e39",
+      full_name: "Admin",
+      user_role: "Admin",
+      photo: "/uploads/652da69e94105acfff2e9e39/profile.jpg",
+      email: "admin@example.com",
+      mobile: "12345678901",
+      department: "IT",
+      address: "Pabna",
+      status: 1,
+      createdAt: "2023-10-16T21:09:50.080Z",
+      updatedAt: "2023-10-16T21:13:03.619Z",
+      __v: 0,
+    },
+    {
+      _id: "652da6b794105acfff2e9e3e",
+      full_name: "Hasan Raja",
+      user_role: "User",
+      photo: "/uploads/652da6b794105acfff2e9e3e/profile.jpg",
+      email: "hasan.raja@example.com",
+      mobile: "12345678902",
+      department: "EMPLOYEE",
+      address: "Mirpur-11",
+      status: 1,
+      createdAt: "2023-10-16T21:10:15.591Z",
+      updatedAt: "2023-10-16T21:10:15.595Z",
+      __v: 0,
+    },
+    {
+      _id: "652da6cd94105acfff2e9e43",
+      full_name: "Mir Afsar Ali",
+      user_role: "User",
+      photo: "/uploads/652da6cd94105acfff2e9e43/profile.jpg",
+      email: "ali.mir@example.com",
+      mobile: "12345678903",
+      department: "EMPLOYEE",
+      address: "Mirpur-11",
+      status: 1,
+      createdAt: "2023-10-16T21:10:37.676Z",
+      updatedAt: "2023-10-16T21:10:37.678Z",
+      __v: 0,
+    },
+    {
+      _id: "652da6e894105acfff2e9e4a",
+      full_name: "Yahia Khan",
+      user_role: "User",
+      photo: "/uploads/652da6e894105acfff2e9e4a/profile.jpg",
+      email: "khan.yahia@example.com",
+      mobile: "12345678904",
+      department: "EMPLOYEE",
+      address: "Mirpur-11",
+      status: 1,
+      createdAt: "2023-10-16T21:11:04.265Z",
+      updatedAt: "2023-10-16T21:11:04.267Z",
+      __v: 0,
+    },
+    {
+      _id: "652da6f694105acfff2e9e4f",
+      full_name: "Raju Ahmed",
+      user_role: "User",
+      photo: "/uploads/652da6f694105acfff2e9e4f/profile.jpg",
+      email: "raju@example.com",
+      mobile: "12345678905",
+      department: "EMPLOYEE",
+      address: "Mirpur-11",
+      status: 1,
+      createdAt: "2023-10-16T21:11:18.375Z",
+      updatedAt: "2023-10-16T21:11:18.377Z",
+      __v: 0,
+    },
+  ];
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -73,7 +146,7 @@ export default function UsersList() {
       <div>
         <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
           <div className='inline-block min-w-full rounded-lg overflow-hidden'>
-            {/* Show Per Page */}
+            {/* Show Per Page Function will be add here */}
             <div>
               <label
                 htmlFor='show_per_page'
@@ -94,12 +167,14 @@ export default function UsersList() {
             </div>
             {/* Table */}
             <table className='min-w-full leading-normal'>
+              {/* Table Headers */}
               <thead>
                 <tr>
                   {/* Name */}
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
                       <span>Name</span>
+                      {/* column sorting button */}
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
@@ -109,6 +184,7 @@ export default function UsersList() {
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
                       <span>Role</span>
+                      {/* column sorting button */}
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
@@ -118,6 +194,7 @@ export default function UsersList() {
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
                       <span>Email</span>
+                      {/* column sorting button */}
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
@@ -127,6 +204,7 @@ export default function UsersList() {
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
                       <span>Mobile</span>
+                      {/* column sorting button */}
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
@@ -136,6 +214,7 @@ export default function UsersList() {
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
                       <span>Department</span>
+                      {/* column sorting button */}
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
@@ -145,6 +224,7 @@ export default function UsersList() {
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
                       <span>Address</span>
+                      {/* column sorting button */}
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
@@ -154,6 +234,7 @@ export default function UsersList() {
                   <th className='px-5 py-3 border-b-2 dark:border-gray-500 border-gray-200 dark:bg-gray-900 bg-gray-100 text-left text-xs font-semibold dark:text-gray-300 text-gray-600 uppercase tracking-wider'>
                     <div className='flex'>
                       <span>Status</span>
+                      {/* column sorting button */}
                       <button className='text-base ml-3'>
                         <HiMiniArrowsUpDown />
                       </button>
@@ -164,7 +245,9 @@ export default function UsersList() {
                   </th>
                 </tr>
               </thead>
+              {/* Table Body */}
               <tbody>
+                {/* Table Rows */}
                 <tr>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <div className='flex items-center'>
@@ -230,6 +313,7 @@ export default function UsersList() {
                     </button>
                   </td>
                 </tr>
+                {/* Table Rows */}
                 <tr>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <div className='flex items-center'>
@@ -295,6 +379,7 @@ export default function UsersList() {
                     </button>
                   </td>
                 </tr>
+                {/* Table Rows */}
                 <tr>
                   <td className='px-5 py-5 border-b dark:border-gray-500 border-gray-200 dark:bg-gray-800 bg-white text-sm'>
                     <div className='flex items-center'>
@@ -363,13 +448,13 @@ export default function UsersList() {
                 {/* Add more rows here */}
               </tbody>
             </table>
-            {/* Pagination */}
+            {/* Pagination Function will be add here */}
             <div className='px-5 py-5 dark:bg-gray-900 bg-white border-t dark:border-gray-500 border-gray-200 flex flex-col xs:flex-row items-center xs:justify-between'>
-              {/* Result Paragraph */}
+              {/* Result Paragraph Function will be add here */}
               <span className='dark:text-gray-200 text-gray-600 text-sm mb-2'>
                 Showing 3 out of 50
               </span>
-              {/* Page Numbers */}
+              {/* Page Numbers Function will be add here */}
               <nav>
                 <ul className='flex'>
                   <li>
@@ -401,7 +486,7 @@ export default function UsersList() {
                       3
                     </a>
                   </li>
-                  {/* More Page Indicator */}
+                  {/* More Page Indicator Function will be add here(if the data length is to many) */}
                   <li className='dark:text-white text-gray-900 relative w-[17px]'>
                     <span className='absolute bottom-1'>.....</span>
                   </li>
